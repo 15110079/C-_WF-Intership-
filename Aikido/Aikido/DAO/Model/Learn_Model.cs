@@ -41,7 +41,7 @@ namespace Aikido.DAO
         public DateTime? Day_Update { get; set; }
 
 
-        public Boolean Delete_Flag { get; set; }
+        public bool Delete_Flag { get; set; }
 
         public virtual Student Student { get; set; }
         public virtual Class Class { get; set; }

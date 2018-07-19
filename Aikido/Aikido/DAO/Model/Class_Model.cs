@@ -22,13 +22,13 @@ namespace Aikido.DAO
         [DataType(DataType.Time)]
         public DateTime End_Time { get; set; }
 
-        public Boolean Monday { get; set; }
-        public Boolean Tuesday { get; set; }
-        public Boolean Wednesday { get; set; }
-        public Boolean Thursday { get; set; }
-        public Boolean Friday { get; set; }
-        public Boolean Saturday { get; set; }
-        public Boolean Sunday { get; set; }
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
 
 
         [DataType(DataType.DateTime)]
@@ -37,7 +37,7 @@ namespace Aikido.DAO
         [DataType(DataType.DateTime)]
         public DateTime? Day_Update { get; set; }
 
-        public Boolean Delete_Flag { get; set; }
+        public bool Delete_Flag { get; set; }
 
     }
 }

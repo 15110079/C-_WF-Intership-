@@ -209,10 +209,12 @@
 
         <Grid Name="ScreenClass" Margin="0,75,0,-568" Visibility="Visible" Grid.ColumnSpan="2">
             <GroupBox Header="Quản Lý Lớp" TextElement.FontFamily="Arial" TextElement.FontSize="16" TextElement.FontWeight="Bold">
-                <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontSize="15" TextElement.FontWeight="Normal">
-                    <Label Content="Class" Margin="10,10,730,310"/>
-                    <ComboBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="72,8,440,310" Height="25"/>
-                    <DataGrid HorizontalAlignment="Left" Height="400" Name="dgvClass" Margin="10,55,0,-190" VerticalAlignment="Top" Width="755"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
+                <Grid Height="543" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontSize="15" TextElement.FontWeight="Normal" Margin="0,0,-14,-16">
+                    <DataGrid HorizontalAlignment="Left" Height="453" Name="dgvClass" Margin="10,20,0,0" VerticalAlignment="Top" Width="755" 
+                              Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
+                    <Button Name="btnSaveC" Content="Lưu" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="100" Margin="0,0,50,25"></Button>
+                    <Button Name="btnDelete" Content="-" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="30" Margin="170,0,50,25"></Button>
+                    <Button Name="btnAdd" Content="+" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="30" Margin="100,0,50,25"></Button>
                 </Grid>
             </GroupBox>
         </Grid>

@@ -15,7 +15,7 @@ namespace Aikido.DAO
         //private static bool _created = false;
         public AccessDB_DAO()
         {
-            if (File.Exists("sDBe.db"))
+            if (!File.Exists("sDBe.db"))
             {
                 //_created = true;
                 //Database.EnsureDeleted();
@@ -24,7 +24,7 @@ namespace Aikido.DAO
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
-            optionbuilder.UseSqlite(@"Data Source=C:\Users\minhh\OneDrive\Desktop\C#_WF\Aikido\sDBe.db");
+            optionbuilder.UseSqlite(@"Data Source=C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\DB.db");
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Class> Classes { get; set; }

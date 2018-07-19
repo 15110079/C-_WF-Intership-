@@ -24,8 +24,10 @@ namespace Aikido
         {
             using (var dataContext = new  AccessDB_DAO())
             {
-                dataContext.Students.Add(new Student() { FullName = "nh", SKU = "mace", Nation = "German", Address = "s", PhoneNumber = "1554", Place_of_Birth = "", Day_Create = new DateTime(2016, 6, 28), Day_Update = new DateTime(2016, 6, 28), Day_of_Birth = new DateTime(2016, 6, 28) });
-                dataContext.Students.Add(new Student() { FullName = "k", SKU = "mode", Nation = "German", Address = "s", PhoneNumber = "1554", Place_of_Birth = "", Day_Create = new DateTime(2016, 6, 28), Day_Update = new DateTime(2016, 6, 28), Day_of_Birth = new DateTime(2016, 6, 28) });
+
+                dataContext.Classes.Add(new Class() { Class_Name = "A", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                dataContext.Classes.Add(new Class() { Class_Name = "B", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                dataContext.Classes.Add(new Class() { Class_Name = "C", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
 
                 dataContext.SaveChanges();
             }

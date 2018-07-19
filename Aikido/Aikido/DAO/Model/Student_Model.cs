@@ -46,7 +46,7 @@ namespace Aikido.DAO
         [DataType(DataType.DateTime)]
         public DateTime? Day_Update { get; set; }
 
-        public Boolean Delete_Flag { get; set; }
+        public bool Delete_Flag { get; set; }
     }
 }
 

@@ -163,7 +163,7 @@
     <Compile Include="BLO\RegisterMember_BLO.cs" />
     <Compile Include="BLO\SettingImage_BLO.cs" />
     <Compile Include="DAO\DeleteClass_DAO.cs" />
-    <Compile Include="DAO\LoadClas_AAO.cs" />
+    <Compile Include="DAO\LoadClass_DAO.cs" />
     <Compile Include="DAO\SaveClass_DAO.cs" />
     <Compile Include="DAO\ExportExcel_DAO.cs" />
     <Compile Include="DAO\FilterFee_DAO.cs" />
