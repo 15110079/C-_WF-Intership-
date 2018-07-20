@@ -207,7 +207,7 @@
     <Compile Include="DAO\Model\DaiDan_Model.cs" />
     <Compile Include="DAO\AccessDB_DAO.cs" />
     <Compile Include="DAO\Model\Learn_Model.cs" />
-    <Compile Include="DAO\Model\ProvideDaiDan_Model.cs" />
+    <Compile Include="DAO\Model\Provide_DAI_DAN_Model.cs" />
     <Compile Include="DAO\Model\Student_Model.cs" />
     <Compile Include="VIEW\MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>

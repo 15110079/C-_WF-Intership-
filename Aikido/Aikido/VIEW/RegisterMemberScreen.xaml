@@ -101,14 +101,14 @@
                         <TextBox Name="txtAddress" HorizontalAlignment="Left" Height="25" Margin="100,100,0,-101" VerticalContentAlignment="Bottom" TextWrapping="Wrap" VerticalAlignment="Top" Width="635"/>
                         <Label Content="Số Điện Thoại" HorizontalAlignment="Left" Width="90" Margin="10,130,0,-139"/>
                         <TextBox Name="txtPhone" HorizontalAlignment="Left" Height="25" Margin="100,130,0,-134" VerticalContentAlignment="Bottom" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
-                        <DatePicker Text=""  Name="dtpRegisterDay" HorizontalAlignment="Left" Height="25" Margin="265,160,0,0" VerticalAlignment="Top" Width="494"/>
-                        <Label Content="Ngày Đăng Ký"  HorizontalAlignment="Left" Width="90" Margin="170,160,0,-173"/>
+                        <DatePicker  Name="dtpRegisterDay"  SelectedDateFormat="Short" HorizontalAlignment="Left" Height="25" Margin="265,160,0,0" VerticalAlignment="Top" Width="494"/>
+                        <Label Content="Ngày Đăng Ký"   HorizontalAlignment="Left" Width="90" Margin="170,160,0,-173"/>
                         <DatePicker Name="dtpBirthday"   HorizontalAlignment="Left" Height="25" Margin="265,190,0,-201" VerticalAlignment="Top" Width="494"/>
                         <Label Content="Ngày Sinh" HorizontalAlignment="Left" Width="90" Margin="170,190,0,-206"/>
                         <TextBox Name="txtBirthplace" HorizontalAlignment="Left" Height="25" Margin="265,220,0,-234" VerticalContentAlignment="Top" TextWrapping="Wrap" VerticalAlignment="Top" Width="494"/>
                         <Label Content="Nơi Sinh" HorizontalAlignment="Left"  Width="90" Margin="170,220,0,-239"/>
                         <Label Content="Lớp Đăng Ký" HorizontalAlignment="Left" Width="90" Margin="170,250,0,-272"/>
-                        <ComboBox  Name="cboRegisterClass"  HorizontalAlignment="Left" Height="25" Margin="265,250,0,-267" VerticalAlignment="Top" Width="494"/>
+                        <ComboBox  Name="cboRegisterClass" Text="Chọn lớp học" IsEditable="False" IsReadOnly="true" HorizontalAlignment="Left" Height="25" Margin="265,250,0,-267" VerticalAlignment="Top" Width="494"/>
                         <Button  HorizontalAlignment="Left" Height="120" Margin="40,160,0,-272" VerticalAlignment="Top" Width="100"/>
                         <Label Content="CẤP 6" HorizontalAlignment="Left" Width="45" Margin="10,290,0,-350" />
                         <DatePicker Name="dtpLevel6" HorizontalAlignment="Left" Height="25" Margin="55,290,0,-350" VerticalAlignment="Top" Width="705"/>
@@ -156,6 +156,7 @@
                         <DatePicker Name="dtpDanAIKIKAI8" HorizontalAlignment="Left" Height="23" Margin="488,680,0,-753" VerticalAlignment="Top" Width="273"/>
                         <Button Name="Save" Content="Lưu" Click="Save_Click"  HorizontalAlignment="Left" Height="30" Margin="260,730,0,-808" VerticalAlignment="Top" Width="96"/>
                         <Button Name="Print" Content="Print" Mouse.MouseEnter="Print_MouseEnter" HorizontalAlignment="Right" Height="30" Margin="0,730,260,-808" VerticalAlignment="Top" Width="96"/>
+                                            
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
