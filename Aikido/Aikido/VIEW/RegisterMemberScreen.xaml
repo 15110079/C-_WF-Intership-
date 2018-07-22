@@ -109,7 +109,7 @@
                         <Label Content="Nơi Sinh" HorizontalAlignment="Left"  Width="90" Margin="170,220,0,-239"/>
                         <Label Content="Lớp Đăng Ký" HorizontalAlignment="Left" Width="90" Margin="170,250,0,-272"/>
                         <ComboBox  Name="cboRegisterClass" Text="Chọn lớp học" IsEditable="False" IsReadOnly="true" HorizontalAlignment="Left" Height="25" Margin="265,250,0,-267" VerticalAlignment="Top" Width="494"/>
-                        <Button  HorizontalAlignment="Left" Height="120" Margin="40,160,0,-272" VerticalAlignment="Top" Width="100"/>
+                        <Button  Name="ImageButton"  Click="ImageButton_Click" HorizontalAlignment="Left" Height="120" Margin="40,160,0,-272" VerticalAlignment="Top" Width="100"/>
                         <Label Content="CẤP 6" HorizontalAlignment="Left" Width="45" Margin="10,290,0,-350" />
                         <DatePicker Name="dtpLevel6" HorizontalAlignment="Left" Height="25" Margin="55,290,0,-350" VerticalAlignment="Top" Width="705"/>
                         <Label Content="CẤP 5" HorizontalAlignment="Left" Width="45" Margin="10,320,0,-350"/>
@@ -155,7 +155,7 @@
                         <Label Content="VIII DAN AIKIKAI" HorizontalAlignment="Left" Width="100" Margin="388,680,0,-758"/>
                         <DatePicker Name="dtpDanAIKIKAI8" HorizontalAlignment="Left" Height="23" Margin="488,680,0,-753" VerticalAlignment="Top" Width="273"/>
                         <Button Name="Save" Content="Lưu" Click="Save_Click"  HorizontalAlignment="Left" Height="30" Margin="260,730,0,-808" VerticalAlignment="Top" Width="96"/>
-                        <Button Name="Print" Content="Print" Mouse.MouseEnter="Print_MouseEnter" HorizontalAlignment="Right" Height="30" Margin="0,730,260,-808" VerticalAlignment="Top" Width="96"/>
+                        <Button Name="Print" Content="Print" Click="Print_MouseEnter" HorizontalAlignment="Right" Height="30" Margin="0,730,260,-808" VerticalAlignment="Top" Width="96"/>
                                             
                     </Grid>
                 </StackPanel>

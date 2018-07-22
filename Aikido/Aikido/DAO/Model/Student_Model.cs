@@ -32,6 +32,8 @@ namespace Aikido.DAO
         [Phone]
         public String PhoneNumber { get; set; }
 
+        public byte[] Image { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Day_of_Birth { get; set; }
 

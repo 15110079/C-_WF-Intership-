@@ -9,20 +9,21 @@ namespace Aikido.BLO
 {
     public class RegisterMember_BLO
     {
-        SaveMemberInfo_DAO Member_DAO;
+        SaveMemberInfo_DAO SaveMember_DAO;
         public RegisterMember_BLO()
         {
-             Member_DAO = new SaveMemberInfo_DAO();
+             SaveMember_DAO = new SaveMemberInfo_DAO();
         }
 
-        public void RegisterNewMember(int RegisterNewNumber,string SKU,string Name,string Nation,string address, string phone, DateTime registerday, DateTime birthday, string birthplace,int malop, Dictionary<string,DateTime> listLevel,DateTime Day_Create, Boolean DeleteFlag)
+        public void RegisterNewMember(int RegisterNewNumber,string SKU,string Name,string Nation,string address, string phone, DateTime registerday, DateTime birthday, string birthplace,
+                                        int malop, Dictionary<string,DateTime> listLevel,DateTime Day_Create, Boolean DeleteFlag, byte[] arrImage)
         {
             try
             {
                 //get Register New Member
-                Member_DAO.SaveNewMember(SKU, Name, Nation, address, phone, registerday, birthday, birthplace, Day_Create, DeleteFlag);
-                Member_DAO.SaveRegisterClass(RegisterNewNumber, malop, registerday);
-                Member_DAO.SaveLevel(listLevel, RegisterNewNumber);
+                SaveMember_DAO.SaveNewMember(SKU, Name, Nation, address, phone, registerday, birthday, birthplace, Day_Create, DeleteFlag,arrImage);
+                SaveMember_DAO.SaveRegisterClass(RegisterNewNumber, malop, registerday);
+                SaveMember_DAO.SaveLevel(listLevel, RegisterNewNumber);
             }
             catch
             {
@@ -35,7 +36,7 @@ namespace Aikido.BLO
         public int NewRegisterNumber()
         {
             int register_number;
-           return  register_number= Member_DAO.RegisterNewMember();
+           return  register_number= SaveMember_DAO.RegisterNewMember();
         }
 
       

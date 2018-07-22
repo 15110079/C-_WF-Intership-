@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aikido.BLO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Aikido.BLO;
 namespace Aikido.VIEW
 {
     /// <summary>
@@ -20,7 +21,10 @@ namespace Aikido.VIEW
     /// </summary>
     public partial class SettingScreen : Window
     {
+        SettingImage_BLO settingImage_BLO= new SettingImage_BLO();
+        byte[] arrImage = null;
         private List<bool> btnSelect = new List<bool>();
+        //Cóntructor
         public SettingScreen()
         {
             InitializeComponent();
@@ -29,7 +33,63 @@ namespace Aikido.VIEW
                 btnSelect.Add(true);
             }
             btnSelect[4] = false;
+          
+            ImageBrush x= settingImage_BLO.GetImage_FromDB();
+            if (x != null) { checkboxDefault.IsChecked = false; }
+            else checkboxDefault.IsChecked =true;
+            ImageButton.Background = x;
+
         }
+
+        // Evant Handles
+        private void Image_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ImageBrush image = settingImage_BLO.LoadImage_Button();
+                if (image == null) return;
+                ImageButton.Background = image;
+                arrImage = settingImage_BLO.ConvertImage_ToBytes(image.ImageSource);
+                checkboxDefault.IsChecked = false;
+                
+            }
+            catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
+                settingImage_BLO.SaveImage_ToDB(arrImage);
+                MessageBox.Show("Lưu thành công");
+            }
+            catch
+            {
+                MessageBox.Show("Lưu không thành công", "Lỗi");
+            }
+        }
+
+        private void checkboxDefault_Checked(object sender, RoutedEventArgs e)
+        {
+            arrImage = null;
+            checkboxDefault.IsChecked = true;
+            ImageButton.Background= Brushes.WhiteSmoke;
+        }
+
+        private void checkboxDefault_Unchecked(object sende, RoutedEventArgs ee)
+        {
+            if (arrImage != null) return;
+            Image_Click(sende, ee);
+        }
+
+        //------------------------------Tab Menu 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -199,5 +259,7 @@ namespace Aikido.VIEW
             sc.Show();
             this.Close();
         }
+
+        
     }
 }

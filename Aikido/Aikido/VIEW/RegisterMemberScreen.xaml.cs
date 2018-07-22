@@ -16,6 +16,10 @@ using Aikido.BLO;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
+using Microsoft.Win32;
+using System.IO;
+using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Aikido.VIEW
 {
@@ -27,7 +31,7 @@ namespace Aikido.VIEW
         private List<bool> btnSelect = new List<bool>();
         private Brush brush;
         private int NewRegisterNumber;
-
+        private byte[] arrImage=null;
         public RegisterMemberScreen()
         {
             InitializeComponent();
@@ -35,6 +39,40 @@ namespace Aikido.VIEW
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
+            using (var dataContext = new AccessDB_DAO())
+            {
+
+                dataContext.Classes.Add(new Class() { Class_Name = "A", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                dataContext.Classes.Add(new Class() { Class_Name = "B", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                dataContext.Classes.Add(new Class() { Class_Name = "C", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+
+                //dataContext.Learns.Add(new Learn() { ID_Class = 1, RegisterNumber = 10, Fee_January = 0, Fee_February = 0, Fee_March = 0, Fee_April = 0, Fee_May = 0, Fee_June = 0, Fee_July = 0, Fee_August = 0, Fee_September = 0, Fee_October = 0, Fee_December = 0, Fee_November = 0, RegisterDay = DateTime.Now, Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN7", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN8", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI7", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI8", Day_Create = DateTime.Now, Delete_Flag = false });
+
+                dataContext.SaveChanges();
+            }
+            //Set Manu Tab
             for (int i = 0; i < 5; i++)
             {
                 btnSelect.Add(true);
@@ -106,12 +144,25 @@ namespace Aikido.VIEW
                 listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
                 DateTime Day_Create = DateTime.Now;
                 Boolean DeleteFlag = false;
-                db.RegisterNewMember(NewRegisterNumber, SKU, FullName, Nation, Address, PhoneNumber, RegisterDay, Day_of_Birth, Place_of_Birth, RegisterClass, listLevel, Day_Create, DeleteFlag);
+                db.RegisterNewMember(NewRegisterNumber, SKU, FullName, Nation, Address, PhoneNumber, RegisterDay, Day_of_Birth, Place_of_Birth, RegisterClass, listLevel, Day_Create,DeleteFlag,arrImage);
 
             }
         }
-       
-        private void Print_MouseEnter(object sender, MouseEventArgs e)
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
+            try
+            {
+                ImageBrush image = settingImage_BLO.LoadImage_Button();
+                if (image == null) return;  // Case: Open Dialog but not choose image
+                ImageButton.Background = image;
+                arrImage = settingImage_BLO.ConvertImage_ToBytes(image.ImageSource);
+            }
+            catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }          
+        }
+     
+        private void Print_MouseEnter(object sender, RoutedEventArgs e)
         {
 
         }
@@ -137,6 +188,7 @@ namespace Aikido.VIEW
                 if(txtAddress.Text.Length>100) { err += "Địa chỉ quá dài\n"; error = 1; }
                 if(txtBirthplace.Text.Length>50) { err += "Nơi sinh quá dài\n"; error = 1; }
                 if(dtpBirthday.SelectedDate >DateTime.Now) { err += "Ngày sinh phải nhỏ hơn hiện tại\n"; error = 1; }
+                
                 if (dtpLevel6.SelectedDate > dtpLevel5.SelectedDate)  { err +=messageCheckDateCap(6,5) ; error = 1; }
                 if (dtpLevel5.SelectedDate > dtpLevel4.SelectedDate) { err += messageCheckDateCap(5,4); error = 1; }
                 if (dtpLevel4.SelectedDate>dtpLevel3.SelectedDate)  { err += messageCheckDateCap(4,3); error = 1; }
@@ -158,7 +210,8 @@ namespace Aikido.VIEW
                 if (dtpDanAIKIKAI5.SelectedDate > dtpDanAIKIKAI6.SelectedDate) { err += messageCheckDateDANAIKIKAI(5, 6); error = 1; }
                 if (dtpDanAIKIKAI6.SelectedDate > dtpDanAIKIKAI7.SelectedDate) { err += messageCheckDateDANAIKIKAI(6, 7); error = 1; }
                 if (dtpDanAIKIKAI7.SelectedDate > dtpDanAIKIKAI8.SelectedDate) { err += messageCheckDateDANAIKIKAI(7, 8); error = 1; }
-                if(error==1)
+
+                if (error==1)
                 {
                     MessageBox.Show(err, "Lỗi");
                     return false;
@@ -172,6 +225,7 @@ namespace Aikido.VIEW
             }
             catch
             {
+                MessageBox.Show("Error!,Lỗi nhập thông tin ");
                 return false;
             }
         }
@@ -360,9 +414,7 @@ namespace Aikido.VIEW
             this.Close();
         }
 
-        private void dtpRegisterDay_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+  
 
-        }
     }
 }

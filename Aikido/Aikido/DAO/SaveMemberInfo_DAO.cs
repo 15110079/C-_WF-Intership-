@@ -9,12 +9,13 @@ namespace Aikido.DAO
     public class SaveMemberInfo_DAO 
     {
         //Save New Member's Info
-        public void SaveNewMember (string SKU, string Name, string Nation,string address,string Phone, DateTime RegisterDay, DateTime Birthday,string Birthplace,DateTime Day_Create,Boolean DeleteFlag)
+        public void SaveNewMember (string SKU, string Name, string Nation,string address,string Phone, DateTime RegisterDay, DateTime Birthday,string Birthplace,DateTime Day_Create,Boolean DeleteFlag, byte[] arrImage)
         {
            
             using (var db = new AccessDB_DAO())
             {
-                db.Students.Add(new Student() { FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth =Birthday,Delete_Flag=DeleteFlag });
+                if(arrImage ==null)  db.Students.Add(new Student() { FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth =Birthday,Delete_Flag=DeleteFlag });
+                else db.Students.Add(new Student() { Image=arrImage,FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth = Birthday, Delete_Flag = DeleteFlag });
                 db.SaveChanges();              
              }
         }
@@ -28,7 +29,7 @@ namespace Aikido.DAO
                     return db.Students.Max(c => c.RegisterNumber);
                 }
                 catch { return 0; } //TH DS Hoi vien rong
-            
+
             }
         }
 

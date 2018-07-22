@@ -8,5 +8,6 @@ namespace Aikido.DAO
 {
     class LoadMemberInfo_DAO
     {
+        
     }
 }

@@ -375,17 +375,13 @@ C:\Users\VUONGVANHAU\Desktop\Intern Program\Winfrom Aikido\Aikido\Aikido\obj\Deb
 C:\Users\VUONGVANHAU\Desktop\Intern Program\Winfrom Aikido\Aikido\Aikido\obj\Debug\Aikido.csproj.CoreCompileInputs.cache
 C:\Users\VUONGVANHAU\Desktop\Intern Program\Winfrom Aikido\Aikido\Aikido\obj\Debug\Aikido.csproj.CopyComplete
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Aikido.exe
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Aikido.pdb
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\x86\e_sqlite3.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.ValueTuple.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Data.Sqlite.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.EntityFrameworkCore.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
@@ -393,13 +389,17 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Options.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Primitives.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Remotion.Linq.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.batteries_v2.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.core.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Collections.Immutable.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.ComponentModel.Annotations.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Diagnostics.DiagnosticSource.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Interactive.Async.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\x86\e_sqlite3.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.core.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\EntityFramework.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\x64\e_sqlite3.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Aikido.exe.config
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Win32.Primitives.dll
@@ -497,7 +497,6 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Xml.XmlSerializer.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Xml.XPath.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\System.Xml.XPath.XDocument.dll
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\EntityFramework.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Microsoft.Extensions.Configuration.dll
@@ -561,4 +560,5 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\obj\
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\obj\Debug\Aikido.csproj.CopyComplete
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\obj\Debug\Aikido.exe
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\obj\Debug\Aikido.pdb
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\bin\Debug\Aikido.pdb
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\Aikido\obj\Debug\Aikido.csprojAssemblyReference.cache
