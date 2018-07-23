@@ -91,8 +91,8 @@
                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                               Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  AutoGeneratingColumn="dgvClass_AutoGeneratingColumn"/>
                     <Button Name="btnSaveC" Content="Lưu" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="30" Width="100" Margin="0,0,50,25" Click="btnSaveC_Click"></Button>
-                    <Button Name="btnDelete" Content="-" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Width="20" Margin="735,0,0,475" Click="btnDelete_Click"></Button>
-                    <Button Name="btnAdd" Content="+" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="30" Width="30" Margin="160,0,50,25" Click="btnAdd_Click"></Button>
+                    <Button Name="btnDelete" Content="-" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Width="20" Margin="128,0,0,25" Click="btnDelete_Click" RenderTransformOrigin="-22.3,12.65"></Button>
+                    <Button Name="btnAdd" Content="+" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20" Width="20" Margin="78,0,0,25" Click="btnAdd_Click" RenderTransformOrigin="-0.867,0.667"></Button>
                 </Grid>
             </GroupBox>
         </Grid>

@@ -166,6 +166,7 @@
     <Compile Include="DAO\DeleteClass_DAO.cs" />
     <Compile Include="DAO\LoadClass_DAO.cs" />
     <Compile Include="DAO\Model\dgvClass_ViewModel.cs" />
+    <Compile Include="DAO\Model\dgvFee_ViewModel.cs" />
     <Compile Include="DAO\SaveClass_DAO.cs" />
     <Compile Include="DAO\ExportExcel_DAO.cs" />
     <Compile Include="DAO\FilterFee_DAO.cs" />

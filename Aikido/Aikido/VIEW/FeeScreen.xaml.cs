@@ -26,6 +26,7 @@ namespace Aikido.VIEW
         private List<bool> btnSelect = new List<bool>();
         private int i = 0;
         private int val = -3;
+
         public FeeScreen()
         {
             InitializeComponent();
@@ -34,10 +35,42 @@ namespace Aikido.VIEW
                 btnSelect.Add(true);
             }
             btnSelect[2] = false;
-            dgvFee.ItemsSource = manageFee.LoadFee();
-            List<string> cmb= new List<string>();
+            try
+            {
+                using (var dataContext = new AccessDB_DAO())
+                {
+                    Learn learn = new Learn();
+                    learn.ID_Class = 1;
+                    learn.RegisterNumber = 1;
+                    learn.Fee_January = 100;
+                    learn.Fee_February = 100;
+                    learn.Fee_March = 100;
+                    learn.Fee_April = 100;
+                    learn.Fee_May = 100;
+                    learn.Fee_June = 100;
+                    learn.Fee_July = 100;
+                    learn.Fee_August = 100;
+                    learn.Fee_September = 100;
+                    learn.Fee_October = 100;
+                    learn.Fee_November = 100;
+                    learn.Fee_December = 100;
+                    learn.RegisterDay = DateTime.Now;
+                    learn.Day_Create = DateTime.Now;
+                    learn.Delete_Flag = false;
+                    dataContext.Learns.Add(learn);
+                    dataContext.SaveChanges();
+                }
+            }
+            catch( Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi");
+            }
+            //dgvFee.ItemsSource = manageFee.LoadFee();
+
+            //List<Class> cmb= new List<Class>();
+            //var cls = 
             
-            cmbClassName.ItemsSource = cmb;
+            //cmbClassName.ItemsSource = cmb;
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -201,6 +234,7 @@ namespace Aikido.VIEW
             sc.Show();
             this.Close();
         }
+
         //Set Column Name for datagrid Fee
         private void dgvFee_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {

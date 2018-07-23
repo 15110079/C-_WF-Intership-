@@ -283,6 +283,7 @@ namespace Aikido.VIEW
             Regex objAlphaNumericPattern = new Regex("^(?:0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
             return objAlphaNumericPattern.IsMatch(timein);
         }
+
         private Boolean checkData(ref string mess)
         {
             bool error = true;
@@ -444,7 +445,10 @@ namespace Aikido.VIEW
 
         private void dgvClass_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            btnDelete.Margin = new Thickness(735, 0, 0, 475 - 20 * dgvClass.SelectedIndex);
+            //Chuyển button delete theo đúng row đang chọn
+            //btnDelete.Margin = new Thickness(735, 0, 0, 475 - 20 * dgvClass.SelectedIndex);
+            //Chuyển button add khi chọn dòng cuối cùng
+
         }
     }
 }
