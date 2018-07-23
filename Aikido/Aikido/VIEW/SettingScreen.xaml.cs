@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Aikido.BLO;
+
 namespace Aikido.VIEW
 {
     /// <summary>
@@ -35,54 +35,31 @@ namespace Aikido.VIEW
             btnSelect[4] = false;
           
             ImageBrush x= settingImage_BLO.GetImage_FromDB();
-            if (x != null) { checkboxDefault.IsChecked = false; }
-            else checkboxDefault.IsChecked =true;
             ImageButton.Background = x;
-
         }
 
         // Evant Handles
-        private void Image_Click(object sender, RoutedEventArgs e)
+        private void btnDefault_Click(object sender, RoutedEventArgs e)
+        {
+            arrImage = null;     
+            ImageButton.Background = Brushes.WhiteSmoke;
+            settingImage_BLO.SaveImage_ToDB(arrImage);
+        }
+
+        private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 ImageBrush image = settingImage_BLO.LoadImage_Button();
-                if (image == null) return;
                 ImageButton.Background = image;
                 arrImage = settingImage_BLO.ConvertImage_ToBytes(image.ImageSource);
-                checkboxDefault.IsChecked = false;
-                
+                settingImage_BLO.SaveImage_ToDB(arrImage);
             }
             catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }
         }
+   
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
-                settingImage_BLO.SaveImage_ToDB(arrImage);
-                MessageBox.Show("Lưu thành công");
-            }
-            catch
-            {
-                MessageBox.Show("Lưu không thành công", "Lỗi");
-            }
-        }
-
-        private void checkboxDefault_Checked(object sender, RoutedEventArgs e)
-        {
-            arrImage = null;
-            checkboxDefault.IsChecked = true;
-            ImageButton.Background= Brushes.WhiteSmoke;
-        }
-
-        private void checkboxDefault_Unchecked(object sende, RoutedEventArgs ee)
-        {
-            if (arrImage != null) return;
-            Image_Click(sende, ee);
-        }
+       
 
         //------------------------------Tab Menu 
         /// <summary>
@@ -260,6 +237,6 @@ namespace Aikido.VIEW
             this.Close();
         }
 
-        
+    
     }
 }

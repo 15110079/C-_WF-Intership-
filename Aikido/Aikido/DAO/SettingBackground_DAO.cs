@@ -32,9 +32,10 @@ namespace Aikido.DAO
         {
             using (var db = new AccessDB_DAO())
             {
+                byte[] x = null;
+                var r = db.SettingImage.FirstOrDefault(c => c.key == 1);
 
-                byte[] x= db.SettingImage.Where(c=>c.key==1).Select(c => c.ImageSetting).First();
-
+                if (r != null) x = db.SettingImage.Where(c => c.key == 1).Select(c => c.ImageSetting).First();
                 return x;
             }
         }

@@ -18,7 +18,6 @@ using System.Globalization;
 using System.Threading;
 using Microsoft.Win32;
 using System.IO;
-using System.Drawing;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Aikido.VIEW
@@ -39,39 +38,6 @@ namespace Aikido.VIEW
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            using (var dataContext = new AccessDB_DAO())
-            {
-
-                dataContext.Classes.Add(new Class() { Class_Name = "A", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
-                dataContext.Classes.Add(new Class() { Class_Name = "B", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
-                dataContext.Classes.Add(new Class() { Class_Name = "C", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
-
-                //dataContext.Learns.Add(new Learn() { ID_Class = 1, RegisterNumber = 10, Fee_January = 0, Fee_February = 0, Fee_March = 0, Fee_April = 0, Fee_May = 0, Fee_June = 0, Fee_July = 0, Fee_August = 0, Fee_September = 0, Fee_October = 0, Fee_December = 0, Fee_November = 0, RegisterDay = DateTime.Now, Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap6", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap5", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap4", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap3", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap2", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap1", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN1", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN2", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN3", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN4", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN5", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN6", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN7", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN8", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI1", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI2", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI3", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI4", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI5", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI6", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI7", Day_Create = DateTime.Now, Delete_Flag = false });
-                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI8", Day_Create = DateTime.Now, Delete_Flag = false });
-
-                dataContext.SaveChanges();
-            }
             //Set Manu Tab
             for (int i = 0; i < 5; i++)
             {
@@ -83,9 +49,10 @@ namespace Aikido.VIEW
             brush.Freeze();
 
             //Load New Register Number
-            db = new RegisterMember_BLO();
-            NewRegisterNumber = db.NewRegisterNumber() + 1;
-            txtRegisterNumber.Text = (NewRegisterNumber).ToString();
+             db = new RegisterMember_BLO();
+             NewRegisterNumber = db.NewRegisterNumber() + 1;
+            //txtRegisterNumber.Text = ("0000"+NewRegisterNumber).ToString();
+            txtRegisterNumber.Background= Brushes.WhiteSmoke;
 
             //Load Class in Combobox
             ClassDB = new ManageClass_BLO();
@@ -102,50 +69,58 @@ namespace Aikido.VIEW
         //------------------------------------------------------ Handle register member
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (Check_DataBase() == true)
-            {
-                string SKU = txtSKU.Text;
-                string FullName = txtName.Text;
-                string Nation = txtNation.Text;
-                string Address = txtAddress.Text;
-                string PhoneNumber = txtPhone.Text;
+                if (Check_DataBase() == true)
+                {
+                try
+                {
+                    string SKU = txtSKU.Text;
+                    string FullName = txtName.Text;
+                    string Nation = txtNation.Text;
+                    string Address = txtAddress.Text;
+                    string PhoneNumber = txtPhone.Text;
 
-                CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-                ci.DateTimeFormat.ShortDatePattern = "dd mm yyyy";
-                Thread.CurrentThread.CurrentCulture = ci;
-       
-                DateTime RegisterDay = dtpRegisterDay.SelectedDate.Value;
-                DateTime Day_of_Birth = dtpBirthday.SelectedDate.Value;
-                string Place_of_Birth = txtBirthplace.Text;
-                int RegisterClass = int.Parse(cboRegisterClass.SelectedValue.ToString());
-                //Thieu image
-                Dictionary<string, DateTime> listLevel = new Dictionary<string, DateTime>();
-                listLevel.Add("Cap6", (dtpLevel6.SelectedDate == null) ? DateTime.MinValue : dtpLevel6.SelectedDate.Value);
-                listLevel.Add("Cap5", (dtpLevel5.SelectedDate == null) ? DateTime.MinValue : dtpLevel5.SelectedDate.Value);
-                listLevel.Add("Cap4", (dtpLevel4.SelectedDate == null) ? DateTime.MinValue : dtpLevel4.SelectedDate.Value);
-                listLevel.Add("Cap3", (dtpLevel3.SelectedDate == null) ? DateTime.MinValue : dtpLevel3.SelectedDate.Value);
-                listLevel.Add("Cap2", (dtpLevel2.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
-                listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
-                listLevel.Add("DANVN1", (dtpDanVN1.SelectedDate == null) ? DateTime.MinValue : dtpDanVN1.SelectedDate.Value);
-                listLevel.Add("DANVN2", (dtpDanVN2.SelectedDate == null) ? DateTime.MinValue : dtpDanVN2.SelectedDate.Value);
-                listLevel.Add("DANVN3", (dtpDanVN3.SelectedDate == null) ? DateTime.MinValue : dtpDanVN3.SelectedDate.Value);
-                listLevel.Add("DANVN4", (dtpDanVN4.SelectedDate == null) ? DateTime.MinValue : dtpDanVN4.SelectedDate.Value);
-                listLevel.Add("DANVN5", (dtpDanVN5.SelectedDate == null) ? DateTime.MinValue : dtpDanVN5.SelectedDate.Value);
-                listLevel.Add("DANVN6", (dtpDanVN6.SelectedDate == null) ? DateTime.MinValue : dtpDanVN6.SelectedDate.Value);
-                listLevel.Add("DANVN7", (dtpDanVN7.SelectedDate == null) ? DateTime.MinValue : dtpDanVN7.SelectedDate.Value);
-                listLevel.Add("DANVN8", (dtpDanVN8.SelectedDate == null) ? DateTime.MinValue : dtpDanVN8.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI1", (dtpDanAIKIKAI1.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI1.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI2", (dtpDanAIKIKAI2.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI2.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI3", (dtpDanAIKIKAI3.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI3.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI4", (dtpDanAIKIKAI4.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI4.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI5", (dtpDanAIKIKAI5.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI5.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI6", (dtpDanAIKIKAI6.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI6.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI7", (dtpDanAIKIKAI7.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI7.SelectedDate.Value);
-                listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
-                DateTime Day_Create = DateTime.Now;
-                Boolean DeleteFlag = false;
-                db.RegisterNewMember(NewRegisterNumber, SKU, FullName, Nation, Address, PhoneNumber, RegisterDay, Day_of_Birth, Place_of_Birth, RegisterClass, listLevel, Day_Create,DeleteFlag,arrImage);
+                    CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+                    ci.DateTimeFormat.ShortDatePattern = "dd mm yyyy";
+                    Thread.CurrentThread.CurrentCulture = ci;
 
+                    DateTime RegisterDay = dtpRegisterDay.SelectedDate.Value;
+                    DateTime Day_of_Birth = dtpBirthday.SelectedDate.Value;
+                    string Place_of_Birth = txtBirthplace.Text;
+                    int RegisterClass = int.Parse(cboRegisterClass.SelectedValue.ToString());
+                    //Thieu image
+                    Dictionary<string, DateTime> listLevel = new Dictionary<string, DateTime>();
+                    listLevel.Add("Cap6", (dtpLevel6.SelectedDate == null) ? DateTime.MinValue : dtpLevel6.SelectedDate.Value);
+                    listLevel.Add("Cap5", (dtpLevel5.SelectedDate == null) ? DateTime.MinValue : dtpLevel5.SelectedDate.Value);
+                    listLevel.Add("Cap4", (dtpLevel4.SelectedDate == null) ? DateTime.MinValue : dtpLevel4.SelectedDate.Value);
+                    listLevel.Add("Cap3", (dtpLevel3.SelectedDate == null) ? DateTime.MinValue : dtpLevel3.SelectedDate.Value);
+                    listLevel.Add("Cap2", (dtpLevel2.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
+                    listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
+                    listLevel.Add("DANVN1", (dtpDanVN1.SelectedDate == null) ? DateTime.MinValue : dtpDanVN1.SelectedDate.Value);
+                    listLevel.Add("DANVN2", (dtpDanVN2.SelectedDate == null) ? DateTime.MinValue : dtpDanVN2.SelectedDate.Value);
+                    listLevel.Add("DANVN3", (dtpDanVN3.SelectedDate == null) ? DateTime.MinValue : dtpDanVN3.SelectedDate.Value);
+                    listLevel.Add("DANVN4", (dtpDanVN4.SelectedDate == null) ? DateTime.MinValue : dtpDanVN4.SelectedDate.Value);
+                    listLevel.Add("DANVN5", (dtpDanVN5.SelectedDate == null) ? DateTime.MinValue : dtpDanVN5.SelectedDate.Value);
+                    listLevel.Add("DANVN6", (dtpDanVN6.SelectedDate == null) ? DateTime.MinValue : dtpDanVN6.SelectedDate.Value);
+                    listLevel.Add("DANVN7", (dtpDanVN7.SelectedDate == null) ? DateTime.MinValue : dtpDanVN7.SelectedDate.Value);
+                    listLevel.Add("DANVN8", (dtpDanVN8.SelectedDate == null) ? DateTime.MinValue : dtpDanVN8.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI1", (dtpDanAIKIKAI1.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI1.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI2", (dtpDanAIKIKAI2.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI2.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI3", (dtpDanAIKIKAI3.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI3.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI4", (dtpDanAIKIKAI4.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI4.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI5", (dtpDanAIKIKAI5.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI5.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI6", (dtpDanAIKIKAI6.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI6.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI7", (dtpDanAIKIKAI7.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI7.SelectedDate.Value);
+                    listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
+                    DateTime Day_Create = DateTime.Now;
+                    Boolean DeleteFlag = false;
+                    db.RegisterNewMember(NewRegisterNumber, SKU, FullName, Nation, Address, PhoneNumber, RegisterDay, Day_of_Birth, Place_of_Birth, RegisterClass, listLevel, Day_Create, DeleteFlag, arrImage);
+                    MessageBox.Show("Lưu Thành Công");
+
+                }
+                catch
+                {
+                    MessageBox.Show("Lưu không thành công","Lỗi");
+                }
             }
         }
 
@@ -164,8 +139,10 @@ namespace Aikido.VIEW
      
         private void Print_MouseEnter(object sender, RoutedEventArgs e)
         {
-
+            ExportWord exportWord = new ExportWord();
+            try { exportWord.CreateDocument(); } catch { MessageBox.Show("Loi"); }
         }
+
 
         private Boolean Check_DataBase()
         {
@@ -174,14 +151,14 @@ namespace Aikido.VIEW
                 string err = null;
                 int error = 0;
 
-                if (txtSKU.Text.Equals("")) { err += "SKU is not input " + "\n"; error = 1;}
-                if (txtName.Text.Equals("")) {err += "Họ Tên is not input" + "\n"; error = 1;   }
-                if (txtAddress.Text.Equals(""))  {err += "Địa chỉ is not input" + "\n"; error = 1; }
-                if (txtPhone.Text.Equals("")) { err += "Số Điện Thoại is not input" + "\n"; error = 1;  }
-                if(dtpRegisterDay.SelectedDate==null) { err += "Ngày Đăng Ký is not input" + "\n"; error = 1;}
-                if (dtpBirthday.SelectedDate == null) {err += "Ngày Sinh is not input" + "\n"; error = 1;}
-                if (txtBirthplace.Text.Equals("")) {err += "Nơi sinh is not input" + "\n"; error = 1; }
-                if (cboRegisterClass.SelectedValue==null) {err += "Lớp Đăng Ký is not input" + "\n"; error = 1;}
+                if (txtSKU.Text.Equals("")) { err += "SKU chưa được nhập " + "\n"; error = 1;}
+                if (txtName.Text.Equals("")) {err += "Họ Tên chưa được nhập" + "\n"; error = 1;   }
+                if (txtAddress.Text.Equals(""))  {err += "Địa chỉ chưa được nhập" + "\n"; error = 1; }
+                if (txtPhone.Text.Equals("")) { err += "Số Điện Thoại chưa được nhập" + "\n"; error = 1;  }
+                if(dtpRegisterDay.SelectedDate==null) { err += "Ngày Đăng Ký chưa được nhập" + "\n"; error = 1;}
+                if (dtpBirthday.SelectedDate == null) {err += "Ngày Sinh chưa được nhập" + "\n"; error = 1;}
+                if (txtBirthplace.Text.Equals("")) {err += "Nơi sinh chưa được nhập" + "\n"; error = 1; }
+                if (cboRegisterClass.SelectedValue==null) {err += "Lớp Đăng Ký chưa được nhập" + "\n"; error = 1;}
                 if (txtSKU.Text.Length > 20) {err += "SKU nhỏ hơn 20 ký tự\n"; error = 1;  }
                 if (txtName.Text.Length > 50) { err += "Họ Tên quá dài\n";  error = 1; }
                 if (txtName.Text.Length > 50) { err += "Quốc Tịch quá dài\n"; error = 1; }
@@ -218,14 +195,14 @@ namespace Aikido.VIEW
                 }
                 if (!Regex.IsMatch(txtPhone.Text, @"(<Undefined control sequence>\d)?^[0-9]{10,13}$"))
                 {
-                    MessageBox.Show("Error!, Số Điện Thoại is invalid  ");
+                    MessageBox.Show("Số Điện Thoại không hợp lệ");
                 }
                 
                 return true;
             }
             catch
             {
-                MessageBox.Show("Error!,Lỗi nhập thông tin ");
+                MessageBox.Show(" Lỗi nhập thông tin ");
                 return false;
             }
         }

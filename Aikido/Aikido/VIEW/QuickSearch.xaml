@@ -73,15 +73,15 @@
         <Label Margin="483.493,45,120,10" Name="btnQLLb" Grid.Column="1"></Label>
 
         <Label Margin="655.493,45,0,10" Name="btnTLb" Grid.Column="1"></Label>
-        
+
         <Grid Name="ScreenSearchNhanh" Margin="0,75,0,-568" Visibility="Visible" Grid.ColumnSpan="2">
             <GroupBox TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16">
                 <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontWeight="Normal" TextElement.FontSize="15">
-                    <Label Content="Tìm Kiếm" Margin="9,16,0,311"/>
-                    <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="100,9,350,313" Height="25"/>
-                    <Button Content="Tìm Kiếm" Margin="8,51,680,269"/>
-                    <Button Content="Xuất File" Margin="150,51,550,268"/>
-                    <DataGrid Name="dgvSearchQ" HorizontalAlignment="Left" Height="402" Margin="10,99,0,-151" VerticalAlignment="Top" Width="762"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
+                    <Label Content="Tìm Kiếm" Margin="10,16,-1,311" Height="36"/>
+                    <TextBox Name="txtTimKiem" KeyDown="txtTimKiem_KeyDown" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="102,10,346,310"/>
+                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="8,51,680,269" Click="btnTimKiem_Click"/>
+                    <Button Name="btnXuatFile" Content="Xuất File" Margin="150,51,550,268" RenderTransformOrigin="0.5,0.503" Click="btnXuatFile_Click"/>
+                    <DataGrid Visibility="Hidden" Name="dgvSearchQ" HorizontalAlignment="Left" Height="402" Margin="10,99,0,-151" VerticalAlignment="Top" Width="762"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
                 </Grid>
             </GroupBox>
         </Grid>

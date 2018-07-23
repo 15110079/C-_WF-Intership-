@@ -88,10 +88,9 @@
             <GroupBox Margin="0,0,0,-217" TextElement.FontWeight="Bold" TextElement.FontSize="15" TextElement.FontFamily="Arial">
                 <Grid TextElement.FontWeight="Normal" TextElement.FontSize="15">
                     <Label Content="Chọn ảnh nền khi in hồ sơ hội viên" TextElement.FontSize="15" TextElement.FontStyle="Italic" Margin="60,10,0,0"></Label>
-                    <Button Name="ImageButton" Click="Image_Click" Width="300" Height="382" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"></Button>
-                    <CheckBox Checked="checkboxDefault_Checked" Unchecked="checkboxDefault_Unchecked" Name="checkboxDefault" Width="30" Height="30" Margin="35,400,650,0"></CheckBox>
-                    <Label Width="140" Height="40" Content="Mặc định" Margin="75,400,540,0"></Label>
-                    <Button Name="btnSave" Click="btnSave_Click" Width="70" Height="35" Content="Lưu" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,10" TextElement.FontWeight="Bold"></Button>
+                    <Button Name="ImageButton"  Width="300" Height="382" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,40,0,0"></Button>
+                    <Button Name="btnDefault" Click="btnDefault_Click" Width="121" Height="35" Content="Mặc định" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="211,0,0,39.222" TextElement.FontWeight="Bold" RenderTransformOrigin="-0.691,0.646"></Button>
+                    <Button Name="btnLoad" Click="btnLoad_Click" Width="114" Height="35" Content="Thay đổi ảnh" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="48,0,0,39.222" TextElement.FontWeight="Bold"></Button>
                 </Grid>
             </GroupBox>
         </Grid>

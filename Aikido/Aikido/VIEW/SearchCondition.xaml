@@ -88,16 +88,18 @@
             <GroupBox TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16">
                 <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontWeight="Normal" TextElement.FontSize="15">
                     <Label Content="SKU" Margin="10,10,713,310"/>
-                    <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="72,10,428,317" Height="25"/>
+                    <TextBox Name="txtSKU" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="72,10,428,317" Height="25" />
                     <Label Content="Họ Tên" Margin="10,47,710,279"/>
-                    <TextBox HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Margin="72,47,428,278" Height="25"/>
-                    <Label Content="Ngày Đăng Ký" Margin="392,5,295,320"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="492,5,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
-                    <Label Content="Ngày Sinh" Margin="392,47,294,277"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="492,47,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
-                    <Button Content="Tìm Kiếm" Margin="10,87,698,235"/>
-                    <Button Content="Xuất File" Margin="103,87,604,234"/>
-                    <DataGrid Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="10,134,0,-187" VerticalAlignment="Top" Width="762"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
+                    <TextBox Name="txtHoTen" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Margin="72,47,428,278" Height="25"/>
+                    <Label Content="Ngày Đăng Ký" Margin="376,5,295,315"/>
+                    <DatePicker Name="dtpNgayDangKy" HorizontalAlignment="Left" Margin="492,5,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
+                    <Label Content="Ngày Sinh" Margin="376,47,294,265"/>
+                    <DatePicker Name="dtpNgaySinh"  HorizontalAlignment="Left" Margin="492,47,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
+                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="10,87,697,234" Click="btnTimKiem_Click"  />
+                    <Button Name="btnXuatFile" Content="Xuất File" Margin="103,87,604,234" Click="btnXuatFile_Click"/>
+                    <DataGrid Visibility="Hidden"  Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="10,134,0,-187" VerticalAlignment="Top" Width="762"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" AutoGeneratingColumn="dgvSearchC_AutoGeneratingColumn" >
+
+                    </DataGrid>
                 </Grid>
             </GroupBox>
         </Grid>

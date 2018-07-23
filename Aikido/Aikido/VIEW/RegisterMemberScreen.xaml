@@ -89,16 +89,19 @@
                 <StackPanel Height="799">
                     <Grid Height="554">
                         <Label HorizontalAlignment="Center" VerticalAlignment="Top" Content="HỒ SƠ HỌC VIÊN" TextElement.FontFamily="Arial" TextElement.FontSize="20" TextElement.FontWeight="Bold"></Label>
-                        <Label  Content="SKU" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="10,40,0,-40"/>
+                        <Label  Content="SKU " HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="4,40,0,-40"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="24,40,0,-40"/>
                         <TextBox Name="txtSKU" HorizontalAlignment="Left" Height="25" Margin="100,40,0,-35" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
                         <Label Content="Số Đăng Ký" HorizontalAlignment="Left" Width="85" Margin="394,40,0,-40" />
                         <TextBox Name="txtRegisterNumber"  IsEnabled="False" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="468,40,0,-35" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
                         <Label Content="Họ Tên" HorizontalAlignment="Left" Width="57" Margin="10,70,0,-73"/>
                         <TextBox Name="txtName" HorizontalAlignment="Left" Height="25" Margin="100,70,0,-68" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="40,70,0,-40"/>
                         <Label Content="Quốc Tịch" HorizontalAlignment="Left" Width="85" Margin="394,70,0,-73"/>
                         <TextBox Name="txtNation" HorizontalAlignment="Left" Height="25" Margin="468,70,0,-68" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
                         <Label Content="Địa Chỉ" HorizontalAlignment="Left" Width="57" Margin="10,100,0,-106"/>
                         <TextBox Name="txtAddress" HorizontalAlignment="Left" Height="25" Margin="100,100,0,-101" VerticalContentAlignment="Bottom" TextWrapping="Wrap" VerticalAlignment="Top" Width="635"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="41,100,0,-70"/>
                         <Label Content="Số Điện Thoại" HorizontalAlignment="Left" Width="90" Margin="10,130,0,-139"/>
                         <TextBox Name="txtPhone" HorizontalAlignment="Left" Height="25" Margin="100,130,0,-134" VerticalContentAlignment="Bottom" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"/>
                         <DatePicker  Name="dtpRegisterDay"  SelectedDateFormat="Short" HorizontalAlignment="Left" Height="25" Margin="265,160,0,0" VerticalAlignment="Top" Width="494"/>
@@ -156,7 +159,13 @@
                         <DatePicker Name="dtpDanAIKIKAI8" HorizontalAlignment="Left" Height="23" Margin="488,680,0,-753" VerticalAlignment="Top" Width="273"/>
                         <Button Name="Save" Content="Lưu" Click="Save_Click"  HorizontalAlignment="Left" Height="30" Margin="260,730,0,-808" VerticalAlignment="Top" Width="96"/>
                         <Button Name="Print" Content="Print" Click="Print_MouseEnter" HorizontalAlignment="Right" Height="30" Margin="0,730,260,-808" VerticalAlignment="Top" Width="96"/>
-                                            
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="72,130,0,-100"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="438,70,0,-40"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="234,158,0,-128"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="217,189,0,-158"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="207,220,0,-189"/>
+                        <Label  Content="*" Foreground="Red" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="45" Margin="228,247,0,-215"/>
+
                     </Grid>
                 </StackPanel>
             </ScrollViewer>

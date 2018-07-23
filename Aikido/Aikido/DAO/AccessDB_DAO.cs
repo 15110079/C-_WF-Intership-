@@ -24,7 +24,7 @@ namespace Aikido.DAO
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
-            optionbuilder.UseSqlite(@"Data Source=C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\C-_WF-Intership-\Aikido\DB.db");
+            optionbuilder.UseSqlite(@"Data Source=C:\Users\minhh\OneDrive\Desktop\Combine\C-_WF-Intership-\Aikido\DB.db");
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Class> Classes { get; set; }
