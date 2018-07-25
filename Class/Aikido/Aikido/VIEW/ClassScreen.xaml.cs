@@ -358,7 +358,8 @@ namespace Aikido.VIEW
         {
             try
             {
-                if (dgvClass.Items.Count-2 == dgvClass.SelectedIndex)
+                var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;
+                if (dgvClass.Items.Count-2 == dgvClass.SelectedIndex && id.ID==0)
                 {
                     int kt = 0;
                     foreach (var i in IDdataAdd)
