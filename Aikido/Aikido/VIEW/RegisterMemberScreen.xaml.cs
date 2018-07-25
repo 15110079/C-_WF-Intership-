@@ -19,6 +19,7 @@ using System.Threading;
 using Microsoft.Win32;
 using System.IO;
 using static System.Net.Mime.MediaTypeNames;
+using Aikido.DAO.Model;
 
 namespace Aikido.VIEW
 {
@@ -27,23 +28,19 @@ namespace Aikido.VIEW
     {
         RegisterMember_BLO db ;
         ManageClass_BLO ClassDB;
-        private List<bool> btnSelect = new List<bool>();
         private Brush brush;
         private int NewRegisterNumber;
         private byte[] arrImage=null;
+
+        //Constructor
         public RegisterMemberScreen()
         {
             InitializeComponent();
+          
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            //Set Manu Tab
-            for (int i = 0; i < 5; i++)
-            {
-                btnSelect.Add(true);
-            }
-            btnSelect[0] = false;
             BrushConverter bc = new BrushConverter();
             brush = (Brush)bc.ConvertFrom("#E5E1E1");
             brush.Freeze();
@@ -65,63 +62,47 @@ namespace Aikido.VIEW
             dtpRegisterDay.SelectedDate = DateTime.Now;
 
         }
+        public RegisterMemberScreen(Search_Model search_Model)
+        {
+            InitializeComponent();
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
 
-        //------------------------------------------------------ Handle register member
+            ClassDB = new ManageClass_BLO();
+            List<Class> showCombobox = ClassDB.ComboxClass();
+            cboRegisterClass.ItemsSource = showCombobox;
+            cboRegisterClass.DisplayMemberPath = "Class_Name";
+            cboRegisterClass.SelectedValuePath = "ID_Class";
+
+            Set_DBVIew(search_Model);
+        }
+
+        // Handle register member
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-                if (Check_DataBase() == true)
-                {
+            if (Check_DataBase() == true)
+            {
                 try
                 {
-                    string SKU = txtSKU.Text;
-                    string FullName = txtName.Text;
-                    string Nation = txtNation.Text;
-                    string Address = txtAddress.Text;
-                    string PhoneNumber = txtPhone.Text;
-
                     CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
                     ci.DateTimeFormat.ShortDatePattern = "dd mm yyyy";
-                    Thread.CurrentThread.CurrentCulture = ci;
+                    Thread.CurrentThread.CurrentCulture = ci; 
 
-                    DateTime RegisterDay = dtpRegisterDay.SelectedDate.Value;
-                    DateTime Day_of_Birth = dtpBirthday.SelectedDate.Value;
-                    string Place_of_Birth = txtBirthplace.Text;
-                    int RegisterClass = int.Parse(cboRegisterClass.SelectedValue.ToString());
-                    //Thieu image
-                    Dictionary<string, DateTime> listLevel = new Dictionary<string, DateTime>();
-                    listLevel.Add("Cap6", (dtpLevel6.SelectedDate == null) ? DateTime.MinValue : dtpLevel6.SelectedDate.Value);
-                    listLevel.Add("Cap5", (dtpLevel5.SelectedDate == null) ? DateTime.MinValue : dtpLevel5.SelectedDate.Value);
-                    listLevel.Add("Cap4", (dtpLevel4.SelectedDate == null) ? DateTime.MinValue : dtpLevel4.SelectedDate.Value);
-                    listLevel.Add("Cap3", (dtpLevel3.SelectedDate == null) ? DateTime.MinValue : dtpLevel3.SelectedDate.Value);
-                    listLevel.Add("Cap2", (dtpLevel2.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
-                    listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
-                    listLevel.Add("DANVN1", (dtpDanVN1.SelectedDate == null) ? DateTime.MinValue : dtpDanVN1.SelectedDate.Value);
-                    listLevel.Add("DANVN2", (dtpDanVN2.SelectedDate == null) ? DateTime.MinValue : dtpDanVN2.SelectedDate.Value);
-                    listLevel.Add("DANVN3", (dtpDanVN3.SelectedDate == null) ? DateTime.MinValue : dtpDanVN3.SelectedDate.Value);
-                    listLevel.Add("DANVN4", (dtpDanVN4.SelectedDate == null) ? DateTime.MinValue : dtpDanVN4.SelectedDate.Value);
-                    listLevel.Add("DANVN5", (dtpDanVN5.SelectedDate == null) ? DateTime.MinValue : dtpDanVN5.SelectedDate.Value);
-                    listLevel.Add("DANVN6", (dtpDanVN6.SelectedDate == null) ? DateTime.MinValue : dtpDanVN6.SelectedDate.Value);
-                    listLevel.Add("DANVN7", (dtpDanVN7.SelectedDate == null) ? DateTime.MinValue : dtpDanVN7.SelectedDate.Value);
-                    listLevel.Add("DANVN8", (dtpDanVN8.SelectedDate == null) ? DateTime.MinValue : dtpDanVN8.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI1", (dtpDanAIKIKAI1.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI1.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI2", (dtpDanAIKIKAI2.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI2.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI3", (dtpDanAIKIKAI3.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI3.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI4", (dtpDanAIKIKAI4.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI4.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI5", (dtpDanAIKIKAI5.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI5.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI6", (dtpDanAIKIKAI6.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI6.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI7", (dtpDanAIKIKAI7.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI7.SelectedDate.Value);
-                    listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
                     DateTime Day_Create = DateTime.Now;
                     Boolean DeleteFlag = false;
-                    db.RegisterNewMember(NewRegisterNumber, SKU, FullName, Nation, Address, PhoneNumber, RegisterDay, Day_of_Birth, Place_of_Birth, RegisterClass, listLevel, Day_Create, DeleteFlag, arrImage);
-                    MessageBox.Show("Lưu Thành Công");
+                    MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+                    info = getDB_FromForm();
+                    db.RegisterNewMember(info, Day_Create, DeleteFlag);
 
                 }
                 catch
                 {
-                    MessageBox.Show("Lưu không thành công","Lỗi");
+                    MessageBox.Show("Lưu không thành công", "Lỗi"); return;
                 }
+                MessageBox.Show("Lưu Thành Công");
             }
+        
         }
 
         private void ImageButton_Click(object sender, RoutedEventArgs e)
@@ -136,13 +117,21 @@ namespace Aikido.VIEW
             }
             catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }          
         }
-     
+        
         private void Print_MouseEnter(object sender, RoutedEventArgs e)
         {
             ExportWord exportWord = new ExportWord();
-            try { exportWord.CreateDocument(); } catch { MessageBox.Show("Loi"); }
-        }
-
+            if (Check_DataBase() == true)
+            {
+                MemberInfo_ViewModel info = getDB_FromForm();
+                SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
+                try
+                {         
+                     exportWord.CreateDocument(info, settingImage_BLO.getBackGround());
+                }
+                catch { MessageBox.Show("In file bị lỗi");  return; }
+            }
+         }
 
         private Boolean Check_DataBase()
         {
@@ -195,7 +184,7 @@ namespace Aikido.VIEW
                 }
                 if (!Regex.IsMatch(txtPhone.Text, @"(<Undefined control sequence>\d)?^[0-9]{10,13}$"))
                 {
-                    MessageBox.Show("Số Điện Thoại không hợp lệ");
+                    MessageBox.Show("Số Điện Thoại không hợp lệ"); return false;
                 }
                 
                 return true;
@@ -206,50 +195,146 @@ namespace Aikido.VIEW
                 return false;
             }
         }
+        private void Set_DBVIew(Search_Model search_Model)
+        {
+
+            txtSKU.Text = search_Model.SKU.ToString();
+            txtRegisterNumber.Text = search_Model.RegisterNumber.ToString();
+            txtName.Text = search_Model.FullName.ToString();
+            txtNation.Text = search_Model.Nation.ToString();
+            txtAddress.Text = search_Model.Address.ToString();
+            txtPhone.Text = search_Model.PhoneNumber.ToString();
+            dtpBirthday.Text = search_Model.Day_of_Birth.ToString();
+            dtpRegisterDay.Text = search_Model.Day_Create.ToString();
+            txtBirthplace.Text = search_Model.Place_of_birth.ToString();
+            cboRegisterClass.Text = search_Model.Class_Name.ToString();
+            cboRegisterClass.SelectedValue = search_Model.class_ID;
+
+            arrImage = search_Model.Image;
+            SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
+            try
+            {
+                ImageBrush image = settingImage_BLO.LoadImage_Button();
+                if (image == null) return;  // Case: Open Dialog but not choose image
+                ImageButton.Background = image;
+            }
+            catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }
+
+            dtpLevel6.Text = search_Model.DAI_Cap_6.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_6.ToString();
+            dtpLevel5.Text = search_Model.DAI_Cap_5.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_5.ToString();
+            dtpLevel4.Text = search_Model.DAI_Cap_4.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_4.ToString();
+            dtpLevel3.Text = search_Model.DAI_Cap_3.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_3.ToString();
+            dtpLevel2.Text = search_Model.DAI_Cap_2.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_2.ToString();
+            dtpLevel1.Text = search_Model.DAI_Cap_1.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAI_Cap_1.ToString();
+
+            dtpDanVN1.Text = search_Model.DAN_VN_1.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_1.ToString();
+            dtpDanVN2.Text = search_Model.DAN_VN_2.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_2.ToString();
+            dtpDanVN3.Text = search_Model.DAN_VN_3.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_3.ToString();
+            dtpDanVN4.Text = search_Model.DAN_VN_4.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_4.ToString();
+            dtpDanVN5.Text = search_Model.DAN_VN_5.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_5.ToString();
+            dtpDanVN6.Text = search_Model.DAN_VN_6.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_6.ToString();
+            dtpDanVN7.Text = search_Model.DAN_VN_7.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_7.ToString();
+            dtpDanVN8.Text = search_Model.DAN_VN_8.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_VN_8.ToString();
+
+
+            dtpDanAIKIKAI1.Text = search_Model.DAN_AIKIKAI_1.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_1.ToString();
+            dtpDanAIKIKAI2.Text = search_Model.DAN_AIKIKAI_2.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_2.ToString();
+            dtpDanAIKIKAI3.Text = search_Model.DAN_AIKIKAI_3.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_3.ToString();
+            dtpDanAIKIKAI4.Text = search_Model.DAN_AIKIKAI_4.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_4.ToString();
+            dtpDanAIKIKAI5.Text = search_Model.DAN_AIKIKAI_5.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_5.ToString();
+            dtpDanAIKIKAI6.Text = search_Model.DAN_AIKIKAI_6.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_6.ToString();
+            dtpDanAIKIKAI7.Text = search_Model.DAN_AIKIKAI_7.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_7.ToString();
+            dtpDanAIKIKAI8.Text = search_Model.DAN_AIKIKAI_8.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_8.ToString();
+
+        }
+
         private String messageCheckDateCap(int a, int b)
         {
             return $"Ngày cấp DAI {a} phải trước ngày cấp DAI {b}\n";
         }
+
         private String messageCheckDateDANVN(int a, int b)
         {
             return $"Ngày cấp DAN VN {a} phải trước ngày cấp DAN VN {b}\n";
         }
+
         private String messageCheckDateDANAIKIKAI(int a, int b)
         {
             return $"Ngày cấp DAN AIKIKAI {a} phải trước ngày cấp DAN AIKIKAI {b}\n";
         }
+        private MemberInfo_ViewModel getDB_FromForm( )
+        {
+            MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+            info.SKU = txtSKU.Text;
+            info.FullName = txtName.Text;
+            info.Nation = txtNation.Text;
+            info.Address = txtAddress.Text;
+            info.PhoneNumber = txtPhone.Text;
+            info.RegisterNumber = NewRegisterNumber;
+            info.Register_day = dtpRegisterDay.SelectedDate.Value;
+            info.Day_of_Birth = (dtpBirthday.SelectedDate == null) ? DateTime.MinValue : dtpBirthday.SelectedDate.Value.Date;
+            info.Place_of_Birth = txtBirthplace.Text;
+            info.ID_Class = int.Parse(cboRegisterClass.SelectedValue.ToString());
+            info.Class_Name = cboRegisterClass.Text;
+            info.Image = arrImage;
+            info.listLevel = new Dictionary<string, DateTime>();
+            info.listLevel.Add("Cap6", (dtpLevel6.SelectedDate == null) ? DateTime.MinValue : dtpLevel6.SelectedDate.Value);
+            info.listLevel.Add("Cap5", (dtpLevel5.SelectedDate == null) ? DateTime.MinValue : dtpLevel5.SelectedDate.Value);
+            info.listLevel.Add("Cap4", (dtpLevel4.SelectedDate == null) ? DateTime.MinValue : dtpLevel4.SelectedDate.Value);
+            info.listLevel.Add("Cap3", (dtpLevel3.SelectedDate == null) ? DateTime.MinValue : dtpLevel3.SelectedDate.Value);
+            info.listLevel.Add("Cap2", (dtpLevel2.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
+            info.listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
+            info.listLevel.Add("DANVN1", (dtpDanVN1.SelectedDate == null) ? DateTime.MinValue : dtpDanVN1.SelectedDate.Value);
+            info.listLevel.Add("DANVN2", (dtpDanVN2.SelectedDate == null) ? DateTime.MinValue : dtpDanVN2.SelectedDate.Value);
+            info.listLevel.Add("DANVN3", (dtpDanVN3.SelectedDate == null) ? DateTime.MinValue : dtpDanVN3.SelectedDate.Value);
+            info.listLevel.Add("DANVN4", (dtpDanVN4.SelectedDate == null) ? DateTime.MinValue : dtpDanVN4.SelectedDate.Value);
+            info.listLevel.Add("DANVN5", (dtpDanVN5.SelectedDate == null) ? DateTime.MinValue : dtpDanVN5.SelectedDate.Value);
+            info.listLevel.Add("DANVN6", (dtpDanVN6.SelectedDate == null) ? DateTime.MinValue : dtpDanVN6.SelectedDate.Value);
+            info.listLevel.Add("DANVN7", (dtpDanVN7.SelectedDate == null) ? DateTime.MinValue : dtpDanVN7.SelectedDate.Value);
+            info.listLevel.Add("DANVN8", (dtpDanVN8.SelectedDate == null) ? DateTime.MinValue : dtpDanVN8.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI1", (dtpDanAIKIKAI1.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI1.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI2", (dtpDanAIKIKAI2.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI2.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI3", (dtpDanAIKIKAI3.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI3.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI4", (dtpDanAIKIKAI4.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI4.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI5", (dtpDanAIKIKAI5.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI5.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI6", (dtpDanAIKIKAI6.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI6.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI7", (dtpDanAIKIKAI7.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI7.SelectedDate.Value);
+            info.listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
+
+            return info;
+
+        }
         //------------------------------------------------------Menu bar
 
-
+        
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {
-            btnDKHVb.Background = Brushes.DarkBlue;
-            btnDKHV.Background =  Brushes.LightGray;
+            //btnDKHVb.Background = Brushes.DarkBlue;
+            //btnDKHV.Background = Brushes.LightGray;
         }
 
         private void btnDKHV_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[0] == true)
-            {
-                btnDKHVb.Background = Brushes.White;
-                btnDKHV.Background = Brushes.White;
-            }
+            //if (btnSelect[0] == true)
+            //{
+            //    btnDKHVb.Background = Brushes.White;
+            //    btnDKHV.Background = Brushes.White;
+            //}
         }
 
         private void btnSearch_MouseEnter(object sender, MouseEventArgs e)
         {
             btnSearchb.Background = Brushes.DarkBlue;
             btnSearch.Background = Brushes.LightGray;
-            btnSearchC.Visibility = Visibility.Visible;
-            btnSearchQ.Visibility = Visibility.Visible;
+            btnSearchI.Background = Brushes.LightGray;
+
         }
 
         private void btnSearch_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[1] == true)
-            {
-                btnSearch.Background = Brushes.White;
-            }
+            btnSearch.Background = Brushes.White;
+            btnSearchb.Background = Brushes.White;
+            btnSearchI.Background = Brushes.White;
         }
 
         private void btnQLHP_MouseEnter(object sender, MouseEventArgs e)
@@ -260,11 +345,8 @@ namespace Aikido.VIEW
 
         private void btnQLHP_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[2] == true)
-            {
-                btnQLHPb.Background = Brushes.White;
-                btnQLHP.Background = Brushes.White;
-            }
+            btnQLHPb.Background = Brushes.White;
+            btnQLHP.Background = Brushes.White;
         }
 
         private void btnQLL_MouseEnter(object sender, MouseEventArgs e)
@@ -275,11 +357,8 @@ namespace Aikido.VIEW
 
         private void btnQLL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[3] == true)
-            {
-                btnQLLb.Background = Brushes.White;
-                btnQLL.Background = Brushes.White;
-            }
+            btnQLLb.Background = Brushes.White;
+            btnQLL.Background = Brushes.White;
         }
 
         private void btnTL_MouseEnter(object sender, MouseEventArgs e)
@@ -290,108 +369,73 @@ namespace Aikido.VIEW
 
         private void btnTL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[4] == true)
-            {
-                btnTLb.Background = Brushes.White;
-                btnTL.Background = Brushes.White;
-            }
+            btnTLb.Background = Brushes.White;
+            btnTL.Background = Brushes.White;
         }
 
-        private void btnDKHV_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnHelpI_MouseEnter(object sender, MouseEventArgs e)
         {
-            
+            btnHelp.Background = Brushes.LightGray;
+            btnHelpb.Background = Brushes.DarkBlue;
+            btnHelpI.Background = Brushes.LightGray;
+        }
+
+        private void btnHelpI_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.White;
+            btnHelpb.Background = Brushes.White;
+            btnHelpI.Background = Brushes.White;
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
             //RegisterMemberScreen rgm = new RegisterMemberScreen();
             //rgm.Show();
             //this.Close();
         }
-
-        private void btnSearch_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Quick_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btnQLHP_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            FeeScreen fs = new FeeScreen();
-            fs.Show();
+            QuickSearch quick = new QuickSearch();
+            quick.Show();
             this.Close();
         }
-
-        private void btnQLL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Condition_Click(object sender, RoutedEventArgs e)
         {
-            ClassScreen cs = new ClassScreen();
-            cs.Show();
+            SearchCondition scon = new SearchCondition();
+            scon.Show();
             this.Close();
         }
-
-        private void btnTL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ClassManagement_Click(object sender, RoutedEventArgs e)
         {
-            SettingScreen sc = new SettingScreen();
-            sc.Show();
+            ClassScreen classScreen = new ClassScreen();
+            classScreen.Show();
             this.Close();
         }
-
-        private void btnSearchQ_MouseEnter(object sender, MouseEventArgs e)
+        private void FeeManagement_Click(object sender, RoutedEventArgs e)
         {
-            btnSearchb.Background = Brushes.DarkBlue;
-            if (btnSelect[1] == false)
-            {
-                btnSearchQ.Background = Brushes.LightGray;
-                btnSearchC.Background = Brushes.White;
-            }
-            else btnSearchQ.Background = Brushes.LightGray;
-        }
-
-        private void btnSearchQ_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchQ.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-        }
-
-        private void btnSearchQ_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            QuickSearch qs = new QuickSearch();
-            qs.Show();
+            FeeScreen fees = new FeeScreen();
+            fees.Show();
             this.Close();
         }
-
-        private void btnSearchC_MouseEnter(object sender, MouseEventArgs e)
+        private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSelect[1] == false)
-            {
-                btnSearchC.Background = Brushes.LightGray;
-                btnSearchQ.Background = Brushes.White;
-            }
-            else btnSearchC.Background = Brushes.LightGray;
-            btnSearchb.Background = Brushes.DarkBlue;
-
-        }
-
-        private void btnSearchC_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchC.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-
-        }
-
-        private void btnSearchC_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchCondition sc = new SearchCondition();
-            sc.Show();
+            SettingScreen setting = new SettingScreen();
+            setting.Show();
             this.Close();
         }
+        private void TTNPT_Click(object sender, RoutedEventArgs e)
+        {
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
+        }
+        private void HDSD_Click(object sender, RoutedEventArgs e)
+        {
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
+        }
 
-  
-
+ 
     }
 }

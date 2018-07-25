@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using Aikido.DAO.Model;
 using Spire.Doc;
 using Spire.Doc.Documents;
 using Spire.Doc.Fields;
@@ -12,27 +14,24 @@ using Spire.Doc.Formatting;
 
 namespace Aikido.BLO
 {
-    public  class ExportWord
+    public class ExportWord
     {
-        public void CreateDocument()
-        {
-            //section.PageSetup.PageSize = PageSize.A4;
-            //042
-            //section.PageSetup.Margins.Top = 72f;
-            //043
-            //section.PageSetup.Margins.Bottom = 72f;
-            //044
-            //section.PageSetup.Margins.Left = 89.85f;
-            //045
-            //section.PageSetup.Margins.Right = 89.85f;
-
+        public void CreateDocument(MemberInfo_ViewModel info,Image image)
+        { 
             //Create New Word
             Document doc = new Document();
+            doc.Background.Type = BackgroundType.Picture;
+
+            doc.Background.Picture = image; 
             //Add Section
             Spire.Doc.Section section = doc.AddSection();
-
-
-           //Add Paragraph
+                     
+            section.PageSetup.PageSize = PageSize.A4;
+            //section.PageSetup.Margins.Top = 72f;
+            //section.PageSetup.Margins.Bottom = 72f;
+            //section.PageSetup.Margins.Left = 89.85f;
+            //section.PageSetup.Margins.Right = 89.85f;
+            //Add Paragraph
             Paragraph pHeader = section.AddParagraph();
             //Header
             TextRange textRangel = pHeader.AppendText("HỒ SƠ HỌC VIÊN");
@@ -41,40 +40,63 @@ namespace Aikido.BLO
             textRangel.CharacterFormat.FontSize = 24;
             textRangel.CharacterFormat.FontName = "Calibri Light (Headings)";
             pHeader.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
-            pHeader.Format.AfterSpacing =15;
+            pHeader.Format.AfterSpacing = 5;
             //SKU
-            draw(doc, 205, 22, 25, 10, "SKU: Ma SKU");
+            draw(doc, 210, 22, 20, 5, "SKU : "+info.SKU);
             //Register Number
-            draw(doc, 205, 22, 260, -5, "SỐ ĐĂNG KÝ: 00000");
+            draw(doc, 210, 22, 260, -9, "SỐ ĐĂNG KÝ : "+info.RegisterNumber);
             //Name
-            draw(doc, 440, 22, 25, 15, "HỌ TÊN: HUỲNH KIẾN KINH");
+            draw(doc, 450, 22, 20, 8, "HỌ TÊN : "+info.FullName);
             //Quốc Tịch
-            draw(doc, 440, 22, 25, 35, "QUỐC TỊCH: VIỆT NAM");
+            draw(doc, 450, 22, 20, 25, "QUỐC TỊCH : "+info.Nation);
             //Address
-            draw(doc, 440, 22, 25, 55, "ĐỊA CHỈ: 1287/15 Đường 3/2 P16 Q11 TPHCM");
+            draw(doc, 450, 22, 20, 42, "ĐỊA CHỈ : "+info.Address);
             //PHONE
-            draw(doc, 440, 22, 25, 75, "SỐ ĐIỆN THOẠI: 01285939674");
+            draw(doc, 450, 22, 20, 60, "SỐ ĐIỆN THOẠI : "+info.PhoneNumber);
             //Image
-            imageDraw(section,150,150,25,95);
-            ////Register Number
-            //TextRange RegisterNumberxt = doc.Sections[0].AddParagraph().AppendText("Số Đăng Ký: ");
-            //TextBox Registertxtbox = doc.Sections[0].AddParagraph().AppendTextBox(180, 20);
-            //SKUtxtbox.Format.HorizontalPosition = 30f;
-            //SKUtxtbox.Format.VerticalPosition = -18f;
-            //SKUtxtbox.Format.LineColor = System.Drawing.Color.DarkBlue;
-            //SKUtxtbox.Format.LineStyle = TextBoxLineStyle.Simple;
-            ////Paragraph paraSKU = SKUtxtbox.Body.AddParagraph();
-            ////TextRange trSKU = paraSKU.AppendText("Textbox in Word Document");
-            ////trSKU.CharacterFormat.FontName = "Century Gothic";
-            //trSKU.CharacterFormat.FontSize = 12;
-            // trSKU.CharacterFormat.TextColor = Color.White;
+            imageDraw(doc, 140, 120, 15, 75,info.Image);
+            //Register Day
+            draw(doc, 314, 22, 155, 67, "NGÀY ĐĂNG KÝ : "+ info.Register_day.ToShortDateString());
+            // Day of Birth
+            draw(doc, 314, 22, 155, 90, "NGÀY SINH : "+info.Day_of_Birth.ToShortDateString());
+            //Place of Birth
+            draw(doc, 314, 22, 155, 115, "NƠI SINH: "+info.Place_of_Birth);
+            //Class 
+            draw(doc, 314, 22, 155, 139, "LỚP: "+info.Class_Name);
+            //Cap 1-6
+
+            draw(doc, 450, 22, 20, 160, "CẤP 6: " + (info.listLevel["Cap6"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString():"")) ;
+            draw(doc, 450, 22, 20, 177, "CẤP 5: " + (info.listLevel["Cap5"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString() : "")) ;
+            draw(doc, 450, 22, 20, 193, "CẤP 4: " + (info.listLevel["Cap4"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString() : ""));
+            draw(doc, 450, 22, 20, 209, "CẤP 3: " + (info.listLevel["Cap3"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString() : ""));
+            draw(doc, 450, 22, 20, 225, "CẤP 2: " + (info.listLevel["Cap2"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString() : ""));
+            draw(doc, 450, 22, 20, 240, "CẤP 1: " + (info.listLevel["Cap1"] != DateTime.MinValue ? info.listLevel["Cap6"].ToShortDateString() : ""));
+
+            draw(doc, 210, 22, 20, 260, "I DAN VN: " + (info.listLevel["DANVN1"] != DateTime.MinValue ? info.listLevel["DANVN1"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 278, "II DAN VN: " + (info.listLevel["DANVN2"] != DateTime.MinValue ? info.listLevel["DANVN2"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 296, "III DAN VN: " + (info.listLevel["DANVN3"] != DateTime.MinValue ? info.listLevel["DANVN3"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 314, "IV DAN VN: " + (info.listLevel["DANVN4"] != DateTime.MinValue ? info.listLevel["DANVN4"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 332, "V DAN VN: " + (info.listLevel["DANVN5"] != DateTime.MinValue ? info.listLevel["DANVN5"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 350, "VI DAN VN: " + (info.listLevel["DANVN6"] != DateTime.MinValue ? info.listLevel["DANVN6"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 368, "VII DAN VN: " + (info.listLevel["DANVN7"] != DateTime.MinValue ? info.listLevel["DANVN7"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 20, 384, "VIII DAN VN: " + (info.listLevel["DANVN8"] != DateTime.MinValue ? info.listLevel["DANVN8"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 150, "I DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI1"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI1"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 168, "II DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI2"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI2"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 185, "III DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI3"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI3"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 204, "IV DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI4"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI4"].ToShortDateString(): ""));
+            draw(doc, 210, 22, 260, 220, "V DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI5"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI5"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 238, "VI DAN AIKIDAI: "+(info.listLevel["DANAIKIKAI6"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI6"].ToShortDateString() : "")) ;
+            draw(doc, 210, 22, 260, 256, "VII DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI7"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI7"].ToShortDateString() : ""));
+            draw(doc, 210, 22, 260, 274, "VIII DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI8"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI8"].ToShortDateString() : ""));
+
+
 
 
             //Save and launch
             doc.SaveToFile("MyWord.docx", FileFormat.Docx);
             System.Diagnostics.Process.Start("MyWord.docx");
         }
-        public void draw(Document doc,int d, int r, int Hposition,int Vposition,String content)
+        public void draw(Document doc, int d, int r, int Hposition, int Vposition, String content)
         {
             TextBox txtbox = doc.Sections[0].AddParagraph().AppendTextBox(d, r);
             txtbox.Format.HorizontalPosition = Hposition;
@@ -84,14 +106,23 @@ namespace Aikido.BLO
             Paragraph p = txtbox.Body.AddParagraph();
             p.AppendText(content);
         }
-        public void imageDraw(Section s, int d, int r, int Hposition, int Vposition)
+        public void imageDraw(Document doc, int d, int r, int Hposition, int Vposition,byte[] image)
         {
-            Paragraph p = s.AddParagraph();
-            DocPicture picture = p.AppendPicture(Image.FromFile(@"M:\Untitled.png"));
-            picture.Width = 150;
-            picture.Height = 150;
-            picture.HorizontalPosition = Hposition;
-            picture.VerticalPosition = Vposition;
+            TextBox txtbox = doc.Sections[0].AddParagraph().AppendTextBox(r + 20, d + 10);
+            txtbox.Format.HorizontalPosition = Hposition;
+            txtbox.Format.VerticalPosition = Vposition;
+            txtbox.Format.LineColor = System.Drawing.Color.White;
+            txtbox.Format.LineStyle = TextBoxLineStyle.Simple;
+            Paragraph p = txtbox.Body.AddParagraph();
+            DocPicture picture = p.AppendPicture(image);
+            picture.Width = r;
+            picture.Height = d;
+
         }
+        //public Boolean isCloseFile()
+        //{
+        //    if (File.Open)
+        //    return true;
+        //} 
     }
 }

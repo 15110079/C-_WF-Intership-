@@ -27,8 +27,6 @@ namespace Aikido.VIEW
     /// </summary>
     public partial class SearchCondition : System.Windows.Window
     {
-        private List<bool> btnSelect = new List<bool>();
-
         public SearchCondition()
         {
             //var lst = new SearchMember_BLO();
@@ -36,11 +34,6 @@ namespace Aikido.VIEW
             //dgvSearchC.ItemsSource = a;
 
             InitializeComponent();
-            for (int i = 0; i < 5; i++)
-            {
-                btnSelect.Add(true);
-            }
-            btnSelect[1] = false;
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -51,27 +44,23 @@ namespace Aikido.VIEW
 
         private void btnDKHV_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[0] == true)
-            {
-                btnDKHVb.Background = Brushes.White;
-                btnDKHV.Background = Brushes.White;
-            }
+            btnDKHVb.Background = Brushes.White;
+            btnDKHV.Background = Brushes.White;
         }
 
         private void btnSearch_MouseEnter(object sender, MouseEventArgs e)
         {
-            btnSearchb.Background = Brushes.DarkBlue;
-            btnSearch.Background = Brushes.LightGray;
-            btnSearchC.Visibility = Visibility.Visible;
-            btnSearchQ.Visibility = Visibility.Visible;
+            //btnSearchb.Background = Brushes.DarkBlue;
+            //btnSearch.Background = Brushes.LightGray;
+            //btnSearchI.Background = Brushes.LightGray;
+
         }
 
         private void btnSearch_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[1] == true)
-            {
-                btnSearch.Background = Brushes.White;
-            }
+            //btnSearch.Background = Brushes.White;
+            //btnSearchb.Background = Brushes.White;
+            //btnSearchI.Background = Brushes.White;
         }
 
         private void btnQLHP_MouseEnter(object sender, MouseEventArgs e)
@@ -82,11 +71,8 @@ namespace Aikido.VIEW
 
         private void btnQLHP_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[2] == true)
-            {
-                btnQLHPb.Background = Brushes.White;
-                btnQLHP.Background = Brushes.White;
-            }
+            btnQLHPb.Background = Brushes.White;
+            btnQLHP.Background = Brushes.White;
         }
 
         private void btnQLL_MouseEnter(object sender, MouseEventArgs e)
@@ -97,11 +83,8 @@ namespace Aikido.VIEW
 
         private void btnQLL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[3] == true)
-            {
-                btnQLLb.Background = Brushes.White;
-                btnQLL.Background = Brushes.White;
-            }
+            btnQLLb.Background = Brushes.White;
+            btnQLL.Background = Brushes.White;
         }
 
         private void btnTL_MouseEnter(object sender, MouseEventArgs e)
@@ -112,106 +95,73 @@ namespace Aikido.VIEW
 
         private void btnTL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[4] == true)
-            {
-                btnTLb.Background = Brushes.White;
-                btnTL.Background = Brushes.White;
-            }
+            btnTLb.Background = Brushes.White;
+            btnTL.Background = Brushes.White;
         }
 
-        private void btnDKHV_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnHelpI_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.LightGray;
+            btnHelpb.Background = Brushes.DarkBlue;
+            btnHelpI.Background = Brushes.LightGray;
+        }
+
+        private void btnHelpI_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.White;
+            btnHelpb.Background = Brushes.White;
+            btnHelpI.Background = Brushes.White;
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
             RegisterMemberScreen rgm = new RegisterMemberScreen();
             rgm.Show();
             this.Close();
         }
-
-        private void btnSearch_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Quick_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btnQLHP_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            FeeScreen fs = new FeeScreen();
-            fs.Show();
+            QuickSearch quick = new QuickSearch();
+            quick.Show();
             this.Close();
         }
-
-        private void btnQLL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Condition_Click(object sender, RoutedEventArgs e)
         {
-            ClassScreen cs = new ClassScreen();
-            cs.Show();
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
+        }
+        private void ClassManagement_Click(object sender, RoutedEventArgs e)
+        {
+            ClassScreen classScreen = new ClassScreen();
+            classScreen.Show();
             this.Close();
         }
-
-        private void btnTL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void FeeManagement_Click(object sender, RoutedEventArgs e)
         {
-            SettingScreen sc = new SettingScreen();
-            sc.Show();
+            FeeScreen fees = new FeeScreen();
+            fees.Show();
             this.Close();
         }
-
-        private void btnSearchQ_MouseEnter(object sender, MouseEventArgs e)
+        private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            btnSearchb.Background = Brushes.DarkBlue;
-            if (btnSelect[1] == false)
-            {
-                btnSearchQ.Background = Brushes.LightGray;
-                btnSearchC.Background = Brushes.White;
-            }
-            else btnSearchQ.Background = Brushes.LightGray;
-        }
-
-        private void btnSearchQ_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchQ.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-        }
-
-        private void btnSearchQ_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            QuickSearch qs = new QuickSearch();
-            qs.Show();
+            SettingScreen setting = new SettingScreen();
+            setting.Show();
             this.Close();
         }
-
-        private void btnSearchC_MouseEnter(object sender, MouseEventArgs e)
+        private void TTNPT_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSelect[1] == false)
-            {
-                btnSearchC.Background = Brushes.LightGray;
-                btnSearchQ.Background = Brushes.White;
-            }
-            else btnSearchC.Background = Brushes.LightGray;
-            btnSearchb.Background = Brushes.DarkBlue;
-
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
         }
-
-        private void btnSearchC_MouseLeave(object sender, MouseEventArgs e)
+        private void HDSD_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSelect[1] == true)
-            {
-                btnSearchC.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
         }
-
-        private void btnSearchC_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchCondition sc = new SearchCondition();
-            sc.Show();
-            this.Close();
-        }
-
+        //
         private void btnTimKiem_Click(object sender, RoutedEventArgs e)
         {
             String error = null;
@@ -236,38 +186,25 @@ namespace Aikido.VIEW
                     MessageBox.Show("Không tìm thấy");
                 }
                 else
+                {
+                    dgvSearchC.CanUserResizeColumns = false;
+                    dgvSearchC.CanUserResizeRows = false;
                     dgvSearchC.ItemsSource = a;
-
+                    dgvSearchC.Columns[4].Width = 300;
+                    dgvSearchC.Columns[0].Visibility = Visibility.Hidden;
+                    for (int i = 8; i < 33; i++)
+                    {
+                        dgvSearchC.Columns[i].Visibility = Visibility.Hidden;
+                    }
+                }
 
             }
             else
             {
                 MessageBox.Show(error);
             }
-            //if (dtpNgaySinh.SelectedDate > DateTime.Now)
-            //{
-            //    MessageBox.Show("Ngày sinh phải nhỏ hơn ngày hiện tại");
-            //}
-            //if (dtpNgayDangKy.SelectedDate >= DateTime.Now)
-            //{
-            //    MessageBox.Show("Ngày đăng ký phải nhỏ hơn hoặc bằng ngày hiện tại");
-            //}
-            //dgvSearchC.Visibility = Visibility.Visible;
-            //var lst = new SearchMember_BLO();
-            //var a=lst.SearchCon(txtSKU.Text, txtHoTen.Text, dtpNgayDangKy.Text, dtpNgaySinh.Text);
-            //dgvSearchC.ItemsSource = a;
         }
 
-        //private void loaddata(object sender, RoutedEventArgs e)
-        //{
-        //    loaddata();
-        //}
-        //public void loaddata()
-        //{
-        //    var lst = new SearchMember_DAO();
-        //    var a = lst.GetStudent();
-        //    dgvSearchC.ItemsSource = a;
-        //}
 
         private void dgvSearchC_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -288,45 +225,10 @@ namespace Aikido.VIEW
             }
             else
             {
-                XuatExcel("Search Data");
-                //Excel.Application excel = new Excel.Application();
-                //excel.Visible = true;//mở file excel
-                //Workbook workbook = excel.Workbooks.Add(System.Reflection.Missing.Value);
-                //Worksheet sheet1 = (Worksheet)workbook.Sheets[1];
-
-                ////header
-                //for (int j = 0; j < dgvSearchC.Columns.Count; j++)
-                //{
-                //    Range myRange = (Range)sheet1.Cells[1, j + 1];
-                //    sheet1.Cells[1, j + 1].Font.Bold = true;
-                //    sheet1.Columns[j + 1].ColumnWidth = 15;
-                //    myRange.Value2 = dgvSearchC.Columns[j].Header;
-                //}
-                ////content
-                //for (int i = 0; i < dgvSearchC.Columns.Count; i++)
-                //{
-                //    for (int j = 0; j < dgvSearchC.Items.Count; j++)
-                //    {
-                //        TextBlock b = dgvSearchC.Columns[i].GetCellContent(dgvSearchC.Items[j]) as TextBlock;
-                //        Range myRange = (Range)sheet1.Cells[j + 2, i + 1];
-                //        myRange.Value2 = b.Text;
-                //    }
-                //}
-
-                //// Kẻ viền và tô màu
-                //Range rowHead = sheet1.get_Range("A1", "G1");
-
-                //rowHead.Borders.LineStyle = Constants.xlSolid;
-                //rowHead.Interior.ColorIndex = 8;
-
-                //rowHead.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-                //string row = "G" + (dgvSearchC.Items.Count);
-
-                //Range rowContent = sheet1.get_Range("A2", row);
-                //rowContent.Borders.LineStyle = Constants.xlSolid;
+                XuatExcel("Search");
             }
         }
-        private void XuatExcel(string sheetName)
+        private void XuatExcel(String sheetname)
         {
             //Tạo các đối tượng Excel
             try
@@ -350,7 +252,7 @@ namespace Aikido.VIEW
                     oBook = (Workbook)(oExcel.Workbooks.Add(Type.Missing));
                     oSheets = oBook.Worksheets;
                     oSheet = (Worksheet)oSheets.get_Item(1);
-                    oSheet.Name = "Export Search";
+                    oSheet.Name = sheetname;
                     //Header
 
                     Range head = oSheet.get_Range("A1", "AG1");
@@ -380,6 +282,7 @@ namespace Aikido.VIEW
                     crg++;
                     foreach (var i in dgvSearchC.Columns)
                     {
+
                         Range cli;
                         cli = oSheet.get_Range(rg[crg], rg[crg]);
                         cli.Value2 = i.Header;
@@ -387,6 +290,7 @@ namespace Aikido.VIEW
                         cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
                         cl.Add(cli);
                         crg++;
+                        if (crg == 33) break;
                     }
 
                     //Nội dung điền lên excel
@@ -404,8 +308,8 @@ namespace Aikido.VIEW
                         arr[r, 6] = "'" + dt.PhoneNumber.ToString();
                         arr[r, 7] = dt.Day_Create.ToShortDateString();
                         arr[r, 8] = dt.Day_of_Birth.ToShortDateString();
-                        arr[r, 9] = dt.Place_of_birth;
-                        arr[r, 10] = dt.Class_Name;
+                        arr[r, 9] = dt.Place_of_birth.ToString().Contains(" ") == true ? " " : dt.Place_of_birth.ToString();
+                        arr[r, 10] = dt.Class_Name.ToString().Contains(" ") == true ? " " : dt.Class_Name.ToString();
                         arr[r, 11] = dt.DAI_Cap_6.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_6.ToShortDateString();
                         arr[r, 12] = dt.DAI_Cap_5.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_5.ToShortDateString();
                         arr[r, 13] = dt.DAI_Cap_4.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_4.ToShortDateString();
@@ -428,6 +332,7 @@ namespace Aikido.VIEW
                         arr[r, 30] = dt.DAN_AIKIKAI_6.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp " : dt.DAN_AIKIKAI_6.ToShortDateString();
                         arr[r, 31] = dt.DAN_AIKIKAI_7.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp " : dt.DAN_AIKIKAI_7.ToShortDateString();
                         arr[r, 32] = dt.DAN_AIKIKAI_8.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp " : dt.DAN_AIKIKAI_8.ToShortDateString();
+
                         r++;
                     }
 
@@ -435,7 +340,7 @@ namespace Aikido.VIEW
                     int rowStart = 2;
                     int columnStart = 1;
                     int rowEnd = rowStart + dgvSearchC.Items.Count - 1;
-                    int columnEnd = dgvSearchC.Columns.Count + 1;
+                    int columnEnd = dgvSearchC.Columns.Count;
 
                     // Ô bắt đầu điền dữ liệu
 
@@ -476,6 +381,17 @@ namespace Aikido.VIEW
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void dgvSearchC_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            int r = dgvSearchC.SelectedIndex;
+
+            var datasearch = dgvSearchC.Items[r] as DAO.Model.Search_Model;
+
+            RegisterMemberScreen register = new RegisterMemberScreen(datasearch);
+            register.Show();
+            this.Close();
         }
     }
 }

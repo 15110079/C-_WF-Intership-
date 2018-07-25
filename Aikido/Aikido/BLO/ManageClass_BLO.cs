@@ -8,7 +8,7 @@ using Aikido.DAO;
 using Aikido.DAO.Model;
 namespace Aikido.BLO
 {
-   public class ManageClass_BLO
+    public class ManageClass_BLO
     {
         LoadClass_DAO Class_DAO;
         public ManageClass_BLO()
@@ -37,7 +37,7 @@ namespace Aikido.BLO
         //Load Combox Class
         public List<Class> ComboxClass()
         {
-           return Class_DAO.LoadComboxClass();
+            return Class_DAO.LoadComboxClass();
 
         }
     }

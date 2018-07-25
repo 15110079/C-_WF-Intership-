@@ -41,10 +41,10 @@ namespace Aikido.DAO
         public List<Class> LoadComboxClass()
         {
             List<Class> listclass = new List<Class>();
-            using (  var db = new AccessDB_DAO())
+            using (var db = new AccessDB_DAO())
             {
                 // db.Classes.Select(x => x);
-                foreach (var i in db.Classes.Where(c=>c.Delete_Flag==true))
+                foreach (var i in db.Classes.Where(c => c.Delete_Flag == true))
                 {
                     listclass.Add(i);
                 };

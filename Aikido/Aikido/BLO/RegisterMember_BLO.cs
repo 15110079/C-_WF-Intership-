@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Aikido.DAO;
+using Aikido.DAO.Model;
+
 namespace Aikido.BLO
 {
     public class RegisterMember_BLO
@@ -15,20 +17,14 @@ namespace Aikido.BLO
              SaveMember_DAO = new SaveMemberInfo_DAO();
         }
 
-        public void RegisterNewMember(int RegisterNewNumber,string SKU,string Name,string Nation,string address, string phone, DateTime registerday, DateTime birthday, string birthplace,
-                                        int malop, Dictionary<string,DateTime> listLevel,DateTime Day_Create, Boolean DeleteFlag, byte[] arrImage)
+        public void RegisterNewMember(MemberInfo_ViewModel info,DateTime Day_Create, Boolean DeleteFlage)
         {
-            try
-            {
+        
                 //get Register New Member
-                SaveMember_DAO.SaveNewMember(SKU, Name, Nation, address, phone, registerday, birthday, birthplace, Day_Create, DeleteFlag,arrImage);
-                SaveMember_DAO.SaveRegisterClass(RegisterNewNumber, malop, registerday);
-                SaveMember_DAO.SaveLevel(listLevel, RegisterNewNumber);
-            }
-            catch
-            {
-                MessageBox.Show("Loi");
-            }
+                SaveMember_DAO.SaveNewMember(info.SKU, info.FullName, info.Nation, info.Address, info.PhoneNumber, info.Register_day, info.Day_of_Birth, info.Place_of_Birth, Day_Create, DeleteFlage, info.Image);
+                SaveMember_DAO.SaveRegisterClass(info.RegisterNumber, info.ID_Class, info.Register_day);
+                SaveMember_DAO.SaveLevel(info.listLevel, info.RegisterNumber);
+       
            
         }
       

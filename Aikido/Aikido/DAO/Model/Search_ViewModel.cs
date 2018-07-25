@@ -103,6 +103,8 @@ namespace Aikido.DAO.Model
 
         [ColumnName("VIII DAN AIKIKAI")]
         public DateTime DAN_AIKIKAI_8 { get; set; }
+        public byte[] Image { get; internal set; }
 
+        public int class_ID { get; set; }
     }
 }

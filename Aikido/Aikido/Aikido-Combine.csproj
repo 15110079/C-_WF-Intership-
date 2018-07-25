@@ -207,10 +207,10 @@
     <Compile Include="BLO\ExportWord.cs" />
     <Compile Include="DAO\Model\dgvClass_ViewModel.cs" />
     <Compile Include="DAO\Model\dgvFee_ViewModel.cs" />
+    <Compile Include="DAO\Model\MemberInfo_ViewModel.cs" />
     <Compile Include="DAO\Model\Search_ViewModel.cs" />
     <Compile Include="DAO\Model\StoreSettingImage_Model.cs" />
     <Compile Include="DAO\SaveClass_DAO.cs" />
-    <Compile Include="DAO\ExportExcel_DAO.cs" />
     <Compile Include="DAO\FilterFee_DAO.cs" />
     <Compile Include="DAO\LoadFee_DAO.cs" />
     <Compile Include="DAO\LoadMemberInfo_DAO.cs" />
@@ -236,10 +236,6 @@
     <Compile Include="VIEW\SettingScreen.xaml.cs">
       <DependentUpon>SettingScreen.xaml</DependentUpon>
     </Compile>
-    <Page Include="VIEW\MainScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -253,7 +249,6 @@
     <Compile Include="DAO\Model\Student_Model.cs" />
     <Compile Include="VIEW\MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="VIEW\ClassScreen.xaml">
       <SubType>Designer</SubType>
@@ -276,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEW\SettingScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEW\MainScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

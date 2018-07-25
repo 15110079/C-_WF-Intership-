@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using Microsoft.Win32;using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Aikido.DAO;
 using System.IO;
+using System.Drawing;
 
 
 namespace Aikido.BLO
@@ -17,21 +17,21 @@ namespace Aikido.BLO
 
             if (openFileDialog.ShowDialog() == true)
             {
-                    openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
-                    ImageBrush image = new ImageBrush();
-                    image.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
-   
-                    return image;                   
+                openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+                ImageBrush image = new ImageBrush();
+                image.ImageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                return image;
             }
             return null;
         }
         //Load Image from DB
-       
+
         //Save Setting
         public void SaveImage_ToDB(byte[] arrImage)
         {
-                SettingBackground_DAO settingBackground_DAO = new SettingBackground_DAO();
-                settingBackground_DAO.SaveSetting(arrImage);
+            SettingBackground_DAO settingBackground_DAO = new SettingBackground_DAO();
+            settingBackground_DAO.SaveSetting(arrImage);
         }
         //Load Image from  Byte[] in DB
         public ImageBrush GetImage_FromDB()
@@ -39,10 +39,18 @@ namespace Aikido.BLO
             SettingBackground_DAO settingBackground_DAO = new SettingBackground_DAO();
             byte[] arrimage = settingBackground_DAO.LoadImage_FromDB();
             ImageBrush image = new ImageBrush();
-            image.ImageSource= ConvertByte_ToImage(arrimage);
+            image.ImageSource = ConvertByte_ToImage(arrimage);
             return image;
         }
-        private static BitmapImage ConvertByte_ToImage(byte[] arrimage)
+        public Image getBackGround()
+        {
+            SettingBackground_DAO settingBackground_DAO = new SettingBackground_DAO();
+            byte[] arrimage = settingBackground_DAO.LoadImage_FromDB();
+            MemoryStream m= new MemoryStream(arrimage);
+            Image image = Image.FromStream(m);
+            return image;
+        }
+        private BitmapImage ConvertByte_ToImage(byte[] arrimage)
         {
             if (arrimage == null || arrimage.Length == 0) return null;
             var image = new BitmapImage();

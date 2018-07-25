@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,17 +33,18 @@ namespace Aikido.VIEW
         private List<dgvClass_ViewModel> dataAdd = new List<dgvClass_ViewModel>();
         private List<int> IDdataEdit = new List<int>();
         private List<int> IDdataAdd = new List<int>();
-        private List<bool> btnSelect = new List<bool>();
+
         public ClassScreen()
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortTimePattern = "hh:mm";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             InitializeComponent();
-            for (int i = 0; i < 5; i++)
-            {
-                btnSelect.Add(true);
-            }
-            btnSelect[3] = false;
+            DataSet data = new DataSet();
+
             dgvClass.ItemsSource = manageClass.LoadClass();
-            dgvClass.CanUserAddRows = false;
+            dgvClass.CanUserAddRows = true;
 
         }
 
@@ -51,27 +56,23 @@ namespace Aikido.VIEW
 
         private void btnDKHV_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[0] == true)
-            {
-                btnDKHVb.Background = Brushes.White;
-                btnDKHV.Background = Brushes.White;
-            }
+            btnDKHVb.Background = Brushes.White;
+            btnDKHV.Background = Brushes.White;
         }
 
         private void btnSearch_MouseEnter(object sender, MouseEventArgs e)
         {
             btnSearchb.Background = Brushes.DarkBlue;
             btnSearch.Background = Brushes.LightGray;
-            btnSearchC.Visibility = Visibility.Visible;
-            btnSearchQ.Visibility = Visibility.Visible;
+            btnSearchI.Background = Brushes.LightGray;
+
         }
 
         private void btnSearch_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[1] == true)
-            {
-                btnSearch.Background = Brushes.White;
-            }
+            btnSearch.Background = Brushes.White;
+            btnSearchb.Background = Brushes.White;
+            btnSearchI.Background = Brushes.White;
         }
 
         private void btnQLHP_MouseEnter(object sender, MouseEventArgs e)
@@ -82,26 +83,20 @@ namespace Aikido.VIEW
 
         private void btnQLHP_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[2] == true)
-            {
-                btnQLHPb.Background = Brushes.White;
-                btnQLHP.Background = Brushes.White;
-            }
+            btnQLHPb.Background = Brushes.White;
+            btnQLHP.Background = Brushes.White;
         }
 
         private void btnQLL_MouseEnter(object sender, MouseEventArgs e)
         {
-            btnQLLb.Background = Brushes.DarkBlue;
-            btnQLL.Background = Brushes.LightGray;
+            //btnQLLb.Background = Brushes.DarkBlue;
+            //btnQLL.Background = Brushes.LightGray;
         }
 
         private void btnQLL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[3] == true)
-            {
-                btnQLLb.Background = Brushes.White;
-                btnQLL.Background = Brushes.White;
-            }
+            //btnQLLb.Background = Brushes.White;
+            //btnQLL.Background = Brushes.White;
         }
 
         private void btnTL_MouseEnter(object sender, MouseEventArgs e)
@@ -112,106 +107,72 @@ namespace Aikido.VIEW
 
         private void btnTL_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (btnSelect[4] == true)
-            {
-                btnTLb.Background = Brushes.White;
-                btnTL.Background = Brushes.White;
-            }
+            btnTLb.Background = Brushes.White;
+            btnTL.Background = Brushes.White;
         }
 
-        private void btnDKHV_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnHelpI_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.LightGray;
+            btnHelpb.Background = Brushes.DarkBlue;
+            btnHelpI.Background = Brushes.LightGray;
+        }
+
+        private void btnHelpI_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.White;
+            btnHelpb.Background = Brushes.White;
+            btnHelpI.Background = Brushes.White;
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
             RegisterMemberScreen rgm = new RegisterMemberScreen();
             rgm.Show();
             this.Close();
         }
-
-        private void btnSearch_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Quick_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void btnQLHP_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            FeeScreen fs = new FeeScreen();
-            fs.Show();
+            QuickSearch quick = new QuickSearch();
+            quick.Show();
             this.Close();
         }
-
-        private void btnQLL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Condition_Click(object sender, RoutedEventArgs e)
         {
-            //ClassScreen cs = new ClassScreen();
-            //cs.Show();
+            SearchCondition scon = new SearchCondition();
+            scon.Show();
+            this.Close();
+        }
+        private void ClassManagement_Click(object sender, RoutedEventArgs e)
+        {
+            //ClassScreen classScreen = new ClassScreen();
+            //classScreen.Show();
             //this.Close();
         }
-
-        private void btnTL_MouseDown(object sender, MouseButtonEventArgs e)
+        private void FeeManagement_Click(object sender, RoutedEventArgs e)
         {
-            SettingScreen sc = new SettingScreen();
-            sc.Show();
+            FeeScreen fees = new FeeScreen();
+            fees.Show();
             this.Close();
         }
-
-        private void btnSearchQ_MouseEnter(object sender, MouseEventArgs e)
+        private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            btnSearchb.Background = Brushes.DarkBlue;
-            if (btnSelect[1] == false)
-            {
-                btnSearchQ.Background = Brushes.LightGray;
-                btnSearchC.Background = Brushes.White;
-            }
-            else btnSearchQ.Background = Brushes.LightGray;
-        }
-
-        private void btnSearchQ_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchQ.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-        }
-
-        private void btnSearchQ_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            QuickSearch qs = new QuickSearch();
-            qs.Show();
+            SettingScreen setting = new SettingScreen();
+            setting.Show();
             this.Close();
         }
-
-        private void btnSearchC_MouseEnter(object sender, MouseEventArgs e)
+        private void TTNPT_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSelect[1] == false)
-            {
-                btnSearchC.Background = Brushes.LightGray;
-                btnSearchQ.Background = Brushes.White;
-            }
-            else btnSearchC.Background = Brushes.LightGray;
-            btnSearchb.Background = Brushes.DarkBlue;
-
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
         }
-
-        private void btnSearchC_MouseLeave(object sender, MouseEventArgs e)
+        private void HDSD_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSelect[1] == true)
-            {
-                btnSearchC.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
         }
-
-        private void btnSearchC_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchCondition sc = new SearchCondition();
-            sc.Show();
-            this.Close();
-        }
-
         private void dgvClass_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var desc = e.PropertyDescriptor as PropertyDescriptor;
@@ -238,18 +199,22 @@ namespace Aikido.VIEW
                 if (checkData(ref message) == true)
                 {
                     if (dataAdd.Count() > 0 || dataEdit.Count > 0) manageClass.SaveClass(dataAdd, dataEdit);
+                    IDdataAdd.Clear(); dataAdd.Clear();
+                    IDdataEdit.Clear(); dataEdit.Clear();
+                    dgvClass.ItemsSource = manageClass.LoadClass();
+                    dgvClass.Columns[0].Visibility = Visibility.Hidden;
+                    dgvClass.Columns[2].Visibility = Visibility.Hidden;
+                    MessageBox.Show("Lưu thành công");
                 }
                 else
                 {
                     MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 }
-
             }
             catch
             {
 
             }
-
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -259,16 +224,16 @@ namespace Aikido.VIEW
                 var currentItem = dgvClass.SelectedItem as DAO.Model.dgvClass_ViewModel;
                 if (MessageBox.Show($"Chắc xóa lớp {currentItem.txtName} không?", "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    if (dgvClass.SelectedIndex < dgvClass.Items.Count - 1)
+                    if (dgvClass.SelectedIndex == dgvClass.Items.Count - 1 && dgvClass.CanUserAddRows == true)
                     {
-
+                        MessageBox.Show("Dòng này để nhập dữ liệu");
+                    }
+                    else if (dgvClass.SelectedIndex < dgvClass.Items.Count - 1 || (dgvClass.SelectedIndex == dgvClass.Items.Count - 1 && dgvClass.CanUserAddRows == false))
+                    {
                         manageClass.DeleteClass(currentItem.ID);
                         dgvClass.ItemsSource = manageClass.LoadClass();
                         dgvClass.Columns[0].Visibility = Visibility.Hidden;
-                    }
-                    else if (dgvClass.SelectedIndex == dgvClass.Items.Count - 1)
-                    {
-                        MessageBox.Show("Dòng này để nhập dữ liệu");
+                        dgvClass.Columns[2].Visibility = Visibility.Hidden;
                     }
                 }
             }
@@ -296,23 +261,37 @@ namespace Aikido.VIEW
                 {
                     if (currentItem.txtName == null || currentItem.txtName == "")
                     {
-                        err += " - Tên Lớp chưa được nhập" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Tên Lớp chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
                     }
                     if (currentItem.txtStartTime == null || currentItem.txtStartTime == "")
                     {
-                        err += " - Giờ Bắt Đầu chưa được nhập" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtStartTime) == false)
                     {
-                        err += " - Giờ Bắt Đầu Dạng HH:MM" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu Dạng HH:MM" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
                     }
                     if (currentItem.txtFinishTime == null || currentItem.txtFinishTime == "")
                     {
-                        err += " - Giờ Kết Thúc chưa được nhập" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtFinishTime) == false)
                     {
-                        err += " - Giờ Kết Thúc Dạng HH:MM" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc Dạng HH:MM" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                    }
+                    if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
+                    {
+                        if (DateTime.Parse(currentItem.txtStartTime).Hour > DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        {
+                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        }
+                        else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        {
+                            if (DateTime.Parse(currentItem.txtStartTime).Minute > DateTime.Parse(currentItem.txtFinishTime).Minute)
+                            {
+                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                            }
+                        }
                     }
                     if (currentItem.cbMonday == false && currentItem.cbTuesday == false
                             && currentItem.cbWednesday == false && currentItem.cbThursday == false
@@ -320,7 +299,7 @@ namespace Aikido.VIEW
                             && currentItem.cbSunday == false
                       )
                     {
-                        err += " - Chọn ít nhất một ngày học trong tuần" + " Dòng " + (IDdataEdit[line1] + 1).ToString() + "\n";
+                        err += " - Chọn ít nhất một ngày học trong tuần" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n";
                         error = false;
                     }
                     line1++;
@@ -347,6 +326,20 @@ namespace Aikido.VIEW
                     {
                         err += " - Giờ Kết Thúc Dạng HH:MM" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
                     }
+                    if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
+                    {
+                        if (DateTime.Parse(currentItem.txtStartTime).Hour > DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        {
+                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        }
+                        else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        {
+                            if (DateTime.Parse(currentItem.txtStartTime).Minute >= DateTime.Parse(currentItem.txtFinishTime).Minute)
+                            {
+                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                            }
+                        }
+                    }
                     if (currentItem.cbMonday == false && currentItem.cbTuesday == false
                             && currentItem.cbWednesday == false && currentItem.cbThursday == false
                             && currentItem.cbFriday == false && currentItem.cbSarturday == false
@@ -358,7 +351,7 @@ namespace Aikido.VIEW
                     }
                     line2++;
                 }
-                dgvClass.CanUserAddRows = false;
+                //dgvClass.CanUserAddRows = false;
             }
             catch
             {
@@ -372,7 +365,7 @@ namespace Aikido.VIEW
         {
             try
             {
-                if (dgvClass.CanUserAddRows == true)
+                if (dgvClass.Items.Count - 2 == dgvClass.SelectedIndex)
                 {
                     int kt = 0;
                     foreach (var i in IDdataAdd)
@@ -410,7 +403,7 @@ namespace Aikido.VIEW
                         if (kte == 0) IDdataEdit.Add(dgvClass.SelectedIndex);
                     }
                 }
-                dgvClass.CanUserAddRows = false;
+                //dgvClass.CanUserAddRows = false;
             }
             catch
             {
@@ -422,7 +415,7 @@ namespace Aikido.VIEW
         {
             try
             {
-                dgvClass.CanUserAddRows = true;
+                //dgvClass.CanUserAddRows = true;
             }
             catch
             {
@@ -436,6 +429,7 @@ namespace Aikido.VIEW
             try
             {
                 dgvClass.Columns[0].Visibility = Visibility.Hidden;
+                dgvClass.Columns[2].Visibility = Visibility.Hidden;
             }
             catch
             {
@@ -448,6 +442,11 @@ namespace Aikido.VIEW
             //Chuyển button delete theo đúng row đang chọn
             //btnDelete.Margin = new Thickness(735, 0, 0, 475 - 20 * dgvClass.SelectedIndex);
             //Chuyển button add khi chọn dòng cuối cùng
+
+        }
+
+        private void dgvClass_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
 
         }
     }

@@ -23,48 +23,41 @@ namespace Aikido.VIEW
         private List<bool> btnSelect = new List<bool>();
         public MainWindow()
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 6; i++)
             {
                 btnSelect.Add(true);
             }
             InitializeComponent();
-            //using (var dataContext = new AccessDB_DAO())
-            //{
-            //    try
-            //    {
+            using (var dataContext = new AccessDB_DAO())
+            {
+                dataContext.Classes.Add(new Class() { Class_Name = "B", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                 dataContext.Classes.Add(new Class() { Class_Name = "C", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
 
-            //        dataContext.Classes.Add(new Class() { Class_Name = "A", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
-            //        dataContext.Classes.Add(new Class() { Class_Name = "B", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
-            //        dataContext.Classes.Add(new Class() { Class_Name = "C", Start_Time = new DateTime(2016, 6, 28), End_Time = new DateTime(2016, 6, 28), Monday = true, Tuesday = true, Wednesday = false, Thursday = false, Friday = true, Saturday = false, Sunday = true, Delete_Flag = true, Day_Update = new DateTime(2016, 6, 28), Day_Create = new DateTime(2016, 6, 28) });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN7", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN8", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI1", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI2", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI3", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI4", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI5", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI6", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI7", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI8", Day_Create = DateTime.Now, Delete_Flag = false });
+                dataContext.SaveChanges();
+            }
 
-            //        dataContext.Learns.Add(new Learn() { ID_Class = 1, RegisterNumber = 1, Fee_January = 0, Fee_February = 0, Fee_March = 0, Fee_April = 0, Fee_May = 0, Fee_June = 0, Fee_July = 0, Fee_August = 0, Fee_September = 0, Fee_October = 0, Fee_December = 0, Fee_November = 0, RegisterDay = DateTime.Now, Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap6", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap5", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap4", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap3", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap2", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "Cap1", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN1", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN2", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN3", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN4", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN5", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN6", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN7", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANVN8", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI1", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI2", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI3", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI4", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI5", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI6", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI7", Day_Create = DateTime.Now, Delete_Flag = false });
-            //        dataContext.Dai_Dans.Add(new DAI_DAN() { Name = "DANAIKIKAI8", Day_Create = DateTime.Now, Delete_Flag = false });
-
-            //        dataContext.SaveChanges();
-            //    }
-            //    catch { }
-            //}
         }
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -85,8 +78,8 @@ namespace Aikido.VIEW
         {
             btnSearchb.Background = Brushes.DarkBlue;
             btnSearch.Background = Brushes.LightGray;
-            btnSearchC.Visibility = Visibility.Visible;
-            btnSearchQ.Visibility = Visibility.Visible;
+            btnSearchI.Background = Brushes.LightGray;
+           
         }
 
         private void btnSearch_MouseLeave(object sender, MouseEventArgs e)
@@ -94,7 +87,23 @@ namespace Aikido.VIEW
             if (btnSelect[1] == true)
             {
                 btnSearch.Background = Brushes.White;
+                btnSearchb.Background = Brushes.White;
+                btnSearchI.Background = Brushes.White;
             }
+        }
+
+        private void TimKiemNhanh_Click(object sender, RoutedEventArgs e)
+        {
+            QuickSearch quickSearch = new QuickSearch();
+            quickSearch.Show();
+            this.Close();
+        }
+
+        private void TimKiemTheoDieuKien_Click(object sender, RoutedEventArgs e)
+        {
+            SearchCondition searchCondition = new SearchCondition();
+            searchCondition.Show();
+            this.Close();
         }
 
         private void btnQLHP_MouseEnter(object sender, MouseEventArgs e)
@@ -178,24 +187,10 @@ namespace Aikido.VIEW
         private void btnSearchQ_MouseEnter(object sender, MouseEventArgs e)
         {
             btnSearchb.Background = Brushes.DarkBlue;
-            if (btnSelect[1] == false)
-            {
-                btnSearchQ.Background = Brushes.LightGray;
-                btnSearchC.Background = Brushes.White;
-            }
-            else btnSearchQ.Background = Brushes.LightGray;
+           
         }
 
-        private void btnSearchQ_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchQ.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-        }
+     
 
         private void btnSearchQ_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -206,26 +201,10 @@ namespace Aikido.VIEW
 
         private void btnSearchC_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (btnSelect[1] == false)
-            {
-                btnSearchC.Background = Brushes.LightGray;
-                btnSearchQ.Background = Brushes.White;
-            }
-            else btnSearchC.Background = Brushes.LightGray;
             btnSearchb.Background = Brushes.DarkBlue;
         }
 
-        private void btnSearchC_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (btnSelect[1] == true)
-            {
-                btnSearchC.Background = Brushes.White;
-                btnSearchb.Background = Brushes.White;
-            }
-            btnSearchQ.Visibility = Visibility.Hidden;
-            btnSearchC.Visibility = Visibility.Hidden;
-
-        }
+        
 
         private void btnSearchC_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -233,6 +212,71 @@ namespace Aikido.VIEW
             sc.Show();
             this.Close();
         }
-        
+
+        private void btnHelpI_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnHelp.Background = Brushes.LightGray;
+            btnHelpb.Background = Brushes.DarkBlue;
+            btnHelpI.Background = Brushes.LightGray;
+        }
+
+        private void btnHelpI_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (btnSelect[5] == true)
+            {
+                btnHelp.Background = Brushes.White;
+                btnHelpb.Background = Brushes.White;
+                btnHelpI.Background = Brushes.White;
+            }
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+            RegisterMemberScreen rgm = new RegisterMemberScreen();
+            rgm.Show();
+            this.Close();
+        }
+        private void Quick_Click(object sender, RoutedEventArgs e)
+        {
+            QuickSearch quick = new QuickSearch();
+            quick.Show();
+            this.Close();
+        }
+        private void Condition_Click(object sender, RoutedEventArgs e)
+        {
+            SearchCondition scon = new SearchCondition();
+            scon.Show();
+            this.Close();
+        }
+        private void ClassManagement_Click(object sender, RoutedEventArgs e)
+        {
+            ClassScreen classScreen = new ClassScreen();
+            classScreen.Show();
+            this.Close();
+        }
+        private void FeeManagement_Click(object sender, RoutedEventArgs e)
+        {
+            FeeScreen fees = new FeeScreen();
+            fees.Show();
+            this.Close();
+        }
+        private void Setting_Click(object sender, RoutedEventArgs e)
+        {
+            SettingScreen setting = new SettingScreen();
+            setting.Show();
+            this.Close();
+        }
+        private void TTNPT_Click(object sender, RoutedEventArgs e)
+        {
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
+        }
+        private void HDSD_Click(object sender, RoutedEventArgs e)
+        {
+            //SearchCondition scon = new SearchCondition();
+            //scon.Show();
+            //this.Close();
+        }
     }
 }
