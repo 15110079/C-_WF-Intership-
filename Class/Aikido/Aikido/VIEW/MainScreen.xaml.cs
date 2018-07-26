@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Aikido.DAO;
+
 namespace Aikido.VIEW
 {
     /// <summary>
@@ -28,6 +29,84 @@ namespace Aikido.VIEW
                 btnSelect.Add(true);
             }
             InitializeComponent();
+            using (var dataContext = new AccessDB_DAO())
+            {
+                if (dataContext.Classes.Count() == 0)
+                {
+                    Class clas = new Class();
+                    clas.ID_Class = 1;
+                    clas.Class_Name = "Lop246";
+                    clas.Start_Time = DateTime.Parse("14:00");
+                    clas.End_Time = DateTime.Parse("16:00");
+                    clas.Monday = true;
+                    clas.Tuesday = false;
+                    clas.Wednesday = true;
+                    clas.Thursday = false;
+                    clas.Friday = true;
+                    clas.Saturday = false;
+                    clas.Sunday = false;
+                    clas.Day_Create = DateTime.Now;
+                    clas.Day_Update = DateTime.MinValue;
+                    clas.Delete_Flag = false;
+                    dataContext.Classes.Add(clas);
+                    dataContext.SaveChanges();
+                }
+                if(dataContext.Students.Count()==0)
+                {
+                    Student std = new Student();
+                    std.RegisterNumber = 1;
+                    std.FullName = "Nguyen Van A";
+                    std.SKU = "1001001";
+                    std.Nation = "Binh Dinh";
+                    std.Address = "Quan 9, Thanh pho Ho Chi Minh";
+                    std.PhoneNumber = "0971225645";
+                    std.Day_Create = DateTime.Now;
+                    std.Day_of_Birth = DateTime.Parse("06/22/1997");
+                    std.Place_of_Birth = "Binh Dinh";
+                    std.Day_Update = DateTime.MinValue;
+                    std.Delete_Flag = false;
+                    dataContext.Students.Add(std);
+                    dataContext.SaveChanges();
+                }
+                if (dataContext.Learns.Count() == 0)
+                {
+                    Learn learn = new Learn();
+                    learn.ID_Learn = 1;
+                    learn.ID_Class = 1;
+                    learn.RegisterNumber = 1;
+                    learn.Fee_January = 10;
+                    learn.Fee_February = 10;
+                    learn.Fee_March = 10;
+                    learn.Fee_April = 10;
+                    learn.Fee_May = 10;
+                    learn.Fee_June = 10;
+                    learn.Fee_July = 0;
+                    learn.Fee_August = 0;
+                    learn.Fee_September = 0;
+                    learn.Fee_October = 0;
+                    learn.Fee_November = 0;
+                    learn.Fee_December = 0;
+                    learn.FeeD_January = 0;
+                    learn.FeeD_February = 0;
+                    learn.FeeD_March = 10;
+                    learn.FeeD_April = 0;
+                    learn.FeeD_May = 10;
+                    learn.FeeD_June = 0;
+                    learn.FeeD_July = 0;
+                    learn.FeeD_August = 0;
+                    learn.FeeD_September = 0;
+                    learn.FeeD_October = 0;
+                    learn.FeeD_November = 0;
+                    learn.FeeD_December = 0;
+                    learn.RegisterDay = DateTime.Now;
+                    learn.Day_Create = DateTime.Now;
+                    learn.Day_Update = DateTime.MinValue;
+                    learn.Delete_Flag = false;
+                    dataContext.Learns.Add(learn);
+                    dataContext.SaveChanges();
+                }
+                
+            }
         }
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {

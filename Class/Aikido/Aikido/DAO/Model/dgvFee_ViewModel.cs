@@ -39,27 +39,6 @@ namespace Aikido.DAO.Model
         [ColumnName("Tháng")]
         public decimal lblmonthHT6P { get; set; }
 
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT3A { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT2A { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT1A { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT1P { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT2P { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT3P { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT4P { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT5P { get; set; }
-        [ColumnName("Tháng")]
-        public decimal lblDmonthHT6P { get; set; }
-
         [ColumnName("Tổng Hội Phí")]
         public decimal lblToTalS { get; set; }
     }

@@ -36,8 +36,8 @@ namespace Aikido.VIEW
             cmbClassName.SelectedValuePath = "ID_Class";
             cmbClassName.Background = Brushes.White;
             cmbClassName.Foreground = Brushes.DarkBlue;
-            dgvFee2.ItemsSource = ClassDB.LoadClass();
-            dgvFee1.ItemsSource = ClassDB.LoadClass();
+            dgvFee2.ItemsSource = FeeBLO.LoadAllFee();
+            dgvFee1.ItemsSource = FeeBLO.LoadAllFee1();
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -258,14 +258,167 @@ namespace Aikido.VIEW
 
         private void dgvFee_Loaded(object sender, RoutedEventArgs e)
         {
-            dgvFee1.Columns[0].Visibility = Visibility.Hidden;
-            for(int i=4;i<dgvFee1.Columns.Count; i++)
+            Dictionary<int,string> thang = new Dictionary<int, string>();
+            thang.Add(1,"Tháng 1"); thang.Add(2,"Tháng 2"); thang.Add(3,"Tháng 3"); thang.Add(4,"Tháng 4"); thang.Add(5,"Tháng 5"); thang.Add(6,"Tháng 6");
+            thang.Add(7,"Tháng 7"); thang.Add(8,"Tháng 8"); thang.Add(9,"Tháng 9"); thang.Add(10,"Tháng 10"); thang.Add(11,"Tháng 11"); thang.Add(12,"Tháng 12");
+            int r = DateTime.Now.Month;
+            switch(r)
             {
-                dgvFee1.Columns[i].Visibility = Visibility.Hidden;
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                dgvFee2.Columns[i].Visibility = Visibility.Hidden;
+                case 1:
+                    {
+                        int j = 2;
+                        int k = 1;
+                        for (int i=2;i<12;i++)
+                        {
+                            if (j >= 0)
+                            {
+                                dgvFee2.Columns[i].Header = thang[12 - j];
+                                j--;
+                            }
+                            else dgvFee2.Columns[i].Header = thang[k++];
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        int j = 1;
+                        int k = 1;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (j >= 0)
+                            {
+                                dgvFee2.Columns[i].Header = thang[12 - j];
+                                j--;
+                            }
+                            else dgvFee2.Columns[i].Header = thang[k++];
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        int j = 0;
+                        int k = 1;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (j >= 0)
+                            {
+                                dgvFee2.Columns[i].Header = thang[12 - j];
+                                j--;
+                            }
+                            else dgvFee2.Columns[i].Header = thang[k++];
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 2; i < 12; i++)
+                        {
+                            dgvFee2.Columns[i].Header = thang[i];
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        int k = 2;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            dgvFee2.Columns[i].Header = thang[k++];
+                        }
+                        break;
+                    }
+                case 6:
+                    {
+                        int k = 3;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            dgvFee2.Columns[i].Header = thang[k++];
+                        }
+                        break;
+                    }
+                case 7:
+                    {
+                        int k = 4;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+                case 8:
+                    {
+                        int k = 5;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+                case 9:
+                    {
+                        int k = 6;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+                case 10:
+                    {
+                        int k = 7;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+                case 11:
+                    {
+                        int k = 8;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
+                case 12:
+                    {
+                        int k = 9;
+                        for (int i = 2; i < 12; i++)
+                        {
+                            if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
+                            else
+                            {
+                                dgvFee2.Columns[i].Header = thang[k - 12];
+                                k++;
+                            }
+                        }
+                        break;
+                    }
             }
         }
 
