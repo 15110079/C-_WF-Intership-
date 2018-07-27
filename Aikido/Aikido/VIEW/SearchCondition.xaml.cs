@@ -174,6 +174,7 @@ namespace Aikido.VIEW
                 var a = lst.SearchCon(txtSKU.Text, txtHoTen.Text, dtpNgayDangKy.Text, dtpNgaySinh.Text);
                 if (a.Count == 0)
                 {
+                    dgvSearchC.ItemsSource = null;
                     MessageBox.Show("Không tìm thấy");
                 }
                 else

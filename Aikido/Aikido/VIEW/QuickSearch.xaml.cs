@@ -208,12 +208,12 @@ namespace Aikido.VIEW
                     var a = lst.SearchQuick(txtTimKiem.Text);
                     if (a == null)
                     {
+                        dgvSearchQ.ItemsSource = null;
                         MessageBox.Show("Không tìm thấy " + txtTimKiem.Text);
                     }
                     else
                     {
-                      
-
+         
                         dgvSearchQ.ItemsSource = a;
 
                     }

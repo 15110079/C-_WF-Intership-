@@ -202,6 +202,7 @@
     <Compile Include="BLO\RegisterMember_BLO.cs" />
     <Compile Include="BLO\SettingImage_BLO.cs" />
     <Compile Include="DAO\DeleteClass_DAO.cs" />
+    <Compile Include="DAO\FilterFee_DAO.cs" />
     <Compile Include="DAO\LoadClass_DAO.cs" />
     <Compile Include="DAO\Model\ColumnNameAttribute.cs" />
     <Compile Include="BLO\ExportWord.cs" />
@@ -211,7 +212,6 @@
     <Compile Include="DAO\Model\Search_ViewModel.cs" />
     <Compile Include="DAO\Model\StoreSettingImage_Model.cs" />
     <Compile Include="DAO\SaveClass_DAO.cs" />
-    <Compile Include="DAO\FilterFee_DAO.cs" />
     <Compile Include="DAO\LoadFee_DAO.cs" />
     <Compile Include="DAO\LoadMemberInfo_DAO.cs" />
     <Compile Include="DAO\SaveFee_DAO.cs" />
