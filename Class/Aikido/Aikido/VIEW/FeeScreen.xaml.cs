@@ -557,6 +557,60 @@ namespace Aikido.VIEW
                             mess = "- Phí phải lớn hơn 0";
                             return false;
                         }
+                        Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
+                        if (i1 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
+                        if (i2 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i3 = Double.Parse(item.lblmonthHT.ToString());
+                        if (i3 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
+                        if (i4 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
+                        if (i5 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
+                        if (i6 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
+                        if (i7 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
+                        if (i8 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
+                        if (i9 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
                         return true;
                     }
                     catch
@@ -576,6 +630,60 @@ namespace Aikido.VIEW
                             mess = "- Phí phải lớn hơn 0";
                             return false;
                         }
+                        Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
+                        if (i1 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
+                        if (i2 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i3 = Double.Parse(item.lblmonthHT.ToString());
+                        if (i3 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
+                        if (i4 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
+                        if (i5 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
+                        if (i6 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
+                        if (i7 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
+                        if (i8 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
+                        if (i9 < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }                        
                         return true;
                     }
                     catch
