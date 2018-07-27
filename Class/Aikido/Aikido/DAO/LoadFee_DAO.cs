@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using Aikido.DAO.Model;
 namespace Aikido.DAO
 {
@@ -44,6 +45,7 @@ namespace Aikido.DAO
                     var dtc = dataContext.Classes.Where(s => s.ID_Class == dt.ID_Class).First();
                     dgvFee_ViewModel dtg = new dgvFee_ViewModel();
                     dtg.RegisterNumber = dt.RegisterNumber;
+                    dtg.ID_Learn = dt.ID_Learn;
                     dtg.lblSKU = dts.SKU;
                     dtg.lblnameHV = dts.FullName;
                     dtg.lblnameClass = dtc.Class_Name;
@@ -317,6 +319,7 @@ namespace Aikido.DAO
 
                     dgvFee_ViewModel dtg1 = new dgvFee_ViewModel();
                     dtg1.RegisterNumber = dt.RegisterNumber;
+                    dtg1.ID_Learn = dt.ID_Learn;
                     dtg1.lblSKU = dts.SKU;
                     dtg1.lblnameHV = dts.FullName;
                     dtg1.lblnameClass = dtc.Class_Name;
@@ -595,6 +598,41 @@ namespace Aikido.DAO
                 }
             }
             return data;
+        }
+
+        public List<dgvTotalC_ViewModel> Total(DataGrid dgvFee)
+        {
+            List<dgvTotalC_ViewModel> total = new List<dgvTotalC_ViewModel>();
+            dgvTotalC_ViewModel dgvTotal = new dgvTotalC_ViewModel();
+            dgvTotal.lblToal = "Total";
+            dgvTotal.lblmonthHT3A = 0;
+            dgvTotal.lblmonthHT2A = 0;
+            dgvTotal.lblmonthHT1A = 0;
+            dgvTotal.lblmonthHT = 0;
+            dgvTotal.lblmonthHT1P = 0;
+            dgvTotal.lblmonthHT2P = 0;
+            dgvTotal.lblmonthHT3P = 0;
+            dgvTotal.lblmonthHT4P = 0;
+            dgvTotal.lblmonthHT5P = 0;
+            dgvTotal.lblmonthHT6P = 0;
+            dgvTotal.lblToTalS = dgvTotal.lblmonthHT3A + dgvTotal.lblmonthHT2A + dgvTotal.lblmonthHT1A + dgvTotal.lblmonthHT + dgvTotal.lblmonthHT1P+ dgvTotal.lblmonthHT2P + dgvTotal.lblmonthHT3P + dgvTotal.lblmonthHT4P + dgvTotal.lblmonthHT5P + dgvTotal.lblmonthHT6P;
+            for (int i = 0; i < dgvFee.Items.Count; i++)
+            {
+                var gt = dgvFee.Items[i] as dgvFee_ViewModel;
+                dgvTotal.lblmonthHT3A += gt.lblmonthHT3A;
+                dgvTotal.lblmonthHT2A += gt.lblmonthHT2A;
+                dgvTotal.lblmonthHT1A += gt.lblmonthHT1A;
+                dgvTotal.lblmonthHT += gt.lblmonthHT;
+                dgvTotal.lblmonthHT1P += gt.lblmonthHT1P;
+                dgvTotal.lblmonthHT2P += gt.lblmonthHT2P;
+                dgvTotal.lblmonthHT3P += gt.lblmonthHT3P;
+                dgvTotal.lblmonthHT4P += gt.lblmonthHT4P;
+                dgvTotal.lblmonthHT5P += gt.lblmonthHT5P;
+                dgvTotal.lblmonthHT6P += gt.lblmonthHT6P;
+                dgvTotal.lblToTalS = dgvTotal.lblToTalS = dgvTotal.lblmonthHT3A + dgvTotal.lblmonthHT2A + dgvTotal.lblmonthHT1A + dgvTotal.lblmonthHT + dgvTotal.lblmonthHT1P + dgvTotal.lblmonthHT2P + dgvTotal.lblmonthHT3P + dgvTotal.lblmonthHT4P + dgvTotal.lblmonthHT5P + dgvTotal.lblmonthHT6P;
+            }
+            total.Add(dgvTotal);
+            return total;
         }
     }
 }

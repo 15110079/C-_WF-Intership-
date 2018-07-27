@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Aikido.BLO;
 using Aikido.DAO;
+using Aikido.DAO.Model;
 namespace Aikido.VIEW
 {
     /// <summary>
@@ -22,22 +23,27 @@ namespace Aikido.VIEW
     /// </summary>
     public partial class FeeScreen : Window
     {
-        ManageClass_BLO ClassDB = new ManageClass_BLO();
-        ManageFee_BLO FeeBLO = new ManageFee_BLO();
+        ManageClass_BLO classDB = new ManageClass_BLO();
+        ManageFee_BLO feeBLO = new ManageFee_BLO();
+        List<dgvFee_ViewModel> editFee = new List<dgvFee_ViewModel>();
+        List<dgvFee_ViewModel> editFeeD = new List<dgvFee_ViewModel>();
+        private List<int> IDEdit = new List<int>();
+        private List<int> IDEditD = new List<int>();
         private int i = 0;
         private int val = -3;
         public FeeScreen()
         {
             InitializeComponent();
             
-            List<Class> showCombobox = ClassDB.ComboxClass();
+            List<Class> showCombobox = classDB.ComboxClass();
             cmbClassName.ItemsSource = showCombobox;
             cmbClassName.DisplayMemberPath = "Class_Name";
             cmbClassName.SelectedValuePath = "ID_Class";
             cmbClassName.Background = Brushes.White;
             cmbClassName.Foreground = Brushes.DarkBlue;
-            dgvFee2.ItemsSource = FeeBLO.LoadAllFee();
-            dgvFee1.ItemsSource = FeeBLO.LoadAllFee1();
+            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
+            dgvFee1.ItemsSource = feeBLO.LoadAllFee1();
+            dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -168,8 +174,9 @@ namespace Aikido.VIEW
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-
+            feeBLO.XuatExcel(dgvFee1, dgvFee2, "Student Fee");
         }
+
 
         private void dgvFee_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -424,7 +431,167 @@ namespace Aikido.VIEW
 
         private void cmbClassName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            dgvFee1.ItemsSource = feeBLO.LoadFilter1((int)cmbClassName.SelectedValue);
+            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
+            dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+        }
 
+        private void dgvFee2_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            int index = dgvFee2.SelectedIndex;
+            if (index % 2 == 0)
+            {
+                int kte = 0;
+                foreach (var i in IDEdit)
+                {
+                    if (index == i)
+                    {
+                        kte = 1;
+                        break;
+                    }
+                }
+                if (kte == 0) IDEdit.Add(index);
+
+            }
+            else
+            {
+                int kte = 0;
+                foreach (var i in IDEditD)
+                {
+                    if (index == i)
+                    {
+                        kte = 1;
+                        break;
+                    }
+                }
+                if (kte == 0) IDEditD.Add(index);
+            }
+        }
+
+        private void dgvFee2_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            string err = "Lỗi: \n";
+            try
+            {
+                if (IDEdit.Count > 0)
+                {
+                    foreach (var i in IDEdit)
+                    {
+                        editFee.Add(dgvFee2.Items[i] as DAO.Model.dgvFee_ViewModel);
+                    }
+
+                    if (checkData(ref err) == true)
+                    {
+                        feeBLO.SaveFee(editFee);
+                        editFee.Clear();
+                        IDEdit.Clear();
+                        try
+                        {
+                            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
+                        }
+                        catch
+                        {
+                            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
+                        }
+                        dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+                    }
+                    else MessageBox.Show(err);
+                    
+                }
+                if (IDEditD.Count > 0)
+                {
+                    foreach (var i in IDEditD)
+                    {
+                        editFeeD.Add(dgvFee2.Items[i] as DAO.Model.dgvFee_ViewModel);
+                    }
+                    if (checkData(ref err) == true)
+                    {
+                        feeBLO.SaveFeeD(editFeeD);
+                        editFeeD.Clear();
+                        IDEditD.Clear();
+                        try
+                        {
+                            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
+                        }
+                        catch
+                        {
+                            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
+                        }
+                        dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+                    }
+                    else MessageBox.Show(err);                    
+                }
+                
+                //string message = null;
+                //if (checkData(ref message) == true)
+                //{
+                //    if (dataAdd.Count() > 0 || dataEdit.Count > 0) feeBLO..SaveClass(dataAdd, dataEdit);
+                //    IDdataAdd.Clear(); dataAdd.Clear();
+                //    IDdataEdit.Clear(); dataEdit.Clear();
+                //    dgvClass.ItemsSource = manageClass.LoadClass();
+                //    dgvClass.Columns[0].Visibility = Visibility.Hidden;
+                //    dgvClass.Columns[2].Visibility = Visibility.Hidden;
+                //    MessageBox.Show("Lưu thành công");
+                //}
+                //else
+                //{
+                //    MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                //}
+            }
+            catch
+            {
+
+            }
+        }
+        private Boolean checkData(ref string mess)
+        {
+            try
+            {
+                foreach (var item in editFee)
+                {
+                    try
+                    {
+                        Double i = Double.Parse(item.lblmonthHT3A.ToString());
+                        if (i < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        return true;
+                    }
+                    catch
+                    {
+                        mess = "- Phí phải nhập hoàn toàn số";
+                        return false;
+                    }
+
+                }
+                foreach (var item in editFeeD)
+                {
+                    try
+                    {
+                        Double i = Double.Parse(item.lblmonthHT3A.ToString());
+                        if (i < 0)
+                        {
+                            mess = "- Phí phải lớn hơn 0";
+                            return false;
+                        }
+                        return true;
+                    }
+                    catch
+                    {
+                        mess = "- Phí phải nhập hoàn toàn số";
+                        return false;
+                    }
+
+                }
+                return true;
+            }
+            catch
+            {
+                mess = "Lỗi";
+                return false;
+            }
         }
     }
 }

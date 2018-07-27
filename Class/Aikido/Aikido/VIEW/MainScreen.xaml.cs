@@ -49,6 +49,23 @@ namespace Aikido.VIEW
                     clas.Day_Update = DateTime.MinValue;
                     clas.Delete_Flag = false;
                     dataContext.Classes.Add(clas);
+                    
+                    Class clas1 = new Class();
+                    clas1.ID_Class = 2;
+                    clas1.Class_Name = "Lop246";
+                    clas1.Start_Time = DateTime.Parse("14:00");
+                    clas1.End_Time = DateTime.Parse("16:00");
+                    clas1.Monday = true;
+                    clas1.Tuesday = false;
+                    clas1.Wednesday = true;
+                    clas1.Thursday = false;
+                    clas1.Friday = true;
+                    clas1.Saturday = false;
+                    clas1.Sunday = false;
+                    clas1.Day_Create = DateTime.Now;
+                    clas1.Day_Update = DateTime.MinValue;
+                    clas1.Delete_Flag = false;
+                    dataContext.Classes.Add(clas1);
                     dataContext.SaveChanges();
                 }
                 if(dataContext.Students.Count()==0)
@@ -66,6 +83,20 @@ namespace Aikido.VIEW
                     std.Day_Update = DateTime.MinValue;
                     std.Delete_Flag = false;
                     dataContext.Students.Add(std);
+                    
+                    Student std1 = new Student();
+                    std1.RegisterNumber = 2;
+                    std1.FullName = "Nguyen Van B";
+                    std1.SKU = "1001001";
+                    std1.Nation = "Binh Dinh";
+                    std1.Address = "Quan 9, Thanh pho Ho Chi Minh";
+                    std1.PhoneNumber = "0971225645";
+                    std1.Day_Create = DateTime.Now;
+                    std1.Day_of_Birth = DateTime.Parse("06/22/1997");
+                    std1.Place_of_Birth = "Binh Dinh";
+                    std1.Day_Update = DateTime.MinValue;
+                    std1.Delete_Flag = false;
+                    dataContext.Students.Add(std1);
                     dataContext.SaveChanges();
                 }
                 if (dataContext.Learns.Count() == 0)
@@ -103,6 +134,40 @@ namespace Aikido.VIEW
                     learn.Day_Update = DateTime.MinValue;
                     learn.Delete_Flag = false;
                     dataContext.Learns.Add(learn);
+
+                    Learn learn1 = new Learn();
+                    learn1.ID_Learn = 2;
+                    learn1.ID_Class = 2;
+                    learn1.RegisterNumber = 2;
+                    learn1.Fee_January = 100;
+                    learn1.Fee_February = 100;
+                    learn1.Fee_March = 100;
+                    learn1.Fee_April = 100;
+                    learn1.Fee_May = 100;
+                    learn1.Fee_June = 100;
+                    learn1.Fee_July = 0;
+                    learn1.Fee_August = 0;
+                    learn1.Fee_September = 0;
+                    learn1.Fee_October = 0;
+                    learn1.Fee_November = 0;
+                    learn1.Fee_December = 0;
+                    learn1.FeeD_January = 0;
+                    learn1.FeeD_February = 0;
+                    learn1.FeeD_March = 10;
+                    learn1.FeeD_April = 0;
+                    learn1.FeeD_May = 10;
+                    learn1.FeeD_June = 0;
+                    learn1.FeeD_July = 0;
+                    learn1.FeeD_August = 0;
+                    learn1.FeeD_September = 0;
+                    learn1.FeeD_October = 0;
+                    learn1.FeeD_November = 0;
+                    learn1.FeeD_December = 0;
+                    learn1.RegisterDay = DateTime.Now;
+                    learn1.Day_Create = DateTime.Now;
+                    learn1.Day_Update = DateTime.MinValue;
+                    learn1.Delete_Flag = false;
+                    dataContext.Learns.Add(learn1);
                     dataContext.SaveChanges();
                 }
                 

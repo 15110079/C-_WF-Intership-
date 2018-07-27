@@ -76,17 +76,17 @@
                     <Label Content="Class" Margin="30,20,0,0" HorizontalAlignment="Left" Width="50" Height="30" VerticalContentAlignment="Center" VerticalAlignment="Top" TextElement.FontFamily="Arial" TextElement.FontSize="15"></Label>
                     <ComboBox  Name="cmbClassName" Width="200" Height="25" Margin="100,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" Foreground="DarkBlue" SelectionChanged="cmbClassName_SelectionChanged"></ComboBox>
 
-                    <Button Name="btnExport" Content="Xuất File" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="30" Margin="0,0,0,10"
+                    <Button Name="btnExport" Content="Xuất File" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="30" Margin="0,0,0,20"
                     TextElement.FontFamily="Arial" TextElement.FontSize="15" TextElement.FontStyle="Normal" TextElement.FontWeight="Bold" Foreground="Black" Click="btnExport_Click"></Button>
 
                     <DataGrid x:Name="dgvFee2" CanUserResizeColumns="False" CanUserResizeRows="False" 
                               ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                         RowHeight="20" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="0"
-                        Margin="225,60,10,60" HorizontalContentAlignment="Center" CanUserAddRows="False"
-                        Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"
-                        TextElement.FontFamily="Arial" TextElement.FontSize="13" TextElement.FontStyle="Normal">
+                        Margin="225,60,10,109" HorizontalContentAlignment="Center" CanUserAddRows="False" RowEditEnding="dgvFee2_RowEditEnding"
+                        Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" SelectedCellsChanged="dgvFee2_SelectedCellsChanged"
+                        TextElement.FontFamily="Arial" TextElement.FontSize="13" TextElement.FontStyle="Normal" AutoGenerateColumns="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Loại Phí" Width="65" Binding="{Binding lbltypeFee}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="ID_Learn" Width="65" Binding="{Binding ID_Learn}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Loại Phí" Width="75" Binding="{Binding lbltypeFee}"></DataGridTextColumn>
                             <DataGridTextColumn Header=" Tháng 1" Width="75" Binding="{Binding lblmonthHT3A}"></DataGridTextColumn>
                             <DataGridTextColumn Header=" Tháng 2" Width="75" Binding="{Binding lblmonthHT2A}"></DataGridTextColumn>
@@ -104,15 +104,35 @@
                     <DataGrid Name="dgvFee1" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
                               CanUserResizeColumns="False" CanUserResizeRows="False"
                               RowHeight="40" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="0"
-                              Margin="10,60,890,60" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
+                              Margin="10,60,890,109" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
                               Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  
                               TextElement.FontFamily="Arial" TextElement.FontSize="13"
-                              Loaded="dgvFee_Loaded" CanUserAddRows="False">
+                              Loaded="dgvFee_Loaded" CanUserAddRows="False" CanUserDeleteRows="False">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header=" SKU" Width="50" Binding="{Binding lblSKU}"/>
                             <DataGridTextColumn Header="      Tên Hội Viên" Width="150" Binding="{Binding lblnameHV}"/>
                             <DataGridTextColumn Header="      Lớp" Width="81" Binding="{Binding lblnameClass}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <DataGrid Name="dgvTotalC" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HeadersVisibility="None"
+                              CanUserResizeColumns="False" CanUserResizeRows="False" TextElement.FontWeight="Bold"
+                              RowHeight="40" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"
+                              Margin="295,450,10,75" HorizontalContentAlignment="Center" AutoGenerateColumns="False" Height="20"
+                              TextElement.FontFamily="Arial" TextElement.FontSize="13" CanUserAddRows="False" Background="LightGray">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Total" Width="75" Binding="{Binding lblToal}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 1" Width="75" Binding="{Binding lblmonthHT3A}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 2" Width="75" Binding="{Binding lblmonthHT2A}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 3" Width="75" Binding="{Binding lblmonthHT1A}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 4" Width="75" Binding="{Binding lblmonthHT}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 5" Width="75" Binding="{Binding lblmonthHT1P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 6" Width="75" Binding="{Binding lblmonthHT2P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 7" Width="75" Binding="{Binding lblmonthHT3P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 8" Width="75" Binding="{Binding lblmonthHT4P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header=" Tháng 9" Width="75" Binding="{Binding lblmonthHT5P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Tháng 10" Width="75" Binding="{Binding lblmonthHT6P}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="  Tổng" Width="75" Binding="{Binding lblToTalS}"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

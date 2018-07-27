@@ -8,6 +8,8 @@ namespace Aikido.DAO.Model
 {
     public class dgvFee_ViewModel
     {
+        [ColumnName("ID_Learn")]
+        public int ID_Learn { get; set; }
         [ColumnName("RegisterNumber")]
         public int RegisterNumber { get; set; }
         [ColumnName("SKU")]

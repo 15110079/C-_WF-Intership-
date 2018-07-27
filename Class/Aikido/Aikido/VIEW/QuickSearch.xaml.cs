@@ -243,7 +243,7 @@ namespace Aikido.VIEW
                     oBook = (Workbook)(oExcel.Workbooks.Add(Type.Missing));
                     oSheets = oBook.Worksheets;
                     oSheet = (Worksheet)oSheets.get_Item(1);
-                    oSheet.Name = "Export Search";
+                    oSheet.Name = sheetName;
                     //Header
 
                     Range head = oSheet.get_Range("A1", "AG1");
