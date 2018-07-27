@@ -38,6 +38,7 @@ namespace Aikido.DAO.Model
         public decimal lblmonthHT5P { get; set; }
         [ColumnName("Tháng")]
         public decimal lblmonthHT6P { get; set; }
+
         [ColumnName("Tổng Hội Phí")]
         public decimal lblToTalS { get; set; }
     }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aikido.VIEW"
              mc:Ignorable="d" 
-              Title="Tìm Kiếm Nhanh" Height="663" Width="955" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+              Title="Tìm Kiếm Nhanh" Height="663" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Width="935">
         <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,0,0,0" Width="935">
             <Menu Margin="0,0,770,10" Name="btnDKHV"
@@ -15,7 +15,7 @@
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <MenuItem  Header="    Đăng Ký Hội Viên" Height="50" Width="165" Click="Register_Click"></MenuItem>
             </Menu>
-            
+
             <Menu Name="btnSearch" FontSize="15" FontWeight="Bold" Background="White" FontStyle="Normal" Foreground="Blue" Margin="165,0,605,10" Mouse.MouseEnter="btnSearch_MouseEnter" Mouse.MouseLeave="btnSearch_MouseLeave">
                 <MenuItem Name="btnSearchI" Foreground="Blue" Header="         Tìm Kiếm" Height="50" Width="165" FontFamily="Arial" Background="LightGray" Mouse.MouseEnter="btnSearch_MouseEnter" Mouse.MouseLeave="btnSearch_MouseLeave">
                     <MenuItem Click="Quick_Click" Header="Tìm Kiếm Nhanh" Height="26" />
@@ -53,7 +53,7 @@
                     <MenuItem Click="TTNPT_Click" Header="Thông tin nhà phát triển" Height="26" Margin="0,0,-0.4,0"/>
                 </MenuItem>
             </Menu>
-            
+
             <Label Margin="0,45,770,10" Name="btnDKHVb"/>
 
             <Label Margin="165,45,605,10" Name="btnSearchb" Background="DarkBlue"/>
@@ -68,13 +68,25 @@
         </Grid>
 
         <Grid Name="ScreenSearchNhanh" Margin="0,75,0,-568" Visibility="Visible" Grid.ColumnSpan="2">
-            <GroupBox Header="Tìm Kiếm Nhanh" TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16">
+            <GroupBox Header="Tìm Kiếm Nhanh" TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16" Margin="-116,0,-114.889,-0.556">
                 <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontWeight="Normal" TextElement.FontSize="15">
-                    <Label Content="Tìm Kiếm" Margin="10,16,-1,311" Height="36"/>
-                    <TextBox Name="txtTimKiem" KeyDown="txtTimKiem_KeyDown" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="102,10,346,310"/>
-                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="8,51,680,269" Click="btnTimKiem_Click"/>
-                    <Button Name="btnXuatFile" Content="Xuất File" Margin="150,51,550,268" RenderTransformOrigin="0.5,0.503" Click="btnXuatFile_Click"/>
-                    <DataGrid SelectedCellsChanged="dgvSearchQ_SelectedCellsChanged" AutoGeneratingColumn="dgvClass_AutoGeneratingColumn" Visibility="Hidden" Name="dgvSearchQ" HorizontalAlignment="Left" Height="446" Margin="10,99,-137,-195" VerticalAlignment="Top" Width="909"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  />
+                    <Label Content="Tìm Kiếm" Margin="144,16,-135,298" Height="36"/>
+                    <TextBox Name="txtTimKiem" KeyDown="txtTimKiem_KeyDown" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="236,10,212,310"/>
+                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="142,51,546,269" Click="btnTimKiem_Click"/>
+                    <Button Name="btnXuatFile" Content="Xuất File" Margin="284,51,416,268" RenderTransformOrigin="0.5,0.503" Click="btnXuatFile_Click"/>
+
+                    <DataGrid  SelectedCellsChanged="dgvSearchQ_SelectedCellsChanged" AutoGeneratingColumn="dgvClass_AutoGeneratingColumn" Visibility="Hidden" 
+                               Name="dgvSearchQ" HorizontalAlignment="Left" Height="431" Margin="0,99,-377,-180" VerticalAlignment="Top" Width="1159" 
+                               Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="SKU " Binding="{Binding SKU}" />
+                            <DataGridTextColumn Header="Họ Tên " Binding="{Binding FullName}" />
+                            <DataGridTextColumn Header="Ngày Sinh " Binding="{Binding Day_of_Birth, StringFormat=\{0:dd/MM/yyyy\}}" />
+                            <DataGridTextColumn Header="Quốc Tịch " Binding="{Binding Nation}" />
+                            <DataGridTextColumn Header="Số Điện Thoại " Binding="{Binding PhoneNumber}" />
+                            <DataGridTextColumn Header="Địa Chỉ " Binding="{Binding Address}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </GroupBox>
         </Grid>

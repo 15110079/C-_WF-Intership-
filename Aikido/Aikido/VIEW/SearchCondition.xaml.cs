@@ -1,34 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Aikido.DAO;
 using Aikido.BLO;
 using System.ComponentModel;
-using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using app = Microsoft.Office.Interop.Excel.Application;
+using System.Threading;
+using System.Globalization;
 
 namespace Aikido.VIEW
 {
-    /// <summary>
-    /// Interaction logic for SearchCondition.xaml
-    /// </summary>
     public partial class SearchCondition : System.Windows.Window
     {
         public SearchCondition()
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
             //var lst = new SearchMember_BLO();
             //var a = lst.GetStudents();
             //dgvSearchC.ItemsSource = a;
@@ -190,12 +181,21 @@ namespace Aikido.VIEW
                     dgvSearchC.CanUserResizeColumns = false;
                     dgvSearchC.CanUserResizeRows = false;
                     dgvSearchC.ItemsSource = a;
-                    dgvSearchC.Columns[4].Width = 300;
-                    dgvSearchC.Columns[0].Visibility = Visibility.Hidden;
-                    for (int i = 8; i < 33; i++)
+                    dgvSearchC.Columns[0].Width = 70;
+                    dgvSearchC.Columns[1].Width = 250;
+                    dgvSearchC.Columns[2].Width = 100;
+                    dgvSearchC.Columns[3].Width = 100;
+                    dgvSearchC.Columns[4].Width = 150;
+                    dgvSearchC.Columns[5].Width = 350;
+                    dgvSearchC.Columns[15].Width = 150;
+                  
+                    // dgvSearchC.Columns[5].Width = 300;
+                    //dgvSearchC.Columns[1].Visibility = Visibility.Hidden;
+                    for (int i = 6; i < 40; i++)
                     {
                         dgvSearchC.Columns[i].Visibility = Visibility.Hidden;
                     }
+                    dgvSearchC.Columns[15].Visibility = Visibility.Visible;
                 }
 
             }
@@ -282,15 +282,17 @@ namespace Aikido.VIEW
                     crg++;
                     foreach (var i in dgvSearchC.Columns)
                     {
-
-                        Range cli;
-                        cli = oSheet.get_Range(rg[crg], rg[crg]);
-                        cli.Value2 = i.Header;
-                        cli.ColumnWidth = 18.0;
-                        cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
-                        cl.Add(cli);
-                        crg++;
-                        if (crg == 33) break;
+                        if (!i.Header.Equals("SKU ")&& !i.Header.Equals("Họ Tên ")&& !i.Header.Equals("Ngày Sinh ")&& !i.Header.Equals("Số Điện Thoại ")&& !i.Header.Equals("Địa Chỉ ")&& !i.Header.Equals("Quốc Tịch "))
+                        {
+                            Range cli;
+                            cli = oSheet.get_Range(rg[crg], rg[crg]);
+                            cli.Value2 = i.Header;
+                            cli.ColumnWidth = 18.0;
+                            cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
+                            cl.Add(cli);
+                            crg++;
+                            if (crg ==33 ) break;
+                        }
                     }
 
                     //Nội dung điền lên excel
@@ -308,8 +310,8 @@ namespace Aikido.VIEW
                         arr[r, 6] = "'" + dt.PhoneNumber.ToString();
                         arr[r, 7] = dt.Day_Create.ToShortDateString();
                         arr[r, 8] = dt.Day_of_Birth.ToShortDateString();
-                        arr[r, 9] = dt.Place_of_birth.ToString().Contains(" ") == true ? " " : dt.Place_of_birth.ToString();
-                        arr[r, 10] = dt.Class_Name.ToString().Contains(" ") == true ? " " : dt.Class_Name.ToString();
+                        arr[r, 9] = dt.Place_of_birth.ToString();
+                        arr[r, 10] = dt.Class_Name.ToString();
                         arr[r, 11] = dt.DAI_Cap_6.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_6.ToShortDateString();
                         arr[r, 12] = dt.DAI_Cap_5.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_5.ToShortDateString();
                         arr[r, 13] = dt.DAI_Cap_4.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_4.ToShortDateString();
@@ -340,7 +342,7 @@ namespace Aikido.VIEW
                     int rowStart = 2;
                     int columnStart = 1;
                     int rowEnd = rowStart + dgvSearchC.Items.Count - 1;
-                    int columnEnd = dgvSearchC.Columns.Count;
+                    int columnEnd = dgvSearchC.Columns.Count-7;
 
                     // Ô bắt đầu điền dữ liệu
 

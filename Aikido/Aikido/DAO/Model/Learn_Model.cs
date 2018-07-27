@@ -31,6 +31,20 @@ namespace Aikido.DAO
         public decimal Fee_November { get; set; }
         public decimal Fee_December { get; set; }
 
+
+        public decimal FeeD_January { get; set; }
+        public decimal FeeD_February { get; set; }
+        public decimal FeeD_March { get; set; }
+        public decimal FeeD_April { get; set; }
+        public decimal FeeD_May { get; set; }
+        public decimal FeeD_June { get; set; }
+        public decimal FeeD_July { get; set; }
+        public decimal FeeD_August { get; set; }
+        public decimal FeeD_September { get; set; }
+        public decimal FeeD_October { get; set; }
+        public decimal FeeD_November { get; set; }
+        public decimal FeeD_December { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime RegisterDay { get; set; }
 

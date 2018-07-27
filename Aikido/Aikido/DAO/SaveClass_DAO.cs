@@ -12,7 +12,13 @@ namespace Aikido.DAO
         {
             using (var dataContext = new AccessDB_DAO())
             {
-                int IdClass = dataContext.Classes.Max(s => s.ID_Class);
+                int IdClass;
+                try {
+                    IdClass = dataContext.Classes.Max(s => s.ID_Class);
+                } catch
+                {
+                    IdClass = 0;
+                }
                 foreach (var dataClass in datadgvAdd)
                 {
                     Class data = new Class();

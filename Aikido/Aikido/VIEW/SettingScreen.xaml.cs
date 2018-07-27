@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace Aikido.VIEW
 {
-    /// <summary>
-    /// Interaction logic for SettingScreen.xaml
-    /// </summary>
     public partial class SettingScreen : Window
     {
         SettingImage_BLO settingImage_BLO= new SettingImage_BLO();

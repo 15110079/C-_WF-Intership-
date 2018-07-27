@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Aikido.BLO;
-using Aikido.DAO;
 using Aikido.DAO.Model;
 namespace Aikido.VIEW
 {
@@ -36,10 +33,6 @@ namespace Aikido.VIEW
 
         public ClassScreen()
         {
-            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-            ci.DateTimeFormat.ShortTimePattern = "hh:mm";
-            Thread.CurrentThread.CurrentCulture = ci;
-
             InitializeComponent();
             DataSet data = new DataSet();
 
@@ -261,35 +254,35 @@ namespace Aikido.VIEW
                 {
                     if (currentItem.txtName == null || currentItem.txtName == "")
                     {
-                        err += " - Tên Lớp chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Tên Lớp chưa được nhập\n"; error = false;
                     }
                     if (currentItem.txtStartTime == null || currentItem.txtStartTime == "")
                     {
-                        err += " - Giờ Bắt Đầu chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtStartTime) == false)
                     {
-                        err += " - Giờ Bắt Đầu Dạng HH:MM" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu Dạng HH:MM\n"; error = false;
                     }
                     if (currentItem.txtFinishTime == null || currentItem.txtFinishTime == "")
                     {
-                        err += " - Giờ Kết Thúc chưa được nhập" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtFinishTime) == false)
                     {
-                        err += " - Giờ Kết Thúc Dạng HH:MM" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc Dạng HH:MM\n"; error = false;
                     }
                     if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
                     {
                         if (DateTime.Parse(currentItem.txtStartTime).Hour > DateTime.Parse(currentItem.txtFinishTime).Hour)
                         {
-                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                         }
                         else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
                         {
                             if (DateTime.Parse(currentItem.txtStartTime).Minute > DateTime.Parse(currentItem.txtFinishTime).Minute)
                             {
-                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n"; error = false;
+                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                             }
                         }
                     }
@@ -299,7 +292,7 @@ namespace Aikido.VIEW
                             && currentItem.cbSunday == false
                       )
                     {
-                        err += " - Chọn ít nhất một ngày học trong tuần" + " Dòng " + (IDdataAdd[line1] + 1).ToString() + "\n";
+                        err += " - Chọn ít nhất một ngày học trong tuần\n";
                         error = false;
                     }
                     line1++;
@@ -308,35 +301,35 @@ namespace Aikido.VIEW
                 {
                     if (currentItem.txtName == null || currentItem.txtName == "")
                     {
-                        err += " - Tên Lớp chưa được nhập" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        err += " - Tên Lớp chưa được nhập\n"; error = false;
                     }
                     if (currentItem.txtStartTime == null || currentItem.txtStartTime == "")
                     {
-                        err += " - Giờ Bắt Đầu chưa được nhập" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtStartTime) == false)
                     {
-                        err += " - Giờ Bắt Đầu Dạng HH:MM" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Bắt Đầu Dạng HH:MM\n"; error = false;
                     }
                     if (currentItem.txtFinishTime == null || currentItem.txtFinishTime == "")
                     {
-                        err += " - Giờ Kết Thúc chưa được nhập" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;
                     }
                     else if (CheckTimeInput(currentItem.txtFinishTime) == false)
                     {
-                        err += " - Giờ Kết Thúc Dạng HH:MM" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                        err += " - Giờ Kết Thúc Dạng HH:MM\n"; error = false;
                     }
                     if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
                     {
                         if (DateTime.Parse(currentItem.txtStartTime).Hour > DateTime.Parse(currentItem.txtFinishTime).Hour)
                         {
-                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                         }
                         else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
                         {
                             if (DateTime.Parse(currentItem.txtStartTime).Minute >= DateTime.Parse(currentItem.txtFinishTime).Minute)
                             {
-                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n"; error = false;
+                                err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                             }
                         }
                     }
@@ -346,12 +339,11 @@ namespace Aikido.VIEW
                             && currentItem.cbSunday == false
                       )
                     {
-                        err += " - Chọn ít nhất một ngày học trong tuần" + " Dòng " + (IDdataEdit[line2] + 1).ToString() + "\n";
+                        err += " - Chọn ít nhất một ngày học trong tuần\n";
                         error = false;
                     }
                     line2++;
                 }
-                //dgvClass.CanUserAddRows = false;
             }
             catch
             {
@@ -365,7 +357,8 @@ namespace Aikido.VIEW
         {
             try
             {
-                if (dgvClass.Items.Count - 2 == dgvClass.SelectedIndex)
+                var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;
+                if (dgvClass.Items.Count - 2 == dgvClass.SelectedIndex && id.ID == 0)
                 {
                     int kt = 0;
                     foreach (var i in IDdataAdd)
@@ -403,7 +396,6 @@ namespace Aikido.VIEW
                         if (kte == 0) IDdataEdit.Add(dgvClass.SelectedIndex);
                     }
                 }
-                //dgvClass.CanUserAddRows = false;
             }
             catch
             {

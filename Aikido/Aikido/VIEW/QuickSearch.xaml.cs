@@ -17,6 +17,8 @@ using app = Microsoft.Office.Interop.Excel.Application;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Threading;
 
 namespace Aikido.VIEW
 {
@@ -27,7 +29,12 @@ namespace Aikido.VIEW
     {
         public QuickSearch()
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             InitializeComponent();
+   
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -163,6 +170,16 @@ namespace Aikido.VIEW
             {
                 e.Column.Header = att.Name;
             }
+            // if(e.PropertyName.Equals( "Day_of_Birth"))
+            //{
+            //    try{
+            //        (e.Column, DataGridDateTimeColumn).EditMode = DataGridDateTimeColumnEditMode.Date
+            //      e.Column.Format = "dd/MM/yyyy"
+            //    ridViewDateTimeColumn column = (GridViewDateTimeColumn)this.radGridView1.Columns["Date"];
+            //    column.DataTextFormatString = "{0:dd.mm.yy}";
+            //    column.DataTextFormatString = "{0:hh.mm}";
+            //}
+          
         }
         private void btnTimKiem_Click(object sender, RoutedEventArgs e)
         {
@@ -172,6 +189,7 @@ namespace Aikido.VIEW
 
         public void TimKiem()
         {
+     
             String error = null;
             int err = 0;
             try
@@ -193,7 +211,12 @@ namespace Aikido.VIEW
                         MessageBox.Show("Không tìm thấy " + txtTimKiem.Text);
                     }
                     else
+                    {
+                      
+
                         dgvSearchQ.ItemsSource = a;
+
+                    }
                 }
                 else
                 {
@@ -214,14 +237,21 @@ namespace Aikido.VIEW
                     dgvSearchQ.CanUserResizeColumns = false;
                     dgvSearchQ.CanUserResizeRows = false;
                     dgvSearchQ.ItemsSource = a;
+                    dgvSearchQ.Columns[0].Width = 70;
+                    dgvSearchQ.Columns[1].Width = 250;
+                    dgvSearchQ.Columns[2].Width = 100;
+                    dgvSearchQ.Columns[3].Width = 100;
+                    dgvSearchQ.Columns[4].Width = 150;
+                    dgvSearchQ.Columns[5].Width = 350;
+                    dgvSearchQ.Columns[15].Width = 150;
 
-
-                    dgvSearchQ.Columns[4].Width = 300;
-                    dgvSearchQ.Columns[0].Visibility = Visibility.Hidden;
-                    for (int i = 8; i < 33; i++)
+                    // dgvSearchQ.Columns[5].Width = 300;
+                    //dgvSearchQ.Columns[1].Visibility = Visibility.Hidden;
+                    for (int i = 6; i < 40; i++)
                     {
                         dgvSearchQ.Columns[i].Visibility = Visibility.Hidden;
                     }
+                    dgvSearchQ.Columns[15].Visibility = Visibility.Visible;
                 }
             }
         }
@@ -229,7 +259,7 @@ namespace Aikido.VIEW
 
         private void btnXuatFile_Click(object sender, RoutedEventArgs e)
         {
-            XuatExcel();
+            XuatExcel("Quick Search");
         }
 
         private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
@@ -240,7 +270,7 @@ namespace Aikido.VIEW
             }
 
         }
-        private void XuatExcel()
+        private void XuatExcel(String sheetname)
         {
             //Tạo các đối tượng Excel
             try
@@ -264,7 +294,7 @@ namespace Aikido.VIEW
                     oBook = (Workbook)(oExcel.Workbooks.Add(Type.Missing));
                     oSheets = oBook.Worksheets;
                     oSheet = (Worksheet)oSheets.get_Item(1);
-                    oSheet.Name = "Export Search";
+                    oSheet.Name = sheetname;
                     //Header
 
                     Range head = oSheet.get_Range("A1", "AG1");
@@ -294,15 +324,17 @@ namespace Aikido.VIEW
                     crg++;
                     foreach (var i in dgvSearchQ.Columns)
                     {
-
-                        Range cli;
-                        cli = oSheet.get_Range(rg[crg], rg[crg]);
-                        cli.Value2 = i.Header;
-                        cli.ColumnWidth = 18.0;
-                        cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
-                        cl.Add(cli);
-                        crg++;
-                        if (crg == 33) break;
+                        if (!i.Header.Equals("SKU ") && !i.Header.Equals("Họ Tên ") && !i.Header.Equals("Ngày Sinh ") && !i.Header.Equals("Số Điện Thoại ") && !i.Header.Equals("Địa Chỉ ") && !i.Header.Equals("Quốc Tịch "))
+                        {
+                            Range cli;
+                            cli = oSheet.get_Range(rg[crg], rg[crg]);
+                            cli.Value2 = i.Header;
+                            cli.ColumnWidth = 18.0;
+                            cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
+                            cl.Add(cli);
+                            crg++;
+                            if (crg == 33) break;
+                        }
                     }
 
                     //Nội dung điền lên excel
@@ -320,8 +352,8 @@ namespace Aikido.VIEW
                         arr[r, 6] = "'" + dt.PhoneNumber.ToString();
                         arr[r, 7] = dt.Day_Create.ToShortDateString();
                         arr[r, 8] = dt.Day_of_Birth.ToShortDateString();
-                        arr[r, 9] = dt.Place_of_birth.ToString().Contains(" ") == true ? " " : dt.Place_of_birth.ToString();
-                        arr[r, 10] = dt.Class_Name.ToString().Contains(" ") == true ? " " : dt.Class_Name.ToString();
+                        arr[r, 9] = dt.Place_of_birth.ToString();
+                        arr[r, 10] = dt.Class_Name.ToString();
                         arr[r, 11] = dt.DAI_Cap_6.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_6.ToShortDateString();
                         arr[r, 12] = dt.DAI_Cap_5.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_5.ToShortDateString();
                         arr[r, 13] = dt.DAI_Cap_4.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_4.ToShortDateString();
@@ -352,7 +384,7 @@ namespace Aikido.VIEW
                     int rowStart = 2;
                     int columnStart = 1;
                     int rowEnd = rowStart + dgvSearchQ.Items.Count - 1;
-                    int columnEnd = dgvSearchQ.Columns.Count;
+                    int columnEnd = dgvSearchQ.Columns.Count - 7;
 
                     // Ô bắt đầu điền dữ liệu
 
@@ -406,5 +438,6 @@ namespace Aikido.VIEW
             this.Close();
         }
 
+       
     }
 }

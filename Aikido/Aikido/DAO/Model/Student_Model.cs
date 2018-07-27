@@ -34,7 +34,8 @@ namespace Aikido.DAO
 
         public byte[] Image { get; set; }
 
-        [DataType(DataType.Date)]
+
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Day_of_Birth { get; set; }
 
         [Required]

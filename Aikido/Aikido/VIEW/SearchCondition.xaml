@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Aikido.VIEW"
              mc:Ignorable="d" 
-              Title="Tìm Kiếm Theo Điều Kiện" Height="663" Width="955" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+              Title="Tìm Kiếm Theo Điều Kiện" Height="663" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Width="935">
         <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,0,0,0" Width="935">
             <Menu Margin="0,0,770,10" Name="btnDKHV"
@@ -14,7 +14,7 @@
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                 <MenuItem  Header="    Đăng Ký Hội Viên" Height="50" Width="165" Click="Register_Click"></MenuItem>
             </Menu>
-            
+
             <Menu Name="btnSearch" FontSize="15" FontWeight="Bold" Background="White" FontStyle="Normal" Foreground="Blue" Margin="165,0,605,10" Mouse.MouseEnter="btnSearch_MouseEnter" Mouse.MouseLeave="btnSearch_MouseLeave">
                 <MenuItem Name="btnSearchI" Foreground="Blue" Header="         Tìm Kiếm" Height="50" Width="165" FontFamily="Arial" Background="LightGray" Mouse.MouseEnter="btnSearch_MouseEnter" Mouse.MouseLeave="btnSearch_MouseLeave">
                     <MenuItem Click="Quick_Click" Header="Tìm Kiếm Nhanh" Height="26" />
@@ -64,23 +64,38 @@
             <Label Margin="660,45,129,10" Name="btnTLb"/>
 
             <Label Margin="806,45,0,10" Name="btnHelpb"/>
-            
-        </Grid>
-        <Grid Name="ScreenSeachCondition" Margin="0,75,0,-568" Visibility="Visible" Grid.ColumnSpan="2">
-            <GroupBox TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16">
-                <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontWeight="Normal" TextElement.FontSize="15">
-                    <Label Content="SKU" Margin="10,10,713,310"/>
-                    <TextBox Name="txtSKU" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="72,10,428,317" Height="25" />
-                    <Label Content="Họ Tên" Margin="10,47,710,279"/>
-                    <TextBox Name="txtHoTen" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Margin="72,47,428,278" Height="25"/>
-                    <Label Content="Ngày Đăng Ký" Margin="376,5,295,315"/>
-                    <DatePicker Name="dtpNgayDangKy" HorizontalAlignment="Left" Margin="492,5,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
-                    <Label Content="Ngày Sinh" Margin="376,47,294,265"/>
-                    <DatePicker Name="dtpNgaySinh"  HorizontalAlignment="Left" Margin="492,47,0,0" VerticalAlignment="Top" Width="280" Height="25"/>
-                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="10,87,697,234" Click="btnTimKiem_Click"  />
-                    <Button Name="btnXuatFile" Content="Xuất File" Margin="103,87,604,234" Click="btnXuatFile_Click"/>
-                    <DataGrid SelectedCellsChanged="dgvSearchC_SelectedCellsChanged" Visibility="Hidden"  Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="10,134,-142,-187" VerticalAlignment="Top" Width="914"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" AutoGeneratingColumn="dgvSearchC_AutoGeneratingColumn" >
 
+        </Grid>
+        <Grid Name="ScreenSeachCondition" Margin="-115,77,-115,-570" Visibility="Visible">
+            <GroupBox Header="Tìm Kiếm Theo Điều Kiên" TextElement.FontWeight="Bold" TextElement.FontFamily="Arial" TextElement.FontSize="16" Margin="0,0,0.111,-0.556">
+                <Grid Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="782" TextElement.FontWeight="Normal" TextElement.FontSize="15" Margin="4,0,0,0">
+                    <Label Content="SKU" Margin="156,10,567,310"/>
+                    <TextBox Name="txtSKU" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="218,10,282,315" Height="25" />
+                    <Label Content="Họ Tên" Margin="156,47,564,279"/>
+                    <TextBox Name="txtHoTen" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Margin="218,47,282,278" Height="25"/>
+                    <Label Content="Ngày Đăng Ký" Margin="522,5,149,315"/>
+                    <DatePicker Name="dtpNgayDangKy" HorizontalAlignment="Left" Margin="638,5,-136,0" VerticalAlignment="Top" Width="280" Height="25"/>
+                    <Label Content="Ngày Sinh" Margin="522,47,148,265"/>
+                    <DatePicker Name="dtpNgaySinh"  HorizontalAlignment="Left" Margin="638,47,-136,0" VerticalAlignment="Top" Width="280" Height="25"/>
+                    <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="160,87,547,234" Click="btnTimKiem_Click"  />
+                    <Button Name="btnXuatFile" Content="Xuất File" Margin="253,87,454,234" Click="btnXuatFile_Click"/>
+                    <DataGrid SelectedCellsChanged="dgvSearchC_SelectedCellsChanged" Visibility="Hidden" AutoGenerateColumns="True"  Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="-1,135,-369,-188" VerticalAlignment="Top" Width="1152"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" AutoGeneratingColumn="dgvSearchC_AutoGeneratingColumn" >
+                        <DataGrid.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="0.334"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="2.661"/>
+                            </TransformGroup>
+                        </DataGrid.RenderTransform>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="SKU " Binding="{Binding SKU}" />
+                            <DataGridTextColumn Header="Họ Tên " Binding="{Binding FullName}" />
+                            <DataGridTextColumn Header="Ngày Sinh " Binding="{Binding Day_of_Birth, StringFormat=\{0:dd/MM/yyyy\}}" />
+                            <DataGridTextColumn Header="Quốc Tịch " Binding="{Binding Nation}" />
+                            <DataGridTextColumn Header="Số Điện Thoại " Binding="{Binding PhoneNumber}" />
+                            <DataGridTextColumn Header="Địa Chỉ " Binding="{Binding Address}" />
+                        </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </GroupBox>

@@ -1,24 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Aikido.DAO;
 using Aikido.BLO;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
-using Microsoft.Win32;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 using Aikido.DAO.Model;
 
 namespace Aikido.VIEW
@@ -26,10 +15,9 @@ namespace Aikido.VIEW
     ///
     public partial class RegisterMemberScreen : Window
     {
-        RegisterMember_BLO db ;
-        ManageClass_BLO ClassDB;
+        RegisterMember_BLO db =  new RegisterMember_BLO(); 
+        ManageClass_BLO ClassDB= new ManageClass_BLO();
         private Brush brush;
-        private int NewRegisterNumber;
         private byte[] arrImage=null;
 
         //Constructor
@@ -45,14 +33,10 @@ namespace Aikido.VIEW
             brush = (Brush)bc.ConvertFrom("#E5E1E1");
             brush.Freeze();
 
-            //Load New Register Number
-             db = new RegisterMember_BLO();
-             NewRegisterNumber = db.NewRegisterNumber() + 1;
             //txtRegisterNumber.Text = ("0000"+NewRegisterNumber).ToString();
             txtRegisterNumber.Background= Brushes.WhiteSmoke;
 
             //Load Class in Combobox
-            ClassDB = new ManageClass_BLO();
             List<Class> showCombobox = ClassDB.ComboxClass();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
@@ -69,7 +53,7 @@ namespace Aikido.VIEW
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-            ClassDB = new ManageClass_BLO();
+           
             List<Class> showCombobox = ClassDB.ComboxClass();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
@@ -81,24 +65,35 @@ namespace Aikido.VIEW
         // Handle register member
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            DateTime Day_Create = DateTime.Now;
+            Boolean DeleteFlag = false;
             if (Check_DataBase() == true)
             {
-                try
+                MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+                info = getDB_FromForm();
+                if (txtRegisterNumber.Text.Equals(""))
                 {
-                    CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-                    ci.DateTimeFormat.ShortDatePattern = "dd mm yyyy";
-                    Thread.CurrentThread.CurrentCulture = ci; 
+                    try
+                    {                   
+                        db.RegisterNewMember(info, Day_Create, DeleteFlag);
 
-                    DateTime Day_Create = DateTime.Now;
-                    Boolean DeleteFlag = false;
-                    MemberInfo_ViewModel info = new MemberInfo_ViewModel();
-                    info = getDB_FromForm();
-                    db.RegisterNewMember(info, Day_Create, DeleteFlag);
-
+                    }
+                    catch(Exception r)
+                    {
+                        MessageBox.Show("Lưu không thành công"+r, "Lỗi"); return;
+                    }
+                    SetEmplty();
                 }
-                catch
+                else
                 {
-                    MessageBox.Show("Lưu không thành công", "Lỗi"); return;
+                    try
+                    {
+                        db.EditMember_Info(info, Day_Create, DeleteFlag);
+                    }
+                    catch(Exception r)
+                    {
+                        MessageBox.Show("Lưu không thành công"+r, "Lỗi"); return;
+                    }
                 }
                 MessageBox.Show("Lưu Thành Công");
             }
@@ -214,7 +209,8 @@ namespace Aikido.VIEW
             SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
             try
             {
-                ImageBrush image = settingImage_BLO.LoadImage_Button();
+                ImageBrush image  = new ImageBrush();
+                image.ImageSource =settingImage_BLO.ConvertByte_ToImage(arrImage);
                 if (image == null) return;  // Case: Open Dialog but not choose image
                 ImageButton.Background = image;
             }
@@ -265,12 +261,13 @@ namespace Aikido.VIEW
         private MemberInfo_ViewModel getDB_FromForm( )
         {
             MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+            if (!txtRegisterNumber.Text.Equals("")) info.RegisterNumber = int.Parse(txtRegisterNumber.Text); //TH edit
+            else info.RegisterNumber = db.NewRegisterNumber() + 1; 
             info.SKU = txtSKU.Text;
             info.FullName = txtName.Text;
             info.Nation = txtNation.Text;
             info.Address = txtAddress.Text;
             info.PhoneNumber = txtPhone.Text;
-            info.RegisterNumber = NewRegisterNumber;
             info.Register_day = dtpRegisterDay.SelectedDate.Value;
             info.Day_of_Birth = (dtpBirthday.SelectedDate == null) ? DateTime.MinValue : dtpBirthday.SelectedDate.Value.Date;
             info.Place_of_Birth = txtBirthplace.Text;
@@ -305,7 +302,51 @@ namespace Aikido.VIEW
 
         }
         //------------------------------------------------------Menu bar
+        private void SetEmplty()
+        {
 
+            txtSKU.Text = "";
+            txtRegisterNumber.Text = "";
+            txtName.Text = "";
+            txtNation.Text = "";
+            txtAddress.Text = "";
+            txtPhone.Text = "";
+            dtpBirthday.Text = "";
+            dtpRegisterDay.Text = "";
+            txtBirthplace.Text = "";
+            cboRegisterClass.Text = "";
+            cboRegisterClass.SelectedValue = null;
+            cboRegisterClass.Text = "";
+
+            dtpRegisterDay.SelectedDate = DateTime.Now;
+            arrImage = null;
+            ImageButton.Background = Brushes.WhiteSmoke; 
+
+            dtpLevel6.Text = "";
+            dtpLevel5.Text = "";
+            dtpLevel4.Text = "";
+            dtpLevel3.Text = "";
+            dtpLevel2.Text = "";
+            dtpLevel1.Text = "";
+            dtpDanVN1.Text = "";
+            dtpDanVN2.Text = "";
+            dtpDanVN3.Text = "";
+            dtpDanVN4.Text = "";
+            dtpDanVN5.Text = "";
+            dtpDanVN6.Text = "";
+            dtpDanVN7.Text = "";
+            dtpDanVN8.Text = "";
+
+
+            dtpDanAIKIKAI1.Text = "";
+            dtpDanAIKIKAI2.Text = "";
+            dtpDanAIKIKAI3.Text = "";
+            dtpDanAIKIKAI4.Text = "";
+            dtpDanAIKIKAI5.Text = "";
+            dtpDanAIKIKAI6.Text = "";
+            dtpDanAIKIKAI7.Text = "";
+            dtpDanAIKIKAI8.Text = "";
+        }
         
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {

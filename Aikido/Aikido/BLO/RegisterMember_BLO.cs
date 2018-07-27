@@ -35,7 +35,16 @@ namespace Aikido.BLO
            return  register_number= SaveMember_DAO.RegisterNewMember();
         }
 
-      
+        public void EditMember_Info(MemberInfo_ViewModel info, DateTime Day_Create, Boolean DeleteFlage)
+        {
+            {//get Register New Member
+                SaveMember_DAO.EditMember(info.RegisterNumber, info.SKU, info.FullName, info.Nation, info.Address, info.PhoneNumber, info.Register_day, info.Day_of_Birth, info.Place_of_Birth, Day_Create, DeleteFlage, info.Image);
+                SaveMember_DAO.EditRegisterClass(info.RegisterNumber, info.ID_Class, info.Register_day);
+                SaveMember_DAO.EditLevel(info.listLevel, info.RegisterNumber);
+
+            }
+        }
+
         
     }
 }

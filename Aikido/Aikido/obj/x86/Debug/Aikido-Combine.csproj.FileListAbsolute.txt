@@ -766,6 +766,7 @@ E:\Combine\C-_WF-Intership-\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csproj.Co
 E:\Combine\C-_WF-Intership-\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csproj.CopyComplete
 E:\Combine\C-_WF-Intership-\Aikido\Aikido\obj\x86\Debug\Aikido.exe
 E:\Combine\C-_WF-Intership-\Aikido\Aikido\obj\x86\Debug\Aikido.pdb
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\x86\e_sqlite3.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\x64\e_sqlite3.dll
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Aikido.exe.config
@@ -906,7 +907,6 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microso
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\EntityFramework.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\EntityFramework.SqlServer.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.Data.Sqlite.xml
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.EntityFrameworkCore.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.EntityFrameworkCore.Relational.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\Microsoft.EntityFrameworkCore.Sqlite.xml
@@ -931,7 +931,6 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\System.
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\System.Memory.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\System.Numerics.Vectors.xml
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\bin\x86\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csprojAssemblyReference.cache
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido.exe.config
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\VIEW\ClassScreen.g.cs
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\VIEW\FeeScreen.g.cs
@@ -958,3 +957,4 @@ C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido-
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csproj.CopyComplete
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido.exe
 C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido.pdb
+C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csprojAssemblyReference.cache

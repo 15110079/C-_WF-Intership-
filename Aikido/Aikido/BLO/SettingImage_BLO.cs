@@ -25,7 +25,7 @@ namespace Aikido.BLO
             }
             return null;
         }
-        //Load Image from DB
+        //Load Image for view
 
         //Save Setting
         public void SaveImage_ToDB(byte[] arrImage)
@@ -46,11 +46,16 @@ namespace Aikido.BLO
         {
             SettingBackground_DAO settingBackground_DAO = new SettingBackground_DAO();
             byte[] arrimage = settingBackground_DAO.LoadImage_FromDB();
-            MemoryStream m= new MemoryStream(arrimage);
-            Image image = Image.FromStream(m);
-            return image;
+            if (arrimage != null)
+            {
+                MemoryStream m = new MemoryStream(arrimage);
+                Image image = Image.FromStream(m);
+                return image;
+            }
+            return null;
         }
-        private BitmapImage ConvertByte_ToImage(byte[] arrimage)
+      
+        public BitmapImage ConvertByte_ToImage(byte[] arrimage)
         {
             if (arrimage == null || arrimage.Length == 0) return null;
             var image = new BitmapImage();

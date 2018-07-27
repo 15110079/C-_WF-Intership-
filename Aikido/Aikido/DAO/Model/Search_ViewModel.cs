@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aikido.DAO.Model
 {
     public class Search_Model
     {
+
+     
         [ColumnName("Số Đăng Ký")]
         public int RegisterNumber { get; set; }
 
@@ -26,9 +30,11 @@ namespace Aikido.DAO.Model
         [ColumnName("Số Điện Thoại")]
         public String PhoneNumber { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("Ngày Sinh")]
         public DateTime Day_of_Birth { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("Ngày Đăng Ký")]
         public DateTime Day_Create { get; set; }
 
@@ -38,21 +44,27 @@ namespace Aikido.DAO.Model
         [ColumnName("Lớp")]
         public String Class_Name { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 6")]
         public DateTime DAI_Cap_6 { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 5")]
         public DateTime DAI_Cap_5 { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 4")]
         public DateTime DAI_Cap_4 { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 3")]
         public DateTime DAI_Cap_3 { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 2")]
         public DateTime DAI_Cap_2 { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [ColumnName("DAI Cấp 1")]
         public DateTime DAI_Cap_1 { get; set; }
 

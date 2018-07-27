@@ -1,12 +1,10 @@
-﻿using Aikido.BLO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Aikido.DAO.Model;
 using System.Globalization;
+using System.Linq;
+using System.Threading;
+using Aikido.DAO.Model;
 
 
 namespace Aikido.DAO
@@ -21,56 +19,56 @@ namespace Aikido.DAO
 
             using (var dbContext = new AccessDB_DAO())
             {
+           
+
                 List<Search_Model> datas = new List<Search_Model>();
                 try
                 {
-                    var query = dbContext.Students;
-
-                    //var a=dbContext.Searches.Select(c => new { c.FullName, c.Nation }).ToList();
+                    var query = dbContext.Learns;
                     foreach (var i in query)
                     {
+                        var MemberInfo = dbContext.Students.Single(c => c.RegisterNumber == i.RegisterNumber);
+                        var ClassInfo = dbContext.Classes.Single(l => l.ID_Class == i.ID_Class);
                         Search_Model data = new Search_Model();
                         data.RegisterNumber = i.RegisterNumber;
-                        data.SKU = i.SKU;
-                        data.FullName = i.FullName;
-                        data.Nation = i.Nation;
-                        data.Address = i.Address;
-                        data.PhoneNumber = i.PhoneNumber;
-                        data.Day_of_Birth = i.Day_of_Birth.Date;
-                        data.Place_of_birth = i.Place_of_Birth;
+                        data.SKU = MemberInfo.SKU;
+                        data.FullName = MemberInfo.FullName;
+                        data.Nation = MemberInfo.Nation;
+                        data.Address = MemberInfo.Address;
+                        data.PhoneNumber = MemberInfo.PhoneNumber;
+                        data.Day_of_Birth = MemberInfo.Day_of_Birth.Date;
+                        data.Place_of_birth = MemberInfo.Place_of_Birth;
                         data.Day_Create = i.Day_Create.Date;
-                        var lp = dbContext.Learns.Where(s => s.RegisterNumber == i.RegisterNumber).Last();
-                        var gt = dbContext.Classes.Where(s => s.ID_Class == lp.ID_Class).Last();
-                        data.class_ID = gt.ID_Class;
-                        data.Class_Name = gt.Class_Name;
-                        data.Image = i.Image;
-                       
+                        data.class_ID = ClassInfo.ID_Class;
+                        data.Class_Name = ClassInfo.Class_Name;
+                        data.Image = MemberInfo.Image;
+
                         //Lấy Mã DAI DAN
                         foreach (var dd in dbContext.Provide_Dai_Dans.Where(s => s.RegisterNumber == i.RegisterNumber))
                         {
                             var na = dbContext.Dai_Dans.Where(s => s.ID == dd.ID_DAI_DAN).First();
-                            if (na.Name.Equals("Cấp 6")) data.DAI_Cap_6 = dd.Day_Create;
-                            if (na.Name.Equals("Cấp 5")) data.DAI_Cap_5 = dd.Day_Create;
-                            if (na.Name.Equals("Cấp 4")) data.DAI_Cap_4 = dd.Day_Create;
-                            if (na.Name.Equals("Cấp 3")) data.DAI_Cap_3 = dd.Day_Create;
-                            if (na.Name.Equals("Cấp 2")) data.DAI_Cap_2 = dd.Day_Create;
-                            if (na.Name.Equals("Cấp 1")) data.DAI_Cap_1 = dd.Day_Create;
-                            if (na.Name.Equals("I DAN VN")) data.DAN_VN_1 = dd.Day_Create;
-                            if (na.Name.Equals("II DAN VN")) data.DAN_VN_2 = dd.Day_Create;
-                            if (na.Name.Equals("III DAN VN")) data.DAN_VN_3 = dd.Day_Create;
-                            if (na.Name.Equals("IV DAN VN")) data.DAN_VN_4 = dd.Day_Create;
-                            if (na.Name.Equals("V DAN VN")) data.DAN_VN_5 = dd.Day_Create;
-                            if (na.Name.Equals("VI DAN VN")) data.DAN_VN_6 = dd.Day_Create;
-                            if (na.Name.Equals("VII DAN VN")) data.DAN_VN_7 = dd.Day_Create;
-                            if (na.Name.Equals("VIII DAN VN")) data.DAN_VN_8 = dd.Day_Create;
-                            if (na.Name.Equals("I DAN AIKIKAI")) data.DAN_AIKIKAI_1 = dd.Day_Create;
-                            if (na.Name.Equals("II DAN AIKIKAI")) data.DAN_AIKIKAI_2 = dd.Day_Create;
-                            if (na.Name.Equals("III DAN AIKIKAI")) data.DAN_AIKIKAI_3 = dd.Day_Create;
-                            if (na.Name.Equals("IV DAN AIKIKAI")) data.DAN_AIKIKAI_4 = dd.Day_Create;
-                            if (na.Name.Equals("V DAN AIKIKAI")) data.DAN_AIKIKAI_5 = dd.Day_Create;
-                            if (na.Name.Equals("VI DAN AIKIKAI")) data.DAN_AIKIKAI_6 = dd.Day_Create;
-                            if (na.Name.Equals("VII DAN AIKIKAI")) data.DAN_AIKIKAI_7 = dd.Day_Create;
-                            if (na.Name.Equals("VIII DAN AIKIKAI")) data.DAN_AIKIKAI_8 = dd.Day_Create;
+                            if (na.Name.Equals("Cap6")) data.DAI_Cap_6 = dd.Day_Provide;
+                            if (na.Name.Equals("Cap5")) data.DAI_Cap_5 = dd.Day_Provide;
+                            if (na.Name.Equals("Cap4")) data.DAI_Cap_4 = dd.Day_Provide;
+                            if (na.Name.Equals("Cap3")) data.DAI_Cap_3 = dd.Day_Provide;
+                            if (na.Name.Equals("Cap2")) data.DAI_Cap_2 = dd.Day_Provide;
+                            if (na.Name.Equals("Cap1")) data.DAI_Cap_1 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN1")) data.DAN_VN_1 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN2")) data.DAN_VN_2 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN3")) data.DAN_VN_3 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN4")) data.DAN_VN_4 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN5")) data.DAN_VN_5 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN6")) data.DAN_VN_6 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN7")) data.DAN_VN_7 = dd.Day_Provide;
+                            if (na.Name.Equals("DANVN8")) data.DAN_VN_8 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI1")) data.DAN_AIKIKAI_1 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI2")) data.DAN_AIKIKAI_2 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI3")) data.DAN_AIKIKAI_3 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI4")) data.DAN_AIKIKAI_4 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI5")) data.DAN_AIKIKAI_5 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI6")) data.DAN_AIKIKAI_6 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI7")) data.DAN_AIKIKAI_7 = dd.Day_Provide;
+                            if (na.Name.Equals("DANAIKIKAI8")) data.DAN_AIKIKAI_8 = dd.Day_Provide;
                         }
                         
                         datas.Add(data);
@@ -88,7 +86,7 @@ namespace Aikido.DAO
         //Tìm kiếm theo điều kiện
         public List<Search_Model> SearchMember(String SKU, String HoTen, String NgayDangKy, String NgaySinh)
         {
-
+            
             using (var db = new AccessDB_DAO())
             {
                 if (NgayDangKy == "" && NgaySinh == "")
@@ -120,11 +118,6 @@ namespace Aikido.DAO
                 }
                 else if (NgaySinh == "" && NgayDangKy != "")
                 {
-                    //var listThanhVien = from ltv in db.S
-                    //                    where ltv.FullName.Contains(HoTen)
-                    //                    && ltv.SKU.Contains(SKU)
-                    //                    && ltv.Day_Create == DateTime.Parse(NgayDangKy)
-                    //                    select ltv;
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
@@ -138,12 +131,7 @@ namespace Aikido.DAO
 
                 else
                 {
-                    //var listThanhVien = from ltv in db.Searches
-                    //                    where ltv.FullName.Contains(HoTen)
-                    //                    && ltv.SKU.Contains(SKU)
-                    //                    && ltv.Day_Create == DateTime.Parse(NgayDangKy)
-                    //                    && ltv.Day_of_Birth == DateTime.Parse(NgaySinh)
-                    //                    select ltv;
+                  
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
@@ -163,6 +151,9 @@ namespace Aikido.DAO
         {
             using (var db = new AccessDB_DAO())
             {
+                CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+                ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+                Thread.CurrentThread.CurrentCulture = ci;
                 List<Search_Model> listThanhVien = new List<Search_Model>();
 
                 try
