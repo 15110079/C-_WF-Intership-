@@ -31,6 +31,7 @@ namespace Aikido.DAO
             }
             return (data);
         }
+
         public List<dgvFee_ViewModel> selectCondition(int id)
         {
             List<dgvFee_ViewModel> data = new List<dgvFee_ViewModel>();

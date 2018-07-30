@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Aikido.DAO;
+using Aikido.DAO.Model;
 
 namespace Aikido.VIEW
 {
@@ -49,18 +50,18 @@ namespace Aikido.VIEW
                     clas.Day_Update = DateTime.MinValue;
                     clas.Delete_Flag = false;
                     dataContext.Classes.Add(clas);
-                    
+
                     Class clas1 = new Class();
                     clas1.ID_Class = 2;
-                    clas1.Class_Name = "Lop246";
+                    clas1.Class_Name = "Lop357";
                     clas1.Start_Time = DateTime.Parse("14:00");
                     clas1.End_Time = DateTime.Parse("16:00");
-                    clas1.Monday = true;
-                    clas1.Tuesday = false;
-                    clas1.Wednesday = true;
-                    clas1.Thursday = false;
-                    clas1.Friday = true;
-                    clas1.Saturday = false;
+                    clas1.Monday = false;
+                    clas1.Tuesday = true;
+                    clas1.Wednesday = false;
+                    clas1.Thursday = true;
+                    clas1.Friday = false;
+                    clas1.Saturday = true;
                     clas1.Sunday = false;
                     clas1.Day_Create = DateTime.Now;
                     clas1.Day_Update = DateTime.MinValue;
@@ -68,13 +69,13 @@ namespace Aikido.VIEW
                     dataContext.Classes.Add(clas1);
                     dataContext.SaveChanges();
                 }
-                if(dataContext.Students.Count()==0)
+                if (dataContext.Students.Count() == 0)
                 {
                     Student std = new Student();
                     std.RegisterNumber = 1;
                     std.FullName = "Nguyen Van A";
                     std.SKU = "1001001";
-                    std.Nation = "Binh Dinh";
+                    std.Nation = "Viet Nam";
                     std.Address = "Quan 9, Thanh pho Ho Chi Minh";
                     std.PhoneNumber = "0971225645";
                     std.Day_Create = DateTime.Now;
@@ -83,17 +84,17 @@ namespace Aikido.VIEW
                     std.Day_Update = DateTime.MinValue;
                     std.Delete_Flag = false;
                     dataContext.Students.Add(std);
-                    
+
                     Student std1 = new Student();
                     std1.RegisterNumber = 2;
                     std1.FullName = "Nguyen Van B";
                     std1.SKU = "1001001";
-                    std1.Nation = "Binh Dinh";
-                    std1.Address = "Quan 9, Thanh pho Ho Chi Minh";
-                    std1.PhoneNumber = "0971225645";
+                    std1.Nation = "Viet Nam";
+                    std1.Address = "Quan 12, Thanh pho Ho Chi Minh";
+                    std1.PhoneNumber = "0971225679";
                     std1.Day_Create = DateTime.Now;
-                    std1.Day_of_Birth = DateTime.Parse("06/22/1997");
-                    std1.Place_of_Birth = "Binh Dinh";
+                    std1.Day_of_Birth = DateTime.Parse("12/26/1990");
+                    std1.Place_of_Birth = "Nam Dinh";
                     std1.Day_Update = DateTime.MinValue;
                     std1.Delete_Flag = false;
                     dataContext.Students.Add(std1);
@@ -170,7 +171,36 @@ namespace Aikido.VIEW
                     dataContext.Learns.Add(learn1);
                     dataContext.SaveChanges();
                 }
-                
+                if (dataContext.Fees.Count() == 0)
+                {
+                    Fee fee = new Fee();
+                    fee.ID_Learn = 1;
+                    fee.ID_Class = 1;
+                    fee.RegisterNumber = 1;
+                    fee.Fee_Type = "Hội Phí";
+                    fee.Month = DateTime.Now.Month-1;
+                    fee.Year = DateTime.Now.Year;
+                    fee.Fee_Value = 100000;
+                    fee.Day_Create = DateTime.Now;
+                    fee.Day_Update = DateTime.MinValue;
+                    fee.Delete_Flag = false;
+                    dataContext.Fees.Add(fee);
+                    dataContext.SaveChanges();
+
+                    Fee fee1 = new Fee();
+                    fee1.ID_Learn = 2;
+                    fee1.ID_Class = 1;
+                    fee1.RegisterNumber = 1;
+                    fee1.Fee_Type = "Phí Khác";
+                    fee1.Month = DateTime.Now.Month-1;
+                    fee1.Year = DateTime.Now.Year;
+                    fee1.Fee_Value = 100;
+                    fee1.Day_Create = DateTime.Now;
+                    fee1.Day_Update = DateTime.MinValue;
+                    fee1.Delete_Flag = false;
+                    dataContext.Fees.Add(fee1);
+                    dataContext.SaveChanges();
+                }
             }
         }
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)

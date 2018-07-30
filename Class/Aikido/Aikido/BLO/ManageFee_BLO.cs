@@ -9,14 +9,16 @@ using System.Windows.Controls;
 using System.Windows;
 using app = Microsoft.Office.Interop.Excel.Application;
 using Microsoft.Office.Interop.Excel;
+using System.Globalization;
 
 namespace Aikido.BLO
 {
     public class ManageFee_BLO
     {
         //ExportExcel
-        public void XuatExcel(DataGrid dgvFee1, DataGrid dgvFee2, string sheetName)
+        public void XuatExcel(DataGrid dgvFee1, DataGrid dgvFee2, DataGrid dgvTotal, string sheetName)
         {
+            CultureInfo ci = new CultureInfo("en-US");
             app oExcel = new app();
             Workbooks oBooks;
             Sheets oSheets;
@@ -90,7 +92,7 @@ namespace Aikido.BLO
                     }
                     foreach (var i in dgvFee2.Columns)
                     {
-                        if (i.Header.Equals("RegisterNumber") == false)
+                        if (i.Header.Equals("RegisterNumber") == false && i.Header.Equals("IDLearn")==false)
                         {
                             Range cli;
                             cli = oSheet.get_Range(rg[crg], rg[crg]);
@@ -189,7 +191,7 @@ namespace Aikido.BLO
 
                         Range cli1;
                         cli1 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli1.Value2 = j.lblmonthHT3A;
+                        cli1.Value2 = j.lblmonthHT3A.ToString("#,##0");
                         cli1.ColumnWidth = 18.0;
                         cli1.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli1.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -200,7 +202,7 @@ namespace Aikido.BLO
 
                         Range cli2;
                         cli2 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli2.Value2 = j.lblmonthHT2A;
+                        cli2.Value2 = j.lblmonthHT2A.ToString("#,##0");
                         cli2.ColumnWidth = 18.0;
                         cli2.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli2.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -210,7 +212,7 @@ namespace Aikido.BLO
                         crg++;
                         Range cli3;
                         cli3 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli3.Value2 = j.lblmonthHT1A;
+                        cli3.Value2 = j.lblmonthHT1A.ToString("#,##0");
                         cli3.ColumnWidth = 18.0;
                         cli3.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli3.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -220,7 +222,7 @@ namespace Aikido.BLO
                         crg++;
                         Range cli4;
                         cli4 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli4.Value2 = j.lblmonthHT;
+                        cli4.Value2 = j.lblmonthHT.ToString("#,##0");
                         cli4.ColumnWidth = 18.0;
                         cli4.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli4.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -231,7 +233,7 @@ namespace Aikido.BLO
 
                         Range cli5;
                         cli5 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli5.Value2 = j.lblmonthHT1P;
+                        cli5.Value2 = j.lblmonthHT1P.ToString("#,##0");
                         cli5.ColumnWidth = 18.0;
                         cli5.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli5.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -242,7 +244,7 @@ namespace Aikido.BLO
 
                         Range cli6;
                         cli6 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli6.Value2 = j.lblmonthHT2P;
+                        cli6.Value2 = j.lblmonthHT2P.ToString("#,##0");
                         cli6.ColumnWidth = 18.0;
                         cli6.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli6.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -253,7 +255,7 @@ namespace Aikido.BLO
 
                         Range cli7;
                         cli7 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli7.Value2 = j.lblmonthHT3P;
+                        cli7.Value2 = j.lblmonthHT3P.ToString("#,##0");
                         cli7.ColumnWidth = 18.0;
                         cli7.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli7.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -264,7 +266,7 @@ namespace Aikido.BLO
 
                         Range cli8;
                         cli8 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli8.Value2 = j.lblmonthHT4P;
+                        cli8.Value2 = j.lblmonthHT4P.ToString("#,##0");
                         cli8.ColumnWidth = 18.0;
                         cli8.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli8.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -275,7 +277,7 @@ namespace Aikido.BLO
 
                         Range cli9;
                         cli9 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli9.Value2 = j.lblmonthHT5P;
+                        cli9.Value2 = j.lblmonthHT5P.ToString("#,##0");
                         cli9.ColumnWidth = 18.0;
                         cli9.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli9.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -286,7 +288,7 @@ namespace Aikido.BLO
 
                         Range cli10;
                         cli10 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli10.Value2 = j.lblmonthHT6P;
+                        cli10.Value2 = j.lblmonthHT6P.ToString("#,##0");
                         cli10.ColumnWidth = 18.0;
                         cli10.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli10.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -297,7 +299,144 @@ namespace Aikido.BLO
 
                         Range cli11;
                         cli11 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
-                        cli11.Value2 = j.lblToTalS;
+                        cli11.Value2 = j.lblToTalS.ToString("#,##0");
+                        cli11.ColumnWidth = 18.0;
+                        cli11.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli11.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli11.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli11);
+                        d++;
+                        crg++;
+                    }
+                    
+
+                    for (int i = 0; i < dgvTotal.Items.Count; i++)
+                    {
+                        crg = 0;
+                        var j = dgvTotal.Items[i] as DAO.Model.dgvTotalC_ViewModel;
+                        Range cli;
+                        cli = oSheet.get_Range(rg1[crg] + d, rg2[crg] + d);
+                        cli.MergeCells = true;
+                        cli.Value2 = j.lblToal;
+                        cli.ColumnWidth = 18.0;                        
+                        cli.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli);
+                        //d++;
+                        crg++;
+
+                        Range cli1;
+                        cli1 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli1.Value2 = j.lblmonthHT3A.ToString("#,##0");
+                        cli1.ColumnWidth = 18.0;
+                        cli1.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli1.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli1.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli1);
+                        //d++;
+                        crg++;
+
+                        Range cli2;
+                        cli2 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli2.Value2 = j.lblmonthHT2A.ToString("#,##0");
+                        cli2.ColumnWidth = 18.0;
+                        cli2.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli2.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli2.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli2);
+                        //d++;
+                        crg++;
+                        Range cli3;
+                        cli3 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli3.Value2 = j.lblmonthHT1A.ToString("#,##0");
+                        cli3.ColumnWidth = 18.0;
+                        cli3.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli3.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli3.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli3);
+                        //d++;
+                        crg++;
+                        Range cli4;
+                        cli4 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli4.Value2 = j.lblmonthHT.ToString("#,##0");
+                        cli4.ColumnWidth = 18.0;
+                        cli4.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli4.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli4.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli4);
+                        //d++;
+                        crg++;
+
+                        Range cli5;
+                        cli5 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli5.Value2 = j.lblmonthHT1P.ToString("#,##0");
+                        cli5.ColumnWidth = 18.0;
+                        cli5.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli5.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli5.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli5);
+                        //d++;
+                        crg++;
+
+                        Range cli6;
+                        cli6 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli6.Value2 = j.lblmonthHT2P.ToString("#,##0");
+                        cli6.ColumnWidth = 18.0;
+                        cli6.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli6.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli6.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli6);
+                        //d++;
+                        crg++;
+
+                        Range cli7;
+                        cli7 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli7.Value2 = j.lblmonthHT3P.ToString("#,##0");
+                        cli7.ColumnWidth = 18.0;
+                        cli7.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli7.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli7.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli7);
+                        //d++;
+                        crg++;
+
+                        Range cli8;
+                        cli8 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli8.Value2 = j.lblmonthHT4P.ToString("#,##0");
+                        cli8.ColumnWidth = 18.0;
+                        cli8.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli8.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli8.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli8);
+                        //d++;
+                        crg++;
+
+                        Range cli9;
+                        cli9 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli9.Value2 = j.lblmonthHT5P.ToString("#,##0");
+                        cli9.ColumnWidth = 18.0;
+                        cli9.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli9.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli9.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli9);
+                        //d++;
+                        crg++;
+
+                        Range cli10;
+                        cli10 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli10.Value2 = j.lblmonthHT6P.ToString("#,##0");
+                        cli10.ColumnWidth = 18.0;
+                        cli10.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+                        cli10.VerticalAlignment = XlHAlign.xlHAlignCenter;
+                        cli10.Borders.LineStyle = Constants.xlSolid;
+                        cl.Add(cli10);
+                        //d++;
+                        crg++;
+
+                        Range cli11;
+                        cli11 = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        cli11.Value2 = j.lblToTalS.ToString("#,##0");
                         cli11.ColumnWidth = 18.0;
                         cli11.HorizontalAlignment = XlHAlign.xlHAlignCenter;
                         cli11.VerticalAlignment = XlHAlign.xlHAlignCenter;
@@ -321,6 +460,18 @@ namespace Aikido.BLO
             LoadFee_DAO fee = new LoadFee_DAO();
             return fee.selectAll();
         }
+        public List<dgvFee_ViewModel> LoadFee(int id)
+        {
+            LoadFee_DAO fee = new LoadFee_DAO();
+            return fee.selectFee(id);
+        }
+
+        public List<dgvFee_ViewModel> LoadFee1(int id)
+        {
+            LoadFee_DAO fee = new LoadFee_DAO();
+            return fee.selectFee1(id);
+        }
+
         public List<dgvFee_ViewModel> LoadAllFee1()
         {
             LoadFee_DAO fee = new LoadFee_DAO();
@@ -332,16 +483,12 @@ namespace Aikido.BLO
             return fee.Total(dgv);
         }
         //Save Fee Infos
-        public void SaveFee(List<dgvFee_ViewModel> dataEdit)
+        public void SaveFee(Fee dataEdit)
         {
             SaveFee_DAO save = new SaveFee_DAO();
             save.saveFee(dataEdit);
         }
-        public void SaveFeeD(List<dgvFee_ViewModel> dataEdit)
-        {
-            SaveFee_DAO save = new SaveFee_DAO();
-            save.saveFeeD(dataEdit);
-        }
+
         //Filter
         public List<dgvFee_ViewModel> LoadFilter(int id)
         {

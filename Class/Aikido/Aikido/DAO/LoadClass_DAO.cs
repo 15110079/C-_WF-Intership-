@@ -30,7 +30,16 @@ namespace Aikido.DAO
                     dtg.cbFriday = dt.Friday;
                     dtg.cbSarturday = dt.Saturday;
                     dtg.cbSunday = dt.Sunday;
-                    int sohv = dataContext.Learns.Where(s => s.ID_Class == dt.ID_Class).Count();
+                    int sohv = 0;
+                    var st = dataContext.Students.Where(s => s.Delete_Flag == false);
+                    foreach(var i in st)
+                    {
+                        if (dataContext.Fees.FirstOrDefault(s => s.ID_Class == dt.ID_Class && s.RegisterNumber == i.RegisterNumber && s.Delete_Flag == false)!=null)
+                        {
+                            sohv++;
+                        }
+                    }
+                    
                     dtg.txtAmountClass = sohv;
                     data.Add(dtg);
                 }
@@ -41,14 +50,15 @@ namespace Aikido.DAO
         public List<Class> LoadComboxClass()
         {
             List<Class> listclass = new List<Class>();
-            using (  var db = new AccessDB_DAO())
+            using (var db = new AccessDB_DAO())
             {
-                foreach (var i in db.Classes.Where(c=>c.Delete_Flag==false))
+                foreach (var i in db.Classes.Where(c => c.Delete_Flag == false))
                 {
                     listclass.Add(i);
                 };
             }
             return listclass;
         }
+       
     }
 }

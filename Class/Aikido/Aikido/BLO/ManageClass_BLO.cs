@@ -21,6 +21,7 @@ namespace Aikido.BLO
             LoadClass_DAO loadData = new LoadClass_DAO();
             return loadData.selectAll();
         }
+       
         //Delete Class
         public void DeleteClass(int ID)
         {

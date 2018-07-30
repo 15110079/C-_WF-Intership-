@@ -71,8 +71,8 @@
         <Grid Name="ScreenClass" Margin="0,75,0,-568" Visibility="Visible" Grid.ColumnSpan="2">
             <GroupBox TextElement.FontFamily="Arial" TextElement.FontSize="16" TextElement.FontWeight="Bold" BorderBrush="Black" BorderThickness="1.5" Margin="0,0,0,10">
                 <Grid Height="540"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="925" TextElement.FontSize="15" TextElement.FontWeight="Normal" Margin="0,0,-2,-3">
-                    <DataGrid RowEditEnding="dgvClass_RowEditEnding" SelectedCellsChanged="dgvClass_SelectedCellsChanged" 
-                              Loaded="dgvClass_Loaded" SelectionChanged="dgvClass_SelectionChanged"
+                    <DataGrid RowEditEnding="dgvClass_RowEditEnding" CellEditEnding="dgvClass_CellEditEnding"
+                              Loaded="dgvClass_Loaded" SelectionChanged="dgvClass_SelectionChanged" 
                               HorizontalAlignment="Left" Height="453" Name="dgvClass" Margin="10,20,0,0" 
                               VerticalAlignment="Top" Width="905" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                               Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  

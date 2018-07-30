@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Aikido.BLO;
 using Aikido.DAO;
 using Aikido.DAO.Model;
@@ -25,25 +26,21 @@ namespace Aikido.VIEW
     {
         ManageClass_BLO classDB = new ManageClass_BLO();
         ManageFee_BLO feeBLO = new ManageFee_BLO();
-        List<dgvFee_ViewModel> editFee = new List<dgvFee_ViewModel>();
-        List<dgvFee_ViewModel> editFeeD = new List<dgvFee_ViewModel>();
-        private List<int> IDEdit = new List<int>();
-        private List<int> IDEditD = new List<int>();
         private int i = 0;
         private int val = -3;
         public FeeScreen()
         {
             InitializeComponent();
-            
             List<Class> showCombobox = classDB.ComboxClass();
             cmbClassName.ItemsSource = showCombobox;
             cmbClassName.DisplayMemberPath = "Class_Name";
             cmbClassName.SelectedValuePath = "ID_Class";
             cmbClassName.Background = Brushes.White;
             cmbClassName.Foreground = Brushes.DarkBlue;
-            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
-            dgvFee1.ItemsSource = feeBLO.LoadAllFee1();
+            dgvFee2.ItemsSource = feeBLO.LoadFee(0);
+            dgvFee1.ItemsSource = feeBLO.LoadFee1(0);
             dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+            
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -174,9 +171,8 @@ namespace Aikido.VIEW
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            feeBLO.XuatExcel(dgvFee1, dgvFee2, "Student Fee");
+            feeBLO.XuatExcel(dgvFee1, dgvFee2, dgvTotalC, "Student Fee");
         }
-
 
         private void dgvFee_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -265,6 +261,8 @@ namespace Aikido.VIEW
 
         private void dgvFee_Loaded(object sender, RoutedEventArgs e)
         {
+            CultureInfo ci = new CultureInfo("en-US");
+
             Dictionary<int,string> thang = new Dictionary<int, string>();
             thang.Add(1,"Tháng 1"); thang.Add(2,"Tháng 2"); thang.Add(3,"Tháng 3"); thang.Add(4,"Tháng 4"); thang.Add(5,"Tháng 5"); thang.Add(6,"Tháng 6");
             thang.Add(7,"Tháng 7"); thang.Add(8,"Tháng 8"); thang.Add(9,"Tháng 9"); thang.Add(10,"Tháng 10"); thang.Add(11,"Tháng 11"); thang.Add(12,"Tháng 12");
@@ -275,7 +273,7 @@ namespace Aikido.VIEW
                     {
                         int j = 2;
                         int k = 1;
-                        for (int i=2;i<12;i++)
+                        for (int i=4;i<14;i++)
                         {
                             if (j >= 0)
                             {
@@ -290,7 +288,7 @@ namespace Aikido.VIEW
                     {
                         int j = 1;
                         int k = 1;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (j >= 0)
                             {
@@ -305,7 +303,7 @@ namespace Aikido.VIEW
                     {
                         int j = 0;
                         int k = 1;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (j >= 0)
                             {
@@ -318,7 +316,7 @@ namespace Aikido.VIEW
                     }
                 case 4:
                     {
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             dgvFee2.Columns[i].Header = thang[i];
                         }
@@ -327,7 +325,7 @@ namespace Aikido.VIEW
                 case 5:
                     {
                         int k = 2;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             dgvFee2.Columns[i].Header = thang[k++];
                         }
@@ -336,7 +334,7 @@ namespace Aikido.VIEW
                 case 6:
                     {
                         int k = 3;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             dgvFee2.Columns[i].Header = thang[k++];
                         }
@@ -345,7 +343,7 @@ namespace Aikido.VIEW
                 case 7:
                     {
                         int k = 4;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -359,7 +357,7 @@ namespace Aikido.VIEW
                 case 8:
                     {
                         int k = 5;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -373,7 +371,7 @@ namespace Aikido.VIEW
                 case 9:
                     {
                         int k = 6;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -387,7 +385,7 @@ namespace Aikido.VIEW
                 case 10:
                     {
                         int k = 7;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -401,7 +399,7 @@ namespace Aikido.VIEW
                 case 11:
                     {
                         int k = 8;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -415,7 +413,7 @@ namespace Aikido.VIEW
                 case 12:
                     {
                         int k = 9;
-                        for (int i = 2; i < 12; i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (k <= 12) dgvFee2.Columns[i].Header = thang[k++];
                             else
@@ -431,274 +429,1080 @@ namespace Aikido.VIEW
 
         private void cmbClassName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            dgvFee1.ItemsSource = feeBLO.LoadFilter1((int)cmbClassName.SelectedValue);
-            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
+            dgvFee2.ItemsSource = feeBLO.LoadFee((int)cmbClassName.SelectedValue);
+            dgvFee1.ItemsSource = feeBLO.LoadFee1((int)cmbClassName.SelectedValue);
             dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+            if (dgvFee1.Items.Count < 1) MessageBox.Show("Không có dữ liệu");
         }
 
-        private void dgvFee2_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            int index = dgvFee2.SelectedIndex;
-            if (index % 2 == 0)
-            {
-                int kte = 0;
-                foreach (var i in IDEdit)
-                {
-                    if (index == i)
-                    {
-                        kte = 1;
-                        break;
-                    }
-                }
-                if (kte == 0) IDEdit.Add(index);
+        //private void dgvFee2_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        //{
+        //    int index = dgvFee2.SelectedIndex;
+        //    if (index % 2 == 0)
+        //    {
+        //        int kte = 0;
+        //        foreach (var i in IDEdit)
+        //        {
+        //            if (index == i)
+        //            {
+        //                kte = 1;
+        //                break;
+        //            }
+        //        }
+        //        if (kte == 0) IDEdit.Add(index);
 
-            }
-            else
-            {
-                int kte = 0;
-                foreach (var i in IDEditD)
-                {
-                    if (index == i)
-                    {
-                        kte = 1;
-                        break;
-                    }
-                }
-                if (kte == 0) IDEditD.Add(index);
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        int kte = 0;
+        //        foreach (var i in IDEditD)
+        //        {
+        //            if (index == i)
+        //            {
+        //                kte = 1;
+        //                break;
+        //            }
+        //        }
+        //        if (kte == 0) IDEditD.Add(index);
+        //    }
+        //}
 
-        private void dgvFee2_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            string err = "Lỗi: \n";
-            try
-            {
-                if (IDEdit.Count > 0)
-                {
-                    foreach (var i in IDEdit)
-                    {
-                        editFee.Add(dgvFee2.Items[i] as DAO.Model.dgvFee_ViewModel);
-                    }
+        //private void dgvFee2_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        //{
+        //    string err = "Lỗi: \n";
+        //    try
+        //    {
+        //        if (IDEdit > -1)
+        //        {
+        //            var val = dgvFee2.Items[i] as dgvFee_ViewModel;
 
-                    if (checkData(ref err) == true)
-                    {
-                        feeBLO.SaveFee(editFee);
-                        editFee.Clear();
-                        IDEdit.Clear();
-                        try
-                        {
-                            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
-                        }
-                        catch
-                        {
-                            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
-                        }
-                        dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
-                    }
-                    else MessageBox.Show(err);
+        //            editFee.ID_Learn = val.ID_Learn;
+        //            //editFee.Month = 
+        //            //editFee = dgvFee2.Items[i] as Fee;
+
+        //            if (checkData(ref err) == true)
+        //            {
+        //                feeBLO.SaveFee(editFee);
+        //                editFee = null;
+        //                IDEdit = -1;
+        //                try
+        //                {
+        //                    dgvFee2.ItemsSource = feeBLO.LoadFee((int)cmbClassName.SelectedValue);
+        //                }
+        //                catch
+        //                {
+        //                    dgvFee2.ItemsSource = feeBLO.LoadAllFee();
+        //                }
+        //                dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+        //            }
+        //            else MessageBox.Show(err);
                     
-                }
-                if (IDEditD.Count > 0)
-                {
-                    foreach (var i in IDEditD)
-                    {
-                        editFeeD.Add(dgvFee2.Items[i] as DAO.Model.dgvFee_ViewModel);
-                    }
-                    if (checkData(ref err) == true)
-                    {
-                        feeBLO.SaveFeeD(editFeeD);
-                        editFeeD.Clear();
-                        IDEditD.Clear();
-                        try
-                        {
-                            dgvFee2.ItemsSource = feeBLO.LoadFilter((int)cmbClassName.SelectedValue);
-                        }
-                        catch
-                        {
-                            dgvFee2.ItemsSource = feeBLO.LoadAllFee();
-                        }
-                        dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
-                    }
-                    else MessageBox.Show(err);                    
-                }
-                
-                //string message = null;
-                //if (checkData(ref message) == true)
-                //{
-                //    if (dataAdd.Count() > 0 || dataEdit.Count > 0) feeBLO..SaveClass(dataAdd, dataEdit);
-                //    IDdataAdd.Clear(); dataAdd.Clear();
-                //    IDdataEdit.Clear(); dataEdit.Clear();
-                //    dgvClass.ItemsSource = manageClass.LoadClass();
-                //    dgvClass.Columns[0].Visibility = Visibility.Hidden;
-                //    dgvClass.Columns[2].Visibility = Visibility.Hidden;
-                //    MessageBox.Show("Lưu thành công");
-                //}
-                //else
-                //{
-                //    MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                //}
-            }
-            catch
-            {
+        //        }
+        //    }
+        //    catch
+        //    {
 
-            }
+        //    }
+        //}
+
+        //private Boolean checkData(ref string mess)
+        //{
+        //    try
+        //    {
+        //        foreach (var item in editFee)
+        //        {
+        //            try
+        //            {
+        //                Double i = Double.Parse(item.lblmonthHT3A.ToString());
+        //                if (i < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
+        //                if (i1 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
+        //                if (i2 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i3 = Double.Parse(item.lblmonthHT.ToString());
+        //                if (i3 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
+        //                if (i4 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
+        //                if (i5 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
+        //                if (i6 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
+        //                if (i7 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
+        //                if (i8 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
+        //                if (i9 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                return true;
+        //            }
+        //            catch
+        //            {
+        //                mess = "- Phí phải nhập hoàn toàn số";
+        //                return false;
+        //            }
+
+        //        }
+        //        foreach (var item in editFeeD)
+        //        {
+        //            try
+        //            {
+        //                Double i = Double.Parse(item.lblmonthHT3A.ToString());
+        //                if (i < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
+        //                if (i1 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
+        //                if (i2 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i3 = Double.Parse(item.lblmonthHT.ToString());
+        //                if (i3 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
+        //                if (i4 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
+        //                if (i5 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
+        //                if (i6 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
+        //                if (i7 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
+        //                if (i8 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }
+        //                Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
+        //                if (i9 < 0)
+        //                {
+        //                    mess = "- Phí phải lớn hơn 0";
+        //                    return false;
+        //                }                        
+        //                return true;
+        //            }
+        //            catch
+        //            {
+        //                mess = "- Phí phải nhập hoàn toàn số";
+        //                return false;
+        //            }
+
+        //        }
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        mess = "Lỗi";
+        //        return false;
+        //    }
+        //}
+
+        private void dgvFee2_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+               
         }
-        private Boolean checkData(ref string mess)
+        private void MergeCellsInColumn(int col, int row1, int row2)
+        {
+            
+        }
+
+        private void dgvFee2_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
             {
-                foreach (var item in editFee)
+                Fee fee = new Fee();
+                var val = e.EditingElement as TextBox;
+                var val1 = e.Column;
+                var i = dgvFee2.Items[dgvFee2.SelectedIndex] as dgvFee_ViewModel;
+                decimal phi = Decimal.Parse(val.Text.ToString());
+                if (phi % 10000 != 0)
                 {
+                    MessageBox.Show("Phí phải là bội của 10,000.");
+                }
+                else
+                {
+                    int id = val1.DisplayIndex;
+                    int r = DateTime.Now.Month;
+                    fee.RegisterNumber = i.RegisterNumber;
+                    fee.ID_Class = i.ID_Class;
+                    fee.Fee_Value = Decimal.Parse(val.Text.ToString());
+                    if (dgvFee2.SelectedIndex % 2 == 0) fee.Fee_Type = "Hội Phí";
+                    else fee.Fee_Type = "Phí Khác";
+                    switch (id)
+                    {
+                        case 4:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 5:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 6:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year - 1;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 7:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 8:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 9:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 10:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 11:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 12:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                        case 13:
+                            {
+                                switch (r)
+                                {
+                                    case 1:
+                                        {
+                                            fee.Month = 7;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            fee.Month = 8;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            fee.Month = 9;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 4:
+                                        {
+                                            fee.Month = 10;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            fee.Month = 11;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+                                            fee.Month = 12;
+                                            fee.Year = DateTime.Now.Year;
+                                            break;
+                                        }
+                                    case 7:
+                                        {
+                                            fee.Month = 1;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 8:
+                                        {
+                                            fee.Month = 2;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 9:
+                                        {
+                                            fee.Month = 3;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 10:
+                                        {
+                                            fee.Month = 4;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 11:
+                                        {
+                                            fee.Month = 5;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            fee.Month = 6;
+                                            fee.Year = DateTime.Now.Year + 1;
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
+                    }
+                    feeBLO.SaveFee(fee);
                     try
                     {
-                        Double i = Double.Parse(item.lblmonthHT3A.ToString());
-                        if (i < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
-                        if (i1 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
-                        if (i2 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i3 = Double.Parse(item.lblmonthHT.ToString());
-                        if (i3 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
-                        if (i4 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
-                        if (i5 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
-                        if (i6 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
-                        if (i7 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
-                        if (i8 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
-                        if (i9 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        return true;
+                        dgvFee2.ItemsSource = feeBLO.LoadFee((int)cmbClassName.SelectedValue);
                     }
                     catch
                     {
-                        mess = "- Phí phải nhập hoàn toàn số";
-                        return false;
+                        dgvFee2.ItemsSource = feeBLO.LoadFee(0);
+                        dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
                     }
-
                 }
-                foreach (var item in editFeeD)
-                {
-                    try
-                    {
-                        Double i = Double.Parse(item.lblmonthHT3A.ToString());
-                        if (i < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i1 = Double.Parse(item.lblmonthHT2A.ToString());
-                        if (i1 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i2 = Double.Parse(item.lblmonthHT1A.ToString());
-                        if (i2 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i3 = Double.Parse(item.lblmonthHT.ToString());
-                        if (i3 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i4 = Double.Parse(item.lblmonthHT1P.ToString());
-                        if (i4 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i5 = Double.Parse(item.lblmonthHT2P.ToString());
-                        if (i5 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i6 = Double.Parse(item.lblmonthHT3P.ToString());
-                        if (i6 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i7 = Double.Parse(item.lblmonthHT4P.ToString());
-                        if (i7 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i8 = Double.Parse(item.lblmonthHT5P.ToString());
-                        if (i8 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }
-                        Double i9 = Double.Parse(item.lblmonthHT6P.ToString());
-                        if (i9 < 0)
-                        {
-                            mess = "- Phí phải lớn hơn 0";
-                            return false;
-                        }                        
-                        return true;
-                    }
-                    catch
-                    {
-                        mess = "- Phí phải nhập hoàn toàn số";
-                        return false;
-                    }
-
-                }
-                return true;
             }
             catch
             {
-                mess = "Lỗi";
-                return false;
+                MessageBox.Show("Phí phải nhập hoàn toàn là số");
             }
         }
     }
