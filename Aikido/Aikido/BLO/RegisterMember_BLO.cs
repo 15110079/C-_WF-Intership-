@@ -44,7 +44,20 @@ namespace Aikido.BLO
 
             }
         }
+        //
+        public Boolean Check_UniqueSKU(string currentSKU, int RegisterMember)
+        {
+            
+            SaveMemberInfo_DAO save = new SaveMemberInfo_DAO();
+            if (RegisterMember != -1)
+            {
+                if (save.Check_UniqueSKU_EditCase(currentSKU, RegisterMember) == true) return true;
+            }
+            else {
+               if(save.Check_UniqueSKU_AddCase(currentSKU) == true) return true;
+            }
+            return false;
+        }
 
-        
     }
 }

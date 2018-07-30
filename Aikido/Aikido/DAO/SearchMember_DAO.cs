@@ -19,7 +19,7 @@ namespace Aikido.DAO
 
             using (var dbContext = new AccessDB_DAO())
             {
-           
+
 
                 List<Search_Model> datas = new List<Search_Model>();
                 try
@@ -38,7 +38,7 @@ namespace Aikido.DAO
                         data.PhoneNumber = MemberInfo.PhoneNumber;
                         data.Day_of_Birth = MemberInfo.Day_of_Birth.Date;
                         data.Place_of_birth = MemberInfo.Place_of_Birth;
-                        data.Day_Create = i.Day_Create.Date;
+                        data.Day_Create = MemberInfo.Day_Create.Date;
                         data.class_ID = ClassInfo.ID_Class;
                         data.Class_Name = ClassInfo.Class_Name;
                         data.Image = MemberInfo.Image;
@@ -70,9 +70,9 @@ namespace Aikido.DAO
                             if (na.Name.Equals("DANAIKIKAI7")) data.DAN_AIKIKAI_7 = dd.Day_Provide;
                             if (na.Name.Equals("DANAIKIKAI8")) data.DAN_AIKIKAI_8 = dd.Day_Provide;
                         }
-                        
+
                         datas.Add(data);
-                        
+
                     }
                 }
                 catch
@@ -86,7 +86,7 @@ namespace Aikido.DAO
         //Tìm kiếm theo điều kiện
         public List<Search_Model> SearchMember(String SKU, String HoTen, String NgayDangKy, String NgaySinh)
         {
-            
+
             using (var db = new AccessDB_DAO())
             {
                 if (NgayDangKy == "" && NgaySinh == "")
@@ -94,7 +94,7 @@ namespace Aikido.DAO
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
-                        if (i.FullName.Contains(HoTen) && i.SKU.Contains(SKU))
+                        if (i.FullName.ToUpper().Contains(HoTen.ToUpper()) && i.SKU.ToUpper().Contains(SKU.ToUpper()))
                         {
                             listThanhVien.Add(i);
                         }
@@ -105,11 +105,11 @@ namespace Aikido.DAO
 
                 else if (NgayDangKy == "" && NgaySinh != "")
                 {
-                  
+
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
-                        if (i.FullName.Contains(HoTen) && i.SKU.Contains(SKU) && i.Day_of_Birth == DateTime.Parse(NgaySinh))
+                        if (i.FullName.ToUpper().Contains(HoTen.ToUpper()) && i.SKU.ToUpper().Contains(SKU.ToUpper()) && i.Day_of_Birth == DateTime.Parse(NgaySinh))
                         {
                             listThanhVien.Add(i);
                         }
@@ -121,7 +121,7 @@ namespace Aikido.DAO
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
-                        if (i.FullName.Contains(HoTen) && i.SKU.Contains(SKU) && i.Day_Create == DateTime.Parse(NgayDangKy))
+                        if (i.FullName.ToUpper().Contains(HoTen.ToUpper()) && i.SKU.ToUpper().Contains(SKU.ToUpper()) && i.Day_Create == DateTime.Parse(NgayDangKy))
                         {
                             listThanhVien.Add(i);
                         }
@@ -131,11 +131,11 @@ namespace Aikido.DAO
 
                 else
                 {
-                  
+
                     List<Search_Model> listThanhVien = new List<Search_Model>();
                     foreach (var i in GetStudent())
                     {
-                        if (i.FullName.Contains(HoTen) && i.SKU.Contains(SKU) && i.Day_Create == DateTime.Parse(NgayDangKy)
+                        if (i.FullName.ToUpper().Contains(HoTen.ToUpper()) && i.SKU.ToUpper().Contains(SKU.ToUpper()) && i.Day_Create == DateTime.Parse(NgayDangKy)
                                         && i.Day_of_Birth == DateTime.Parse(NgaySinh))
                         {
                             listThanhVien.Add(i);
@@ -172,7 +172,7 @@ namespace Aikido.DAO
                 {
                     foreach (var i in GetStudent())
                     {
-                        if (i.FullName.Contains(key) || i.SKU.Contains(key))
+                        if (i.FullName.ToUpper().Contains(key.ToUpper()) || i.SKU.ToUpper().Contains(key.ToUpper()))
                         {
                             listThanhVien.Add(i);
                         }

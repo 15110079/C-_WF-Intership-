@@ -15,16 +15,18 @@ namespace Aikido.VIEW
     ///
     public partial class RegisterMemberScreen : Window
     {
-        RegisterMember_BLO db =  new RegisterMember_BLO(); 
-        ManageClass_BLO ClassDB= new ManageClass_BLO();
+        RegisterMember_BLO db = new RegisterMember_BLO();
+        ManageClass_BLO ClassDB = new ManageClass_BLO();
         private Brush brush;
-        private byte[] arrImage=null;
-
+        private byte[] arrImage = null;
+        int i = 0;
+        bool changevalue = false , changevalueRegisterNumber=false;
+ 
         //Constructor
         public RegisterMemberScreen()
         {
             InitializeComponent();
-          
+
             CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
@@ -34,16 +36,17 @@ namespace Aikido.VIEW
             brush.Freeze();
 
             //txtRegisterNumber.Text = ("0000"+NewRegisterNumber).ToString();
-            txtRegisterNumber.Background= Brushes.WhiteSmoke;
+            txtRegisterNumber.Background = Brushes.WhiteSmoke;
 
             //Load Class in Combobox
             List<Class> showCombobox = ClassDB.ComboxClass();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
             cboRegisterClass.SelectedValuePath = "ID_Class";
-            
+
             //Load Register Day
             dtpRegisterDay.SelectedDate = DateTime.Now;
+            changevalue = false;
 
         }
         public RegisterMemberScreen(Search_Model search_Model)
@@ -53,146 +56,215 @@ namespace Aikido.VIEW
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-           
+
             List<Class> showCombobox = ClassDB.ComboxClass();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
             cboRegisterClass.SelectedValuePath = "ID_Class";
 
             Set_DBVIew(search_Model);
+            changevalue = false;
         }
 
         // Handle register member
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            DateTime Day_Create = DateTime.Now;
-            Boolean DeleteFlag = false;
+
             if (Check_DataBase() == true)
             {
-                MemberInfo_ViewModel info = new MemberInfo_ViewModel();
-                info = getDB_FromForm();
-                if (txtRegisterNumber.Text.Equals(""))
-                {
-                    try
-                    {                   
-                        db.RegisterNewMember(info, Day_Create, DeleteFlag);
+                save_Method();
+                SetEmplty();
+            }
+            else return;
 
-                    }
-                    catch(Exception r)
+        }
+        private void save_Method()
+        {
+            DateTime Day_Create = DateTime.Now;
+            Boolean DeleteFlag = false;
+            MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+            info = getDB_FromForm();
+            if (txtRegisterNumber.Text.Equals(""))
+            {
+                try
+                {
+                    db.RegisterNewMember(info, Day_Create, DeleteFlag);
+                }
+                catch (Exception r)
+                {
+                    MessageBox.Show("Lưu không thành công" + r, "Lỗi"); return;
+                }
+                
+            }
+            else
+            {
+                try
+                {
+                    db.EditMember_Info(info, Day_Create, DeleteFlag);
+                }
+                catch (Exception r)
+                {
+                    MessageBox.Show("Lưu không thành công" + r, "Lỗi"); return;
+                }
+            }
+            MessageBox.Show("Lưu Thành Công");
+        }
+
+        //Print
+
+        private void Print_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            if (changevalue == true) //Case: change db
+            {
+                if (MessageBox.Show("Lưu thông tin để in ?", "Xác Nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    if (Check_DataBase() == true)
                     {
-                        MessageBox.Show("Lưu không thành công"+r, "Lỗi"); return;
+                        save_Method();
+                        DoPrint();
+                        changevalue = false;
                     }
-                    SetEmplty();
                 }
                 else
                 {
-                    try
-                    {
-                        db.EditMember_Info(info, Day_Create, DeleteFlag);
-                    }
-                    catch(Exception r)
-                    {
-                        MessageBox.Show("Lưu không thành công"+r, "Lỗi"); return;
-                    }
+                    return;
                 }
-                MessageBox.Show("Lưu Thành Công");
-            }
-        
-        }
 
-        private void ImageButton_Click(object sender, RoutedEventArgs e)
+            }
+            else   //Case: View -> print
+            {
+                if (Check_DataBase() == true)
+                {
+                    DoPrint();
+
+                }
+            }
+        }
+        private void DoPrint()
         {
+            ExportWord exportWord = new ExportWord();
+
+            MemberInfo_ViewModel info = getDB_FromForm();
             SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
             try
             {
-                ImageBrush image = settingImage_BLO.LoadImage_Button();
-                if (image == null) return;  // Case: Open Dialog but not choose image
-                ImageButton.Background = image;
-                arrImage = settingImage_BLO.ConvertImage_ToBytes(image.ImageSource);
+                exportWord.CreateDocument(info, settingImage_BLO.getBackGround(), ref i);
             }
-            catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }          
+            catch { MessageBox.Show("Đóng các file word không sử dụng trước khi in file mới"); return; }
+            if (changevalueRegisterNumber == true) { SetEmplty(); changevalueRegisterNumber = false; }
         }
-        
-        private void Print_MouseEnter(object sender, RoutedEventArgs e)
-        {
-            ExportWord exportWord = new ExportWord();
-            if (Check_DataBase() == true)
-            {
-                MemberInfo_ViewModel info = getDB_FromForm();
-                SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
-                try
-                {         
-                     exportWord.CreateDocument(info, settingImage_BLO.getBackGround());
-                }
-                catch { MessageBox.Show("In file bị lỗi");  return; }
-            }
-         }
 
+        //Check validation
         private Boolean Check_DataBase()
         {
+             
             try
             {
+                RegisterMember_BLO member_BLO = new RegisterMember_BLO();
                 string err = null;
                 int error = 0;
+                Set_BoderError();
+                if (String.IsNullOrWhiteSpace(txtSKU.Text)==true ) { err += "SKU chưa được nhập " + "\n"; error = 1; txtSKU.BorderBrush = Brushes.Red; }
+                if (String.IsNullOrWhiteSpace(txtName.Text)==true) { err += "Họ Tên chưa được nhập" + "\n"; error = 1; txtName.BorderBrush = Brushes.Red; }
+                if (String.IsNullOrWhiteSpace(txtAddress.Text)==true) { err += "Địa chỉ chưa được nhập" + "\n"; error = 1; txtAddress.BorderBrush = Brushes.Red; }
+                if (String.IsNullOrWhiteSpace(txtPhone.Text)==true) { err += "Số Điện Thoại chưa được nhập" + "\n"; error = 1; txtPhone.BorderBrush = Brushes.Red; }
+                if (String.IsNullOrWhiteSpace(txtNation.Text) == true) { err += "Quốc tịch chưa được nhập" + "\n"; error = 1; txtNation.BorderBrush = Brushes.Red; }
+                if (dtpRegisterDay.SelectedDate == null) { err += "Ngày Đăng Ký chưa được nhập" + "\n"; error = 1; dtpRegisterDay.BorderBrush = Brushes.Red; }
+                if (dtpBirthday.SelectedDate == null) { err += "Ngày Sinh chưa được nhập" + "\n"; error = 1; dtpBirthday.BorderBrush = Brushes.Red; }
+                if (String.IsNullOrWhiteSpace(txtBirthplace.Text)==true) { err += "Nơi sinh chưa được nhập" + "\n"; error = 1; txtBirthplace.BorderBrush = Brushes.Red; }
+                if (cboRegisterClass.SelectedValue == null) { err += "Lớp Đăng Ký chưa được nhập" + "\n"; error = 1;  cboRegisterClass.BorderBrush = Brushes.Red; }
+                if (txtSKU.Text.Length > 20) { err += "SKU nhỏ hơn 20 ký tự\n"; error = 1; txtSKU.BorderBrush = Brushes.Red; }
+                if (txtRegisterNumber.Text.Equals("")) 
+                {
+                    if (member_BLO.Check_UniqueSKU(txtSKU.Text,-1)==false)// TH check sku when adding
+                    {
+                        err += "SKU đã tồn tại\n"; error = 1;
+                        txtSKU.BorderBrush = Brushes.Red;
+                    }
+                }
+                else
+                {
+                    if (member_BLO.Check_UniqueSKU(txtSKU.Text, int.Parse(txtRegisterNumber.Text)) == false) // TH check sku when editing 
+                    {
+                        err += "SKU đã tồn tại\n"; error = 1;
+                        txtSKU.BorderBrush = Brushes.Red;
+                    }
+                }
+                if (txtName.Text.Length > 50) { err += "Họ Tên quá dài\n"; error = 1; txtName.BorderBrush = Brushes.Red; }
+                if (txtNation.Text.Length > 50) { err += "Quốc Tịch quá dài\n"; error = 1; txtNation.BorderBrush = Brushes.Red; }
+                if (txtAddress.Text.Length > 100) { err += "Địa chỉ quá dài\n"; error = 1; txtAddress.BorderBrush = Brushes.Red; }
+                if (txtBirthplace.Text.Length > 50) { err += "Nơi sinh quá dài\n"; error = 1; txtBirthplace.BorderBrush = Brushes.Red; }
+                if (dtpBirthday.SelectedDate > DateTime.Now) { err += "Ngày sinh phải nhỏ hơn hiện tại\n"; error = 1; dtpBirthday.BorderBrush = Brushes.Red; }
 
-                if (txtSKU.Text.Equals("")) { err += "SKU chưa được nhập " + "\n"; error = 1;}
-                if (txtName.Text.Equals("")) {err += "Họ Tên chưa được nhập" + "\n"; error = 1;   }
-                if (txtAddress.Text.Equals(""))  {err += "Địa chỉ chưa được nhập" + "\n"; error = 1; }
-                if (txtPhone.Text.Equals("")) { err += "Số Điện Thoại chưa được nhập" + "\n"; error = 1;  }
-                if(dtpRegisterDay.SelectedDate==null) { err += "Ngày Đăng Ký chưa được nhập" + "\n"; error = 1;}
-                if (dtpBirthday.SelectedDate == null) {err += "Ngày Sinh chưa được nhập" + "\n"; error = 1;}
-                if (txtBirthplace.Text.Equals("")) {err += "Nơi sinh chưa được nhập" + "\n"; error = 1; }
-                if (cboRegisterClass.SelectedValue==null) {err += "Lớp Đăng Ký chưa được nhập" + "\n"; error = 1;}
-                if (txtSKU.Text.Length > 20) {err += "SKU nhỏ hơn 20 ký tự\n"; error = 1;  }
-                if (txtName.Text.Length > 50) { err += "Họ Tên quá dài\n";  error = 1; }
-                if (txtName.Text.Length > 50) { err += "Quốc Tịch quá dài\n"; error = 1; }
-                if(txtAddress.Text.Length>100) { err += "Địa chỉ quá dài\n"; error = 1; }
-                if(txtBirthplace.Text.Length>50) { err += "Nơi sinh quá dài\n"; error = 1; }
-                if(dtpBirthday.SelectedDate >DateTime.Now) { err += "Ngày sinh phải nhỏ hơn hiện tại\n"; error = 1; }
-                
-                if (dtpLevel6.SelectedDate > dtpLevel5.SelectedDate)  { err +=messageCheckDateCap(6,5) ; error = 1; }
-                if (dtpLevel5.SelectedDate > dtpLevel4.SelectedDate) { err += messageCheckDateCap(5,4); error = 1; }
-                if (dtpLevel4.SelectedDate>dtpLevel3.SelectedDate)  { err += messageCheckDateCap(4,3); error = 1; }
-                if(dtpLevel3.SelectedDate > dtpLevel2.SelectedDate)  { err += messageCheckDateCap(3,2); error = 1; }
-                if(dtpLevel2.SelectedDate > dtpLevel1.SelectedDate)  { err += messageCheckDateCap(2, 1); error = 1; }
+                if (dtpLevel6.SelectedDate > dtpLevel5.SelectedDate || ((dtpLevel5.SelectedDate != null) && dtpLevel6.SelectedDate == null)) { err += messageCheckDateCap(6, 5); error = 1; dtpLevel6.BorderBrush = Brushes.Red; dtpLevel5.BorderBrush = Brushes.Red; }
+                if (dtpLevel5.SelectedDate > dtpLevel4.SelectedDate || ((dtpLevel4.SelectedDate != null) && dtpLevel5.SelectedDate == null)) { err += messageCheckDateCap(5, 4); error = 1; dtpLevel5.BorderBrush = Brushes.Red; dtpLevel4.BorderBrush = Brushes.Red; }
+                if (dtpLevel4.SelectedDate > dtpLevel3.SelectedDate || ((dtpLevel3.SelectedDate != null) && dtpLevel4.SelectedDate == null)) { err += messageCheckDateCap(4, 3); error = 1; dtpLevel4.BorderBrush = Brushes.Red; dtpLevel3.BorderBrush = Brushes.Red; }
+                if (dtpLevel3.SelectedDate > dtpLevel2.SelectedDate || ((dtpLevel2.SelectedDate != null) && dtpLevel3.SelectedDate == null)) { err += messageCheckDateCap(3, 2); error = 1; dtpLevel3.BorderBrush = Brushes.Red; dtpLevel2.BorderBrush = Brushes.Red; }
+                if (dtpLevel2.SelectedDate > dtpLevel1.SelectedDate || ((dtpLevel1.SelectedDate != null) && dtpLevel2.SelectedDate == null)) { err += messageCheckDateCap(2, 1); error = 1; dtpLevel2.BorderBrush = Brushes.Red; dtpLevel1.BorderBrush = Brushes.Red; }
+                if (dtpDanVN1.SelectedDate < dtpLevel1.SelectedDate || ((dtpDanVN1.SelectedDate != null) && dtpLevel1.SelectedDate == null)) { err += "Ngày cấp Cấp 1 phải trước ngày cấp DAIVNI\n"; error = 1; dtpDanVN1.BorderBrush = Brushes.Red; dtpLevel1.BorderBrush = Brushes.Red;}
+                if (dtpDanAIKIKAI1.SelectedDate < dtpLevel1.SelectedDate || ((dtpDanAIKIKAI1.SelectedDate != null) && dtpLevel1.SelectedDate == null)) { err += "Ngày cấp Cấp 1 phải trước ngày cấp DAIAIKIKAI\n"; error = 1; dtpDanAIKIKAI1.BorderBrush = Brushes.Red; dtpLevel1.BorderBrush = Brushes.Red; }
+                if (dtpDanVN1.SelectedDate > dtpDanVN2.SelectedDate || ((dtpDanVN2.SelectedDate != null) && dtpDanVN1.SelectedDate == null)) { err += messageCheckDateDANVN(1, 2); error = 1; dtpDanVN1.BorderBrush = Brushes.Red; dtpDanVN2.BorderBrush = Brushes.Red; }
+                if (dtpDanVN2.SelectedDate > dtpDanVN3.SelectedDate || ((dtpDanVN3.SelectedDate != null) && dtpDanVN2.SelectedDate == null)) { err += messageCheckDateDANVN(2, 3); error = 1; dtpDanVN2.BorderBrush = Brushes.Red; dtpDanVN3.BorderBrush = Brushes.Red; }
+                if (dtpDanVN3.SelectedDate > dtpDanVN4.SelectedDate || ((dtpDanVN4.SelectedDate != null) && dtpDanVN3.SelectedDate == null)) { err += messageCheckDateDANVN(3, 4); error = 1; dtpDanVN3.BorderBrush = Brushes.Red; dtpDanVN4.BorderBrush = Brushes.Red; }
+                if (dtpDanVN4.SelectedDate > dtpDanVN5.SelectedDate || ((dtpDanVN5.SelectedDate != null) && dtpDanVN4.SelectedDate == null)) { err += messageCheckDateDANVN(4, 5); error = 1; dtpDanVN4.BorderBrush = Brushes.Red; dtpDanVN5.BorderBrush = Brushes.Red; }
+                if (dtpDanVN5.SelectedDate > dtpDanVN6.SelectedDate || ((dtpDanVN6.SelectedDate != null) && dtpDanVN5.SelectedDate == null)) { err += messageCheckDateDANVN(5, 6); error = 1; dtpDanVN5.BorderBrush = Brushes.Red; dtpDanVN6.BorderBrush = Brushes.Red; }
+                if (dtpDanVN6.SelectedDate > dtpDanVN7.SelectedDate || ((dtpDanVN7.SelectedDate != null) && dtpDanVN6.SelectedDate == null)) { err += messageCheckDateDANVN(5, 6); error = 1; dtpDanVN6.BorderBrush = Brushes.Red; dtpDanVN7.BorderBrush = Brushes.Red; }
+                if (dtpDanVN7.SelectedDate > dtpDanVN8.SelectedDate || ((dtpDanVN8.SelectedDate != null) && dtpDanVN7.SelectedDate == null)) { err += messageCheckDateDANVN(5, 6); error = 1; dtpDanVN7.BorderBrush = Brushes.Red; dtpDanVN8.BorderBrush = Brushes.Red; }
 
-                if (dtpDanVN1.SelectedDate > dtpDanVN2.SelectedDate) { err += messageCheckDateDANVN(1, 2); error = 1; }
-                if (dtpDanVN2.SelectedDate > dtpDanVN3.SelectedDate) { err += messageCheckDateDANVN(2, 3); error = 1; }
-                if (dtpDanVN3.SelectedDate > dtpDanVN4.SelectedDate) { err += messageCheckDateDANVN(3, 4); error = 1; }
-                if (dtpDanVN4.SelectedDate > dtpDanVN5.SelectedDate) { err += messageCheckDateDANVN(4, 5); error = 1; }
-                if (dtpDanVN5.SelectedDate > dtpDanVN6.SelectedDate) { err += messageCheckDateDANVN(5, 6); error = 1; }
-                if (dtpDanVN6.SelectedDate > dtpDanVN7.SelectedDate) { err += messageCheckDateDANVN(5, 6); error = 1; }
-                if (dtpDanVN7.SelectedDate > dtpDanVN8.SelectedDate) { err += messageCheckDateDANVN(5, 6); error = 1; }
+                if (dtpDanAIKIKAI1.SelectedDate > dtpDanAIKIKAI2.SelectedDate || ((dtpDanAIKIKAI2.SelectedDate != null) && dtpDanAIKIKAI1.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(1, 2); error = 1; dtpDanAIKIKAI1.BorderBrush = Brushes.Red; dtpDanAIKIKAI2.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI2.SelectedDate > dtpDanAIKIKAI3.SelectedDate || ((dtpDanAIKIKAI3.SelectedDate != null) && dtpDanAIKIKAI2.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(2, 3); error = 1; dtpDanAIKIKAI2.BorderBrush = Brushes.Red; dtpDanAIKIKAI3.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI3.SelectedDate > dtpDanAIKIKAI4.SelectedDate || ((dtpDanAIKIKAI4.SelectedDate != null) && dtpDanAIKIKAI3.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(3, 4); error = 1; dtpDanAIKIKAI3.BorderBrush = Brushes.Red; dtpDanAIKIKAI4.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI4.SelectedDate > dtpDanAIKIKAI5.SelectedDate || ((dtpDanAIKIKAI5.SelectedDate != null) && dtpDanAIKIKAI4.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(4, 5); error = 1; dtpDanAIKIKAI4.BorderBrush = Brushes.Red; dtpDanAIKIKAI5.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI5.SelectedDate > dtpDanAIKIKAI6.SelectedDate || ((dtpDanAIKIKAI6.SelectedDate != null) && dtpDanAIKIKAI5.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(5, 6); error = 1; dtpDanAIKIKAI5.BorderBrush = Brushes.Red; dtpDanAIKIKAI6.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI6.SelectedDate > dtpDanAIKIKAI7.SelectedDate || ((dtpDanAIKIKAI7.SelectedDate != null) && dtpDanAIKIKAI6.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(6, 7); error = 1; dtpDanAIKIKAI6.BorderBrush = Brushes.Red; dtpDanAIKIKAI7.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI7.SelectedDate > dtpDanAIKIKAI8.SelectedDate || ((dtpDanAIKIKAI8.SelectedDate != null) && dtpDanAIKIKAI7.SelectedDate == null)) { err += messageCheckDateDANAIKIKAI(7, 8); error = 1; dtpDanAIKIKAI7.BorderBrush = Brushes.Red; dtpDanAIKIKAI8.BorderBrush = Brushes.Red; }
 
-                if (dtpDanAIKIKAI1.SelectedDate > dtpDanAIKIKAI2.SelectedDate) { err += messageCheckDateDANAIKIKAI(1, 2); error = 1; }
-                if (dtpDanAIKIKAI2.SelectedDate > dtpDanAIKIKAI3.SelectedDate) { err += messageCheckDateDANAIKIKAI(2, 3); error = 1; }
-                if (dtpDanAIKIKAI3.SelectedDate > dtpDanAIKIKAI4.SelectedDate) { err += messageCheckDateDANAIKIKAI(3, 4); error = 1; }
-                if (dtpDanAIKIKAI4.SelectedDate > dtpDanAIKIKAI5.SelectedDate) { err += messageCheckDateDANAIKIKAI(4, 5); error = 1; }
-                if (dtpDanAIKIKAI5.SelectedDate > dtpDanAIKIKAI6.SelectedDate) { err += messageCheckDateDANAIKIKAI(5, 6); error = 1; }
-                if (dtpDanAIKIKAI6.SelectedDate > dtpDanAIKIKAI7.SelectedDate) { err += messageCheckDateDANAIKIKAI(6, 7); error = 1; }
-                if (dtpDanAIKIKAI7.SelectedDate > dtpDanAIKIKAI8.SelectedDate) { err += messageCheckDateDANAIKIKAI(7, 8); error = 1; }
+                //--
+                if (dtpLevel6.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 6 không thể lớn hơn thời điểm hiện tại\n"; error = 1;    dtpLevel6.BorderBrush = Brushes.Red;   }
+                if (dtpLevel5.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 5 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpLevel5.BorderBrush = Brushes.Red; }
+                if (dtpLevel4.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 4 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpLevel4.BorderBrush = Brushes.Red; }
+                if (dtpLevel3.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 3 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpLevel3.BorderBrush = Brushes.Red; }
+                if (dtpLevel2.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 2 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpLevel2.BorderBrush = Brushes.Red; }
+                if (dtpLevel1.SelectedDate > DateTime.Now) { err += "Ngày cấp Cấp 1 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpLevel1.BorderBrush = Brushes.Red; }
+
+                if (dtpDanVN1.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN1 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN1.BorderBrush = Brushes.Red; }
+                if (dtpDanVN2.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN2 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN2.BorderBrush = Brushes.Red; }
+                if (dtpDanVN3.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN3 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN3.BorderBrush = Brushes.Red; }
+                if (dtpDanVN4.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN4 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN4.BorderBrush = Brushes.Red; }
+                if (dtpDanVN5.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN5 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN5.BorderBrush = Brushes.Red; }
+                if (dtpDanVN6.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN6 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN6.BorderBrush = Brushes.Red; }
+                if (dtpDanVN7.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN7 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN7.BorderBrush = Brushes.Red; }
+                if (dtpDanVN8.SelectedDate > DateTime.Now) { err += "Ngày cấp DanVN8 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanVN8.BorderBrush = Brushes.Red; }
+
+                if (dtpDanAIKIKAI1.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI1 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI1.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI2.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI2 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI2.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI3.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI3 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI3.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI4.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI4 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI4.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI5.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI5 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI5.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI6.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI6 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI6.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI7.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI7 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI7.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI8.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI8 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI8.BorderBrush = Brushes.Red; }
+                if (!Regex.IsMatch(txtPhone.Text, @"^\+?\d{9,13}\s?$")) { err += "Số Điện Thoại không hợp lệ\n"; error = 1; txtPhone.BorderBrush = Brushes.Red; }
 
                 if (error==1)
                 {
                     MessageBox.Show(err, "Lỗi");
                     return false;
                 }
-                if (!Regex.IsMatch(txtPhone.Text, @"(<Undefined control sequence>\d)?^[0-9]{10,13}$"))
-                {
-                    MessageBox.Show("Số Điện Thoại không hợp lệ"); return false;
-                }
+               
                 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
-                MessageBox.Show(" Lỗi nhập thông tin ");
+                MessageBox.Show(" Lỗi nhập thông tin "+e);
                 return false;
             }
         }
+
         private void Set_DBVIew(Search_Model search_Model)
         {
-
+     
             txtSKU.Text = search_Model.SKU.ToString();
             txtRegisterNumber.Text = search_Model.RegisterNumber.ToString();
             txtName.Text = search_Model.FullName.ToString();
@@ -241,7 +313,7 @@ namespace Aikido.VIEW
             dtpDanAIKIKAI6.Text = search_Model.DAN_AIKIKAI_6.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_6.ToString();
             dtpDanAIKIKAI7.Text = search_Model.DAN_AIKIKAI_7.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_7.ToString();
             dtpDanAIKIKAI8.Text = search_Model.DAN_AIKIKAI_8.ToString().Contains(DateTime.MinValue.ToString()) == true ? " " : search_Model.DAN_AIKIKAI_8.ToString();
-
+            changevalue = false;
         }
 
         private String messageCheckDateCap(int a, int b)
@@ -258,11 +330,26 @@ namespace Aikido.VIEW
         {
             return $"Ngày cấp DAN AIKIKAI {a} phải trước ngày cấp DAN AIKIKAI {b}\n";
         }
-        private MemberInfo_ViewModel getDB_FromForm( )
+        
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingImage_BLO settingImage_BLO = new SettingImage_BLO();
+            try
+            {
+                ImageBrush image = settingImage_BLO.LoadImage_Button();
+                if (image == null) return;  // Case: Open Dialog but not choose image
+                ImageButton.Background = image;
+                arrImage = settingImage_BLO.ConvertImage_ToBytes(image.ImageSource);
+                changevalue = true;
+            }
+            catch { MessageBox.Show("Ảnh không hợp lệ", "Lỗi"); }
+        }
+        private MemberInfo_ViewModel getDB_FromForm()
         {
             MemberInfo_ViewModel info = new MemberInfo_ViewModel();
             if (!txtRegisterNumber.Text.Equals("")) info.RegisterNumber = int.Parse(txtRegisterNumber.Text); //TH edit
-            else info.RegisterNumber = db.NewRegisterNumber() + 1; 
+            else if (changevalueRegisterNumber == false && txtRegisterNumber.Text.Equals("")) { info.RegisterNumber = db.NewRegisterNumber() + 1; changevalueRegisterNumber = true; }  //TH  New
+            else info.RegisterNumber = db.NewRegisterNumber();             //TH đã có mã mới rồi -> h thì in 
             info.SKU = txtSKU.Text;
             info.FullName = txtName.Text;
             info.Nation = txtNation.Text;
@@ -280,7 +367,7 @@ namespace Aikido.VIEW
             info.listLevel.Add("Cap4", (dtpLevel4.SelectedDate == null) ? DateTime.MinValue : dtpLevel4.SelectedDate.Value);
             info.listLevel.Add("Cap3", (dtpLevel3.SelectedDate == null) ? DateTime.MinValue : dtpLevel3.SelectedDate.Value);
             info.listLevel.Add("Cap2", (dtpLevel2.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
-            info.listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel2.SelectedDate.Value);
+            info.listLevel.Add("Cap1", (dtpLevel1.SelectedDate == null) ? DateTime.MinValue : dtpLevel1.SelectedDate.Value);
             info.listLevel.Add("DANVN1", (dtpDanVN1.SelectedDate == null) ? DateTime.MinValue : dtpDanVN1.SelectedDate.Value);
             info.listLevel.Add("DANVN2", (dtpDanVN2.SelectedDate == null) ? DateTime.MinValue : dtpDanVN2.SelectedDate.Value);
             info.listLevel.Add("DANVN3", (dtpDanVN3.SelectedDate == null) ? DateTime.MinValue : dtpDanVN3.SelectedDate.Value);
@@ -301,7 +388,6 @@ namespace Aikido.VIEW
             return info;
 
         }
-        //------------------------------------------------------Menu bar
         private void SetEmplty()
         {
 
@@ -320,7 +406,7 @@ namespace Aikido.VIEW
 
             dtpRegisterDay.SelectedDate = DateTime.Now;
             arrImage = null;
-            ImageButton.Background = Brushes.WhiteSmoke; 
+            ImageButton.Background = Brushes.WhiteSmoke;
 
             dtpLevel6.Text = "";
             dtpLevel5.Text = "";
@@ -347,7 +433,48 @@ namespace Aikido.VIEW
             dtpDanAIKIKAI7.Text = "";
             dtpDanAIKIKAI8.Text = "";
         }
-        
+        public void Set_BoderError()
+        {
+            var converter = new BrushConverter();
+            var brush = (Brush)converter.ConvertFromString("#FFABADB3");
+            txtSKU.BorderBrush = brush;
+            txtName.BorderBrush = brush;
+            txtNation.BorderBrush = brush;
+            txtAddress.BorderBrush = brush;
+            txtPhone.BorderBrush = brush;
+            dtpBirthday.BorderBrush = brush;
+            dtpRegisterDay.BorderBrush = brush;
+            txtBirthplace.BorderBrush = brush;
+            cboRegisterClass.BorderBrush = brush;
+
+            dtpLevel6.BorderBrush = brush;
+            dtpLevel5.BorderBrush = brush;
+            dtpLevel4.BorderBrush = brush;
+            dtpLevel3.BorderBrush = brush;
+            dtpLevel2.BorderBrush = brush;
+            dtpLevel1.BorderBrush = brush;
+
+            dtpDanVN1.BorderBrush = brush;
+            dtpDanVN2.BorderBrush = brush;
+            dtpDanVN3.BorderBrush = brush;
+            dtpDanVN4.BorderBrush = brush;
+            dtpDanVN5.BorderBrush = brush;
+            dtpDanVN6.BorderBrush = brush;
+            dtpDanVN7.BorderBrush = brush;
+            dtpDanVN8.BorderBrush = brush;
+
+
+            dtpDanAIKIKAI1.BorderBrush = brush;
+            dtpDanAIKIKAI2.BorderBrush = brush;
+            dtpDanAIKIKAI3.BorderBrush = brush;
+            dtpDanAIKIKAI4.BorderBrush = brush;
+            dtpDanAIKIKAI5.BorderBrush = brush;
+            dtpDanAIKIKAI6.BorderBrush = brush;
+            dtpDanAIKIKAI7.BorderBrush = brush;
+            dtpDanAIKIKAI8.BorderBrush = brush;
+
+        }
+        //------------------------------------------------------Menu bar     
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {
             //btnDKHVb.Background = Brushes.DarkBlue;
@@ -477,6 +604,20 @@ namespace Aikido.VIEW
             //this.Close();
         }
 
- 
+
+        private void txtSKU_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            changevalue = true;
+         }
+
+        private void dtpRegisterDay_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            changevalue = true;
+        }
+
+        private void cboRegisterClass_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            changevalue = true;
+        }
     }
 }

@@ -4,13 +4,14 @@ using Spire.Doc.Documents;
 using Spire.Doc.Fields;
 using Spire.Doc.Formatting;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace Aikido.BLO
 {
     public class ExportWord
     {
-        public void CreateDocument(MemberInfo_ViewModel info, Image image)
+        public void CreateDocument(MemberInfo_ViewModel info, Image image , ref int i)
         {
             //Create New Word
             Document doc = new Document();
@@ -24,6 +25,7 @@ namespace Aikido.BLO
 
                 doc.Background.Type = BackgroundType.Picture;
                 doc.Background.Picture = resize;
+               
 
             }
 
@@ -48,21 +50,21 @@ namespace Aikido.BLO
             pHeader.Format.HorizontalAlignment = Spire.Doc.Documents.HorizontalAlignment.Center;
             pHeader.Format.AfterSpacing = 5;
             //SKU
-            draw(doc, 210, 22, 20, 5, "SKU : " + info.SKU);
+            draw(doc, 210, 22, 20, 5, "SKU: " + info.SKU);
             //Register Number
-            draw(doc, 210, 22, 260, -9, "SỐ ĐĂNG KÝ : " + info.RegisterNumber);
+            draw(doc, 210, 22, 260, -9, "SỐ ĐĂNG KÝ: " + info.RegisterNumber);
             //Name
-            draw(doc, 450, 22, 20, 8, "HỌ TÊN : " + info.FullName);
+            draw(doc, 450, 22, 20, 8, "HỌ TÊN: " + info.FullName);
             //Quốc Tịch
-            draw(doc, 450, 22, 20, 25, "QUỐC TỊCH : " + info.Nation);
+            draw(doc, 450, 22, 20, 25, "QUỐC TỊCH: " + info.Nation);
             //Address
-            draw(doc, 450, 22, 20, 42, "ĐỊA CHỈ : " + info.Address);
+            draw(doc, 450, 22, 20, 42, "ĐỊA CHỈ: " + info.Address);
             //PHONE
-            draw(doc, 450, 22, 20, 60, "SỐ ĐIỆN THOẠI : " + info.PhoneNumber);
+            draw(doc, 450, 22, 20, 60, "SỐ ĐIỆN THOẠI: " + info.PhoneNumber);
             //Image
             imageDraw(doc, 145, 115, 15, 75, info.Image);
             //Register Day
-            draw(doc, 320, 22, 150, 67, "NGÀY ĐĂNG KÝ : " + info.Register_day.ToShortDateString());
+            draw(doc, 320, 22, 150, 67, "NGÀY ĐĂNG KÝ: " + info.Register_day.ToShortDateString());
             // Day of Birth
             draw(doc, 320, 22, 150, 90, "NGÀY SINH : " + info.Day_of_Birth.ToShortDateString());
             //Place of Birth
@@ -95,12 +97,17 @@ namespace Aikido.BLO
             draw(doc, 210, 22, 260, 256, "VII DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI7"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI7"].ToShortDateString() : ""));
             draw(doc, 210, 22, 260, 274, "VIII DAN AIKIDAI: " + (info.listLevel["DANAIKIKAI8"] != DateTime.MinValue ? info.listLevel["DANAIKIKAI8"].ToShortDateString() : ""));
 
-
-
-
+            
             //Save and launch
-            doc.SaveToFile("MyWord.docx", FileFormat.Docx);
-            System.Diagnostics.Process.Start("MyWord.docx");
+            i++;
+            doc.SaveToFile("MemberInfo"+i+".docx", FileFormat.Docx);
+     
+            Process myProcess = new Process();
+            try
+            { 
+                myProcess=Process.Start("MemberInfo" + i+ ".docx");
+            }
+            catch { }
         }
         public void draw(Document doc, int d, int r, int Hposition, int Vposition, String content)
         {
@@ -117,12 +124,16 @@ namespace Aikido.BLO
             TextBox txtbox = doc.Sections[0].AddParagraph().AppendTextBox(r + 16, d + 5);
             txtbox.Format.HorizontalPosition = Hposition;
             txtbox.Format.VerticalPosition = Vposition;
-            txtbox.Format.NoLine = true;
             Paragraph p = txtbox.Body.AddParagraph();
-
-            DocPicture picture = p.AppendPicture(image);
-            picture.Width = r;
-            picture.Height = d;
+            txtbox.Format.NoLine = true;
+            if (image != null)
+            {
+                
+                DocPicture picture = p.AppendPicture(image);
+                picture.Width = r;
+                picture.Height = d;
+            }
+            
 
         }
 

@@ -206,7 +206,7 @@ namespace Aikido.VIEW
                     dgvSearchQ.Visibility = Visibility.Visible;
                     var lst = new SearchMember_BLO();
                     var a = lst.SearchQuick(txtTimKiem.Text);
-                    if (a == null)
+                    if (a.Count == 0)
                     {
                         dgvSearchQ.ItemsSource = null;
                         MessageBox.Show("Không tìm thấy " + txtTimKiem.Text);
@@ -230,6 +230,7 @@ namespace Aikido.VIEW
                 var a = lst.SearchQuick(txtTimKiem.Text);
                 if (a.Count == 0)
                 {
+                    dgvSearchQ.ItemsSource = null;
                     MessageBox.Show("Không tìm thấy " + txtTimKiem.Text);
                 }
                 else
@@ -252,6 +253,7 @@ namespace Aikido.VIEW
                         dgvSearchQ.Columns[i].Visibility = Visibility.Hidden;
                     }
                     dgvSearchQ.Columns[15].Visibility = Visibility.Visible;
+                   // dgvSearchQ.IsReadOnly = true;
                 }
             }
         }
@@ -350,8 +352,9 @@ namespace Aikido.VIEW
                         arr[r, 4] = dt.Nation;
                         arr[r, 5] = dt.Address;
                         arr[r, 6] = "'" + dt.PhoneNumber.ToString();
-                        arr[r, 7] = dt.Day_Create.ToShortDateString();
-                        arr[r, 8] = dt.Day_of_Birth.ToShortDateString();
+                        arr[r, 7] = dt.Day_of_Birth.ToShortDateString();
+                        arr[r, 8] = dt.Day_Create.ToShortDateString();
+                       
                         arr[r, 9] = dt.Place_of_birth.ToString();
                         arr[r, 10] = dt.Class_Name.ToString();
                         arr[r, 11] = dt.DAI_Cap_6.ToShortDateString().Contains(DateTime.MinValue.ToShortDateString()) == true ? "Chưa cấp" : dt.DAI_Cap_6.ToShortDateString();

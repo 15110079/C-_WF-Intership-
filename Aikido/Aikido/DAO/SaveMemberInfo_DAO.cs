@@ -36,6 +36,7 @@ namespace Aikido.DAO
                 MemberUpdate.Delete_Flag = DeleteFlag;
                 MemberUpdate.Day_Update = DateTime.Now;
                 MemberUpdate.Image = arrImage;
+                MemberUpdate.Day_Create=RegisterDay;
                 db.SaveChanges();
             }
         }
@@ -113,6 +114,7 @@ namespace Aikido.DAO
             {
                 foreach (var i in listLevel)
                 {
+                    //Add case
                     if (i.Value != DateTime.MinValue)
                     {
                         int Level_ID = db.Dai_Dans.Where(x => x.Name.Contains(i.Key)).Select(c => c.ID).First();
@@ -129,8 +131,41 @@ namespace Aikido.DAO
                         }
                         db.SaveChanges();
                     }
+                    else //Edit case
+                    {
+                        int Level_ID = db.Dai_Dans.Where(x => x.Name.Contains(i.Key)).Select(c => c.ID).First();
+                        var LevelUpdate = db.Provide_Dai_Dans.SingleOrDefault(c => c.RegisterNumber == RegisterNumber && c.ID_DAI_DAN == Level_ID);
+                        if (LevelUpdate != null)
+                        {
+                            LevelUpdate.Day_Provide = i.Value;
+                            LevelUpdate.Delete_FLag = false;
+                            LevelUpdate.Day_Update = DateTime.Now;
+                            db.SaveChanges();
+                        }
+                    }
                 }
             }
+        }
+
+        public Boolean Check_UniqueSKU_EditCase(string currentSKU, int RegisterNumber)   //check  Edit SKU
+        {
+            using (var db = new AccessDB_DAO())
+            {
+                var name = db.Students.SingleOrDefault(c => c.SKU == currentSKU && c.RegisterNumber != RegisterNumber);
+                if (name == null)
+                    return true;
+            }
+            return false;
+        }
+        public Boolean Check_UniqueSKU_AddCase(string currentSKU)   //check  Add SKU
+         {
+            using (var db = new AccessDB_DAO())
+            {
+                var name = db.Students.SingleOrDefault(c => c.SKU == currentSKU);
+                if (name == null)
+                    return true;
+            }
+            return false;
         }
     }
 }

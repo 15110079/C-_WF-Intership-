@@ -58,5 +58,16 @@ namespace Aikido.DAO
                 }
             }
         }
+
+        public Boolean Check_UniqueClassName(string classname,int Current_IdClass)
+        {
+            using (var db = new AccessDB_DAO())
+            {
+                var name = db.Classes.SingleOrDefault(c => c.Class_Name ==classname && c.ID_Class != Current_IdClass);
+                if (name == null)
+                    return true;
+            }
+            return false;
+        }
     }
 }

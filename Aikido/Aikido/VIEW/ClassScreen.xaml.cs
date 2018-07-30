@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +35,9 @@ namespace Aikido.VIEW
 
         public ClassScreen()
         {
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortTimePattern = "HH:mm";
+            Thread.CurrentThread.CurrentCulture = ci;
             InitializeComponent();
             DataSet data = new DataSet();
 
@@ -189,20 +194,26 @@ namespace Aikido.VIEW
                     dataEdit.Add(dgvClass.Items[i] as DAO.Model.dgvClass_ViewModel);
                 }
                 string message = null;
-                if (checkData(ref message) == true)
+                if (dataAdd.Count > 0 || dataEdit.Count > 0)
                 {
-                    if (dataAdd.Count() > 0 || dataEdit.Count > 0) manageClass.SaveClass(dataAdd, dataEdit);
-                    IDdataAdd.Clear(); dataAdd.Clear();
-                    IDdataEdit.Clear(); dataEdit.Clear();
-                    dgvClass.ItemsSource = manageClass.LoadClass();
-                    dgvClass.Columns[0].Visibility = Visibility.Hidden;
-                    dgvClass.Columns[2].Visibility = Visibility.Hidden;
-                    MessageBox.Show("Lưu thành công");
+                    if (checkData(ref message) == true)
+                    {
+                        if (dataAdd.Count() > 0 || dataEdit.Count > 0) manageClass.SaveClass(dataAdd, dataEdit);
+                        IDdataAdd.Clear(); dataAdd.Clear();
+                        IDdataEdit.Clear(); dataEdit.Clear();
+                        dgvClass.ItemsSource = manageClass.LoadClass();
+                        dgvClass.Columns[0].Visibility = Visibility.Hidden;
+                        dgvClass.Columns[2].Visibility = Visibility.Hidden;
+                        MessageBox.Show("Lưu thành công");
+                    }
+                    else
+                    {
+                        IDdataAdd.Clear(); dataAdd.Clear();
+                        IDdataEdit.Clear(); dataEdit.Clear();
+                        MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
+
             }
             catch
             {
@@ -246,15 +257,20 @@ namespace Aikido.VIEW
         {
             bool error = true;
             string err = null;
+            ManageClass_BLO manageClass = new ManageClass_BLO();
             try
             {
                 int line1 = 0;
                 int line2 = 0;
                 foreach (var currentItem in dataAdd)
                 {
-                    if (currentItem.txtName == null || currentItem.txtName == "")
+                   if (currentItem.txtName == null || currentItem.txtName == "")
                     {
                         err += " - Tên Lớp chưa được nhập\n"; error = false;
+                    }
+                    if(manageClass.Check_UniqueClassName(currentItem.txtName,currentItem.ID)==false)
+                    {
+                        err += " - Tên Lớp đã tồn tại\n"; error = false;
                     }
                     if (currentItem.txtStartTime == null || currentItem.txtStartTime == "")
                     {
@@ -302,6 +318,10 @@ namespace Aikido.VIEW
                     if (currentItem.txtName == null || currentItem.txtName == "")
                     {
                         err += " - Tên Lớp chưa được nhập\n"; error = false;
+                    }
+                    if (manageClass.Check_UniqueClassName(currentItem.txtName,currentItem.ID) == false)
+                    {
+                        err += " - Tên Lớp đã tồn tại\n"; error = false;
                     }
                     if (currentItem.txtStartTime == null || currentItem.txtStartTime == "")
                     {

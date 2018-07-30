@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aikido.DAO
 {
@@ -14,6 +15,7 @@ namespace Aikido.DAO
 
         [Required]
         [StringLength(20)]
+        [Index(IsUnique = true)]
         public String SKU { get; set; }
 
         [Required]
