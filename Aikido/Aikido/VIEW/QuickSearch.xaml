@@ -77,7 +77,7 @@
 
                     <DataGrid  SelectedCellsChanged="dgvSearchQ_SelectedCellsChanged" AutoGeneratingColumn="dgvClass_AutoGeneratingColumn" Visibility="Hidden" 
                                Name="dgvSearchQ" HorizontalAlignment="Left" Height="431" Margin="0,99,-377,-180" VerticalAlignment="Top" Width="1159" 
-                               Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" >
+                               Background="White" IsReadOnly="True" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="SKU " Binding="{Binding SKU}" />
                             <DataGridTextColumn Header="Họ Tên " Binding="{Binding FullName}" />
@@ -85,6 +85,7 @@
                             <DataGridTextColumn Header="Quốc Tịch " Binding="{Binding Nation}" />
                             <DataGridTextColumn Header="Số Điện Thoại " Binding="{Binding PhoneNumber}" />
                             <DataGridTextColumn Header="Địa Chỉ " Binding="{Binding Address}" />
+                            <DataGridTextColumn Header="Ngày Đăng Ký " Binding="{Binding Day_Create, StringFormat=\{0:dd/MM/yyyy\}}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

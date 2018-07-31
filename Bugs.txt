@@ -37,7 +37,9 @@ SỐ 1 VÕ VĂN NGÂN PHƯỜNG LINH TRUNG QUẬN THỦ ĐỨC THÀNH PHỐ HỒ
 17. MÃ SKU BỊ TRÙNG					         -----------------------------------------------------------------------    OKE
 18. NGÀY CẤP ĐAI LẠI CÓ THỂ HƠN NGÀY HIỆN TẠI TRONG KHI ĐÓ NGY CẤP ĐAI TIẾP THEO CHƯA CÓ -----------------------------------------------    OKE
 19. NGÀY CẤP ĐAI LỚN HƠN NGÀY HIỆN TẠI							------------------------------------------------    OKE
-20. KHÔNG CHỌN ẢNH MÀ HỆ THỐNG BÁO LỖI "ẢNH KHÔNG HỢP LỆ"                               ------------------------------------------------     Discuss
+20. KHÔNG CHỌN ẢNH MÀ HỆ THỐNG BÁO LỖI "ẢNH KHÔNG HỢP LỆ"                               ------------------------------------------------    Discuss
+21. Chưa đổi màu được combobox khi chưa chọn
+22. create manuest (to set adminítrator permision)-- change code -> properties project to chose main fest, 
 ----------------------
 Kha
 

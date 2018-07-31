@@ -1,18 +1,31 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.IO;
+using Aikido.VIEW;
+using System.Security.AccessControl;
 
 namespace Aikido.DAO
 {
     public class AccessDB_DAO : DbContext
 
     {
+        string url;
         //private static bool _created = false;
         public AccessDB_DAO()
         {
-            if (File.Exists(@"C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\DB.db")==false)
+            url = AppDomain.CurrentDomain.BaseDirectory;
+            url = url + "DB.db";
+            if (File.Exists(@"" + url) == false)
             {
-                //_created = true;
+                //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(url);
+                //FileSystemAccessRule authorization = new FileSystemAccessRule("Users", FileSystemRights.FullControl, AccessControlType.Allow);
+                //DirectorySecurity ds = null;
+
+                //ds = di.GetAccessControl();
+                //ds.AddAccessRule(authorization);
+                //di.SetAccessControl(ds); // nothing happens until you do this
+                ////_created = true;
                 Database.EnsureDeleted();
                 Database.EnsureCreated();
 
@@ -21,7 +34,13 @@ namespace Aikido.DAO
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
-            optionbuilder.UseSqlite(@"Data Source=C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\DB.db");
+            //System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(url);
+            //FileSystemAccessRule authorization = new FileSystemAccessRule("Users", FileSystemRights.FullControl, AccessControlType.Allow);
+            //DirectorySecurity ds = null;
+            //ds = di.GetAccessControl();
+            //ds.AddAccessRule(authorization);
+            //di.SetAccessControl(ds); // nothing happens until you do this
+            optionbuilder.UseSqlite(@"Data Source=" + url);
         }
 
         public DbSet<Student> Students { get; set; }

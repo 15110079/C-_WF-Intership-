@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\obj\x86\Debug\
+C:\Users\minhh\OneDrive\Desktop\Aikido\Aikido\obj\x86\Debug\
 Aikido
 none
 false
 DEBUG;TRACE
-C:\Users\minhh\OneDrive\Desktop\C#_WF\Github\Aikido\Aikido\App.xaml
+C:\Users\minhh\OneDrive\Desktop\Aikido\Aikido\App.xaml
 7-710579931
-2274674259
+21213692224
 4394488932
-158950985288
+1581955509675
 VIEW\ClassScreen.xaml;VIEW\FeeScreen.xaml;VIEW\QuickSearch.xaml;VIEW\RegisterMemberScreen.xaml;VIEW\SearchCondition.xaml;VIEW\SettingScreen.xaml;VIEW\MainScreen.xaml;
 
-True
+False
 

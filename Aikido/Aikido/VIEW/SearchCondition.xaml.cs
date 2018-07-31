@@ -188,15 +188,15 @@ namespace Aikido.VIEW
                     dgvSearchC.Columns[3].Width = 100;
                     dgvSearchC.Columns[4].Width = 150;
                     dgvSearchC.Columns[5].Width = 350;
-                    dgvSearchC.Columns[15].Width = 150;
+                    dgvSearchC.Columns[6].Width = 150;
                   
                     // dgvSearchC.Columns[5].Width = 300;
                     //dgvSearchC.Columns[1].Visibility = Visibility.Hidden;
-                    for (int i = 6; i < 40; i++)
+                    for (int i = 7; i < 41; i++)
                     {
                         dgvSearchC.Columns[i].Visibility = Visibility.Hidden;
                     }
-                    dgvSearchC.Columns[15].Visibility = Visibility.Visible;
+                    //dgvSearchC.Columns[15].Visibility = Visibility.Visible;
                 }
 
             }
@@ -283,7 +283,7 @@ namespace Aikido.VIEW
                     crg++;
                     foreach (var i in dgvSearchC.Columns)
                     {
-                        if (!i.Header.Equals("SKU ")&& !i.Header.Equals("Họ Tên ")&& !i.Header.Equals("Ngày Sinh ")&& !i.Header.Equals("Số Điện Thoại ")&& !i.Header.Equals("Địa Chỉ ")&& !i.Header.Equals("Quốc Tịch "))
+                        if (!i.Header.Equals("SKU ") && !i.Header.Equals("Họ Tên ") && !i.Header.Equals("Ngày Sinh ") && !i.Header.Equals("Số Điện Thoại ") && !i.Header.Equals("Địa Chỉ ") && !i.Header.Equals("Quốc Tịch ") && !i.Header.Equals("Ngày Đăng Ký "))
                         {
                             Range cli;
                             cli = oSheet.get_Range(rg[crg], rg[crg]);
@@ -292,14 +292,14 @@ namespace Aikido.VIEW
                             cli.HorizontalAlignment = XlHAlign.xlHAlignCenterAcrossSelection;
                             cl.Add(cli);
                             crg++;
-                            if (crg ==33 ) break;
+                            if (crg == 33) break;
                         }
                     }
 
                     //Nội dung điền lên excel
-                    object[,] arr = new object[dgvSearchC.Items.Count, dgvSearchC.Columns.Count + 1];
+                    object[,] arr = new object[dgvSearchC.Items.Count, dgvSearchC.Columns.Count];
 
-                    for (int i = 0; i < dgvSearchC.Items.Count - 1; i++)
+                    for (int i = 0; i < dgvSearchC.Items.Count; i++)
                     {
                         var dt = dgvSearchC.Items[i] as DAO.Model.Search_Model;
                         arr[r, 0] = r + 1;
@@ -344,7 +344,7 @@ namespace Aikido.VIEW
                     int rowStart = 2;
                     int columnStart = 1;
                     int rowEnd = rowStart + dgvSearchC.Items.Count - 1;
-                    int columnEnd = dgvSearchC.Columns.Count-7;
+                    int columnEnd = dgvSearchC.Columns.Count - 8;
 
                     // Ô bắt đầu điền dữ liệu
 
@@ -387,7 +387,7 @@ namespace Aikido.VIEW
             }
         }
 
-        private void dgvSearchC_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+            private void dgvSearchC_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             int r = dgvSearchC.SelectedIndex;
 

@@ -79,7 +79,7 @@
                     <DatePicker Name="dtpNgaySinh"  HorizontalAlignment="Left" Margin="638,47,-136,0" VerticalAlignment="Top" Width="280" Height="25"/>
                     <Button Name="btnTimKiem" Content="Tìm Kiếm" Margin="160,87,547,234" Click="btnTimKiem_Click"  />
                     <Button Name="btnXuatFile" Content="Xuất File" Margin="253,87,454,234" Click="btnXuatFile_Click"/>
-                    <DataGrid SelectedCellsChanged="dgvSearchC_SelectedCellsChanged" Visibility="Hidden" AutoGenerateColumns="True"  Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="-1,135,-369,-188" VerticalAlignment="Top" Width="1152"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" AutoGeneratingColumn="dgvSearchC_AutoGeneratingColumn" >
+                    <DataGrid SelectedCellsChanged="dgvSearchC_SelectedCellsChanged" IsReadOnly="True" Visibility="Hidden" AutoGenerateColumns="True"  Name="dgvSearchC" HorizontalAlignment="Left" Height="403" Margin="-1,135,-369,-188" VerticalAlignment="Top" Width="1152"  Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended" AutoGeneratingColumn="dgvSearchC_AutoGeneratingColumn" >
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -95,6 +95,7 @@
                             <DataGridTextColumn Header="Quốc Tịch " Binding="{Binding Nation}" />
                             <DataGridTextColumn Header="Số Điện Thoại " Binding="{Binding PhoneNumber}" />
                             <DataGridTextColumn Header="Địa Chỉ " Binding="{Binding Address}" />
+                            <DataGridTextColumn Header="Ngày Đăng Ký " Binding="{Binding Day_Create, StringFormat=\{0:dd/MM/yyyy\}}" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
