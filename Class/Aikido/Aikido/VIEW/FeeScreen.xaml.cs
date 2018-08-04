@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,10 +18,13 @@ using System.Windows.Navigation;
 using Aikido.BLO;
 using Aikido.DAO;
 using Aikido.DAO.Model;
+using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.UI.Xaml.Grid.Helpers;
+
 namespace Aikido.VIEW
 {
     /// <summary>
-    /// Interaction logic for FeeScreen.xaml
+    /// 
     /// </summary>
     public partial class FeeScreen : Window
     {
@@ -28,6 +32,9 @@ namespace Aikido.VIEW
         ManageFee_BLO feeBLO = new ManageFee_BLO();
         private int i = 0;
         private int val = -3;
+        //ScrollViewer scrollView = null;
+        //ScrollViewer scrollView2 = null;
+
         public FeeScreen()
         {
             InitializeComponent();
@@ -39,8 +46,15 @@ namespace Aikido.VIEW
             cmbClassName.Foreground = Brushes.DarkBlue;
             dgvFee2.ItemsSource = feeBLO.LoadFee(0);
             dgvFee1.ItemsSource = feeBLO.LoadFee1(0);
-            dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
-            
+            dgvFee.ItemsSource = feeBLO.LoadFee(0);
+            //dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+            //scrollView = getScrollbar(dgvFee1);
+            //scrollView2 = getScrollbar(dgvFee2);
+            //if (null != scrollView2)
+            //{
+            //    scrollView2.ScrollChanged += new ScrollChangedEventHandler(dgvFee2_ScrollChanged);
+            //}
+
         }
 
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
@@ -263,17 +277,17 @@ namespace Aikido.VIEW
         {
             CultureInfo ci = new CultureInfo("en-US");
 
-            Dictionary<int,string> thang = new Dictionary<int, string>();
-            thang.Add(1,"Tháng 1"); thang.Add(2,"Tháng 2"); thang.Add(3,"Tháng 3"); thang.Add(4,"Tháng 4"); thang.Add(5,"Tháng 5"); thang.Add(6,"Tháng 6");
-            thang.Add(7,"Tháng 7"); thang.Add(8,"Tháng 8"); thang.Add(9,"Tháng 9"); thang.Add(10,"Tháng 10"); thang.Add(11,"Tháng 11"); thang.Add(12,"Tháng 12");
+            Dictionary<int, string> thang = new Dictionary<int, string>();
+            thang.Add(1, "Tháng 1"); thang.Add(2, "Tháng 2"); thang.Add(3, "Tháng 3"); thang.Add(4, "Tháng 4"); thang.Add(5, "Tháng 5"); thang.Add(6, "Tháng 6");
+            thang.Add(7, "Tháng 7"); thang.Add(8, "Tháng 8"); thang.Add(9, "Tháng 9"); thang.Add(10, "Tháng 10"); thang.Add(11, "Tháng 11"); thang.Add(12, "Tháng 12");
             int r = DateTime.Now.Month;
-            switch(r)
+            switch (r)
             {
                 case 1:
                     {
                         int j = 2;
                         int k = 1;
-                        for (int i=4;i<14;i++)
+                        for (int i = 4; i < 14; i++)
                         {
                             if (j >= 0)
                             {
@@ -425,13 +439,16 @@ namespace Aikido.VIEW
                         break;
                     }
             }
+
+
         }
 
-        private void cmbClassName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cmbClassName_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             dgvFee2.ItemsSource = feeBLO.LoadFee((int)cmbClassName.SelectedValue);
             dgvFee1.ItemsSource = feeBLO.LoadFee1((int)cmbClassName.SelectedValue);
             dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
+            dgvFee.ItemsSource = feeBLO.LoadFee((int)cmbClassName.SelectedValue);
             if (dgvFee1.Items.Count < 1) MessageBox.Show("Không có dữ liệu");
         }
 
@@ -496,7 +513,7 @@ namespace Aikido.VIEW
         //                dgvTotalC.ItemsSource = feeBLO.LoadTotal(dgvFee2);
         //            }
         //            else MessageBox.Show(err);
-                    
+
         //        }
         //    }
         //    catch
@@ -666,11 +683,7 @@ namespace Aikido.VIEW
 
         private void dgvFee2_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-               
-        }
-        private void MergeCellsInColumn(int col, int row1, int row2)
-        {
-            
+
         }
 
         private void dgvFee2_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -1504,6 +1517,64 @@ namespace Aikido.VIEW
             {
                 MessageBox.Show("Phí phải nhập hoàn toàn là số");
             }
+
+        }
+
+
+        private void dgvFee_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            for(int i=0;i<dgvFee.Items.Count-1; i++)
+            {
+
+            }
+        }
+
+        private void dgvFee2_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            try
+            {
+                ScrollViewer sv = null;
+                Type t = dgvFee2.GetType();
+                try
+                {
+                    sv = t.InvokeMember("InternalScrollHost", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty, null, dgvFee1, null) as ScrollViewer;
+                    sv.ScrollToVerticalOffset(e.VerticalOffset / 2);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void dgvFee1_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            try
+            {
+                ScrollViewer sv = null;
+                Type t = dgvFee1.GetType();
+                try
+                {
+                    sv = t.InvokeMember("InternalScrollHost", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty, null, dgvFee2, null) as ScrollViewer;
+                    sv.ScrollToVerticalOffset(e.VerticalOffset*2);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }

@@ -766,3 +766,17 @@ C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\obj\x
 C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\obj\x86\Debug\Aikido-Combine.csproj.CopyComplete
 C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\obj\x86\Debug\Aikido.exe
 C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\obj\x86\Debug\Aikido.pdb
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Data.WPF.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Grid.Wpf.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.GridCommon.Wpf.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Licensing.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Linq.Base.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.SfGrid.WPF.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Shared.Wpf.dll
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Data.WPF.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Grid.Wpf.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.GridCommon.Wpf.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Linq.Base.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.SfGrid.WPF.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\bin\x86\Debug\Syncfusion.Shared.Wpf.xml
+C:\Users\VUONGVANHAU\Documents\GitHub\C-_WF-Intership-\Class\Aikido\Aikido\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs

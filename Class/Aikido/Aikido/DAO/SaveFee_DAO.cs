@@ -456,75 +456,57 @@ namespace Aikido.DAO
             {
                 try
                 {
-                    Fee fee = dataContext.Fees.FirstOrDefault(s => s.ID_Class == dataFee.ID_Class && s.RegisterNumber == dataFee.RegisterNumber && s.Month == dataFee.Month && s.Year == dataFee.Year);
-                    if (fee == null)
+                    Fee fee1 = dataContext.Fees.FirstOrDefault(s => s.ID_Class == dataFee.ID_Class && s.RegisterNumber == dataFee.RegisterNumber && s.Month == dataFee.Month && s.Year == dataFee.Year && s.Fee_Type.Equals("Hội Phí") == true);
+                    Fee fee2 = dataContext.Fees.FirstOrDefault(s => s.ID_Class == dataFee.ID_Class && s.RegisterNumber == dataFee.RegisterNumber && s.Month == dataFee.Month && s.Year == dataFee.Year && s.Fee_Type.Equals("Phí Khác") == true);
+                    if(fee1==null)
                     {
-                        if (dataFee.Fee_Type.Equals("Hội Phí") == true)
-                        {
-                            Fee feeadd = new Fee();
-                            int Id = dataContext.Fees.Max(s => s.ID_Learn);
-                            feeadd.ID_Learn = ++Id;
-                            feeadd.ID_Class = dataFee.ID_Class;
-                            feeadd.RegisterNumber = dataFee.RegisterNumber;
-                            feeadd.Fee_Type = "Hội Phí";
-                            feeadd.Month = dataFee.Month;
-                            feeadd.Year = dataFee.Year;
-                            feeadd.Fee_Value = dataFee.Fee_Value;
-                            feeadd.Day_Create = DateTime.Now;
-                            feeadd.Day_Update = DateTime.MinValue;
-                            feeadd.Delete_Flag = false;
-                            dataContext.Fees.Add(feeadd);
+                        Fee feeadd1 = new Fee();
+                        int Id = dataContext.Fees.Max(s => s.ID_Learn);
+                        feeadd1.ID_Learn = ++Id;
+                        feeadd1.ID_Class = dataFee.ID_Class;
+                        feeadd1.RegisterNumber = dataFee.RegisterNumber;
+                        feeadd1.Fee_Type = "Hội Phí";
+                        feeadd1.Month = dataFee.Month;
+                        feeadd1.Year = dataFee.Year;
+                        feeadd1.Fee_Value = dataFee.Fee_Value;
+                        feeadd1.Day_Create = DateTime.Now;
+                        feeadd1.Day_Update = DateTime.MinValue;
+                        feeadd1.Delete_Flag = false;
+                        dataContext.Fees.Add(feeadd1);
 
-                            Fee feeadd1 = new Fee();
-                            feeadd1.ID_Learn = ++Id;
-                            feeadd1.ID_Class = dataFee.ID_Class;
-                            feeadd1.RegisterNumber = dataFee.RegisterNumber;
-                            feeadd1.Fee_Type = "Phí Khác";
-                            feeadd1.Month = dataFee.Month;
-                            feeadd1.Year = dataFee.Year;
-                            feeadd1.Fee_Value = 0;
-                            feeadd1.Day_Create = DateTime.Now;
-                            feeadd1.Day_Update = DateTime.MinValue;
-                            feeadd1.Delete_Flag = false;
-                            dataContext.Fees.Add(feeadd1);
-                            dataContext.SaveChanges();
-                        }
-                        else
-                        {
-                            Fee feeadd = new Fee();
-                            int Id = dataContext.Fees.Max(s => s.ID_Learn);
-                            feeadd.ID_Learn = ++Id;
-                            feeadd.ID_Class = dataFee.ID_Class;
-                            feeadd.RegisterNumber = dataFee.RegisterNumber;
-                            feeadd.Fee_Type = "Hội Phí";
-                            feeadd.Month = dataFee.Month;
-                            feeadd.Year = dataFee.Year;
-                            feeadd.Fee_Value = 0;
-                            feeadd.Day_Create = DateTime.Now;
-                            feeadd.Day_Update = DateTime.MinValue;
-                            feeadd.Delete_Flag = false;
-                            dataContext.Fees.Add(feeadd);
-
-                            Fee feeadd1 = new Fee();
-                            feeadd1.ID_Learn = ++Id;
-                            feeadd1.ID_Class = dataFee.ID_Class;
-                            feeadd1.RegisterNumber = dataFee.RegisterNumber;
-                            feeadd1.Fee_Type = "Phí Khác";
-                            feeadd1.Month = dataFee.Month;
-                            feeadd1.Year = dataFee.Year;
-                            feeadd1.Fee_Value = dataFee.Fee_Value;
-                            feeadd1.Day_Create = DateTime.Now;
-                            feeadd1.Day_Update = DateTime.MinValue;
-                            feeadd1.Delete_Flag = false;
-                            dataContext.Fees.Add(feeadd1);
-                            dataContext.SaveChanges();
-                        }
-                        
+                        Fee feeadd2 = new Fee();
+                        feeadd2.ID_Learn = ++Id;
+                        feeadd2.ID_Class = dataFee.ID_Class;
+                        feeadd2.RegisterNumber = dataFee.RegisterNumber;
+                        feeadd2.Fee_Type = "Phí Khác";
+                        feeadd2.Month = dataFee.Month;
+                        feeadd2.Year = dataFee.Year;
+                        feeadd2.Fee_Value = 0;
+                        feeadd2.Day_Create = DateTime.Now;
+                        feeadd2.Day_Update = DateTime.MinValue;
+                        feeadd2.Delete_Flag = false;
+                        dataContext.Fees.Add(feeadd2);
+                        dataContext.SaveChanges();
                     }
-                    else
+                    else if(fee2==null)
                     {
-                        Fee fee1 = dataContext.Fees.FirstOrDefault(s => s.ID_Class == dataFee.ID_Class && s.RegisterNumber == dataFee.RegisterNumber && s.Month == dataFee.Month && s.Year == dataFee.Year && s.Fee_Type.Equals("Hội Phí")==true);
-                        Fee fee2 = dataContext.Fees.FirstOrDefault(s => s.ID_Class == dataFee.ID_Class && s.RegisterNumber == dataFee.RegisterNumber && s.Month == dataFee.Month && s.Year == dataFee.Year && s.Fee_Type.Equals("Phí Khác") == true);
+                        Fee feeadd1 = new Fee();
+                        int Id = dataContext.Fees.Max(s => s.ID_Learn);
+                        feeadd1.ID_Learn = ++Id;
+                        feeadd1.ID_Class = dataFee.ID_Class;
+                        feeadd1.RegisterNumber = dataFee.RegisterNumber;
+                        feeadd1.Fee_Type = "Phí Khác";
+                        feeadd1.Month = dataFee.Month;
+                        feeadd1.Year = dataFee.Year;
+                        feeadd1.Fee_Value = dataFee.Fee_Value;
+                        feeadd1.Day_Create = DateTime.Now;
+                        feeadd1.Day_Update = DateTime.MinValue;
+                        feeadd1.Delete_Flag = false;
+                        dataContext.Fees.Add(feeadd1);
+                        dataContext.SaveChanges();
+                    }
+                    else if (fee1 !=null && fee2 != null)
+                    {
                         if (dataFee.Fee_Type.Equals("Hội Phí") == true)
                         {
                             fee1.Fee_Value = dataFee.Fee_Value;

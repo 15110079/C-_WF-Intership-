@@ -294,6 +294,537 @@ namespace Aikido.DAO
                         var dtc = dataContext.Classes.Where(s => s.ID_Class == dt.ID_Class && s.Delete_Flag == false).First();
                         
                         dtg1.ID_Learn = dt.ID_Learn;
+                        dtg1.ID_Class = dtc.ID_Class;
+                        dtg1.lbltypeFee = "Phí Khác";
+                        dtg1.lblnameClass = dtc.Class_Name;
+                        switch (r)
+                        {
+                            case 1:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 10) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT1A = i.Fee_Value;
+                                    }
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 11) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT1A = i.Fee_Value;
+                                    }
+
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 12) dtg1.lblmonthHT1A = i.Fee_Value;
+                                    }
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 5:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 2) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 6:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 3) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 7:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 4) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT5P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 8:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 5) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT4P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 9:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 6) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 7) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT3P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 10:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 7) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 8) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT2P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 11:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 8) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 9) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT1P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 12:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 9) dtg1.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 10) dtg1.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 11) dtg1.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 12) dtg1.lblmonthHT = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg1.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 2) dtg1.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 3) dtg1.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 4) dtg1.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 5) dtg1.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 6) dtg1.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                        }
+                        dtg1.lblToTalS = dtg1.lblmonthHT3A + dtg1.lblmonthHT2A + dtg1.lblmonthHT1A + dtg1.lblmonthHT + dtg1.lblmonthHT1P + dtg1.lblmonthHT2P + dtg1.lblmonthHT3P + dtg1.lblmonthHT4P + dtg1.lblmonthHT5P + dtg1.lblmonthHT6P;
+                    }
+                    if (dtg1.ID_Class > 0) data.Add(dtg1);
+                }
+                return data;
+            }
+        }
+
+        public List<dgvFee_ViewModel> selectFeeM(int id)
+        {
+            List<dgvFee_ViewModel> data = new List<dgvFee_ViewModel>();
+
+            using (var dataContext = new AccessDB_DAO())
+            {
+
+                var dts = dataContext.Students.Where(s => s.Delete_Flag == false);
+                int r = DateTime.Now.Month;
+                foreach (var st in dts)
+                {
+                    dgvFee_ViewModel dtg = new dgvFee_ViewModel();
+                    dtg.RegisterNumber = st.RegisterNumber;
+                    dtg.lblSKU = st.SKU;
+                    dtg.lblnameHV = st.FullName;
+                    dtg.lbltypeFee = "Hội Phí";
+
+                    dgvFee_ViewModel dtg1 = new dgvFee_ViewModel();
+                    dtg1.RegisterNumber = st.RegisterNumber;
+                    dtg1.lblSKU = st.SKU;
+                    dtg1.lblnameHV = st.FullName;
+                    dtg1.lbltypeFee = "Phí Khác";
+
+                    var clshp = id > 0 ? dataContext.Fees.Where(s => s.Delete_Flag == false && s.ID_Class == id && s.RegisterNumber == st.RegisterNumber && s.Fee_Type.Contains("Hội Phí") == true) : dataContext.Fees.Where(s => s.Delete_Flag == false && s.RegisterNumber == st.RegisterNumber && s.Fee_Type.Contains("Hội Phí") == true);
+                    var clspk = id > 0 ? dataContext.Fees.Where(s => s.Delete_Flag == false && s.ID_Class == id && s.RegisterNumber == st.RegisterNumber && s.Fee_Type.Contains("Phí Khác") == true) : dataContext.Fees.Where(s => s.Delete_Flag == false && s.RegisterNumber == st.RegisterNumber && s.Fee_Type.Contains("Phí Khác") == true);
+
+                    foreach (var dt in clshp)
+                    {
+                        var feeN = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year - 1 && s.Fee_Type.Contains("Hội Phí") == true);
+                        var fee = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year && s.Fee_Type.Contains("Hội Phí") == true);
+                        var feeP = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year + 1 && s.Fee_Type.Contains("Hội Phí") == true);
+
+                        var dtc = dataContext.Classes.Where(s => s.ID_Class == dt.ID_Class && s.Delete_Flag == false).First();
+                        dtg.ID_Learn = dt.ID_Learn;
+                        dtg.ID_Class = dt.ID_Class;
+
+                        dtg.lblnameClass = dtc.Class_Name;
+
+
+                        switch (r)
+                        {
+                            case 1:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 10) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT1A = i.Fee_Value;
+                                    }
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 11) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT1A = i.Fee_Value;
+                                    }
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    foreach (var i in feeN)
+                                    {
+                                        if (i.Month == 12) dtg.lblmonthHT1A = i.Fee_Value;
+                                    }
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 5:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 2) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 6:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 3) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 7:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 4) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT5P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 8:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 5) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT4P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 9:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 6) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 7) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT3P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 10:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 7) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 8) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT2P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 11:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 8) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 9) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT1P = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                            case 12:
+                                {
+                                    foreach (var i in fee)
+                                    {
+                                        if (i.Month == 9) dtg.lblmonthHT3A = i.Fee_Value;
+                                        if (i.Month == 10) dtg.lblmonthHT2A = i.Fee_Value;
+                                        if (i.Month == 11) dtg.lblmonthHT1A = i.Fee_Value;
+                                        if (i.Month == 12) dtg.lblmonthHT = i.Fee_Value;
+                                    }
+                                    foreach (var i in feeP)
+                                    {
+                                        if (i.Month == 1) dtg.lblmonthHT1P = i.Fee_Value;
+                                        if (i.Month == 2) dtg.lblmonthHT2P = i.Fee_Value;
+                                        if (i.Month == 3) dtg.lblmonthHT3P = i.Fee_Value;
+                                        if (i.Month == 4) dtg.lblmonthHT4P = i.Fee_Value;
+                                        if (i.Month == 5) dtg.lblmonthHT5P = i.Fee_Value;
+                                        if (i.Month == 6) dtg.lblmonthHT6P = i.Fee_Value;
+                                    }
+                                    break;
+                                }
+                        }
+                        dtg.lblToTalS = dtg.lblmonthHT3A + dtg.lblmonthHT2A + dtg.lblmonthHT1A + dtg.lblmonthHT + dtg.lblmonthHT1P + dtg.lblmonthHT2P + dtg.lblmonthHT3P + dtg.lblmonthHT4P + dtg.lblmonthHT5P + dtg.lblmonthHT6P;
+                    }
+                    if (dtg.ID_Class > 0) data.Add(dtg);
+                    foreach (var dt in clspk)
+                    {
+                        var feeN = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year - 1 && s.Fee_Type.Contains("Phí Khác") == true);
+                        var fee = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year && s.Fee_Type.Contains("Phí Khác") == true);
+                        var feeP = dataContext.Fees.Where(s => s.RegisterNumber == st.RegisterNumber && s.Delete_Flag == false && s.Year == DateTime.Now.Year + 1 && s.Fee_Type.Contains("Phí Khác") == true);
+
+                        var dtc = dataContext.Classes.Where(s => s.ID_Class == dt.ID_Class && s.Delete_Flag == false).First();
+
+                        dtg1.ID_Learn = dt.ID_Learn;
                         dtg1.ID_Class = dt.ID_Class;
                         dtg1.lbltypeFee = "Phí Khác";
                         dtg1.lblnameClass = dtc.Class_Name;
