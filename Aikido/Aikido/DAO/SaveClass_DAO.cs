@@ -12,13 +12,13 @@ namespace Aikido.DAO
         {
             using (var dataContext = new AccessDB_DAO())
             {
+                 
                 int IdClass;
-                try {
-                    IdClass = dataContext.Classes.Max(s => s.ID_Class);
-                } catch
+                try
                 {
-                    IdClass = 0;
+                  IdClass= dataContext.Classes.Max(s => s.ID_Class);
                 }
+                catch { IdClass= 0; }
                 foreach (var dataClass in datadgvAdd)
                 {
                     Class data = new Class();
@@ -57,17 +57,6 @@ namespace Aikido.DAO
                     dataContext.SaveChanges();
                 }
             }
-        }
-
-        public Boolean Check_UniqueClassName(string classname,int Current_IdClass)
-        {
-            using (var db = new AccessDB_DAO())
-            {
-                var name = db.Classes.SingleOrDefault(c => c.Class_Name ==classname && c.ID_Class != Current_IdClass);
-                if (name == null)
-                    return true;
-            }
-            return false;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aikido.DAO
 {
@@ -13,10 +12,9 @@ namespace Aikido.DAO
         [Key]
         public int ID_Class { get; set; }
 
-
-        [Index(IsUnique = true)]
         [Required]
-         public String Class_Name { get; set; }
+        [StringLength(30)]
+        public String Class_Name { get; set; }
 
         [DataType(DataType.Time)]
         public DateTime Start_Time { get; set; }

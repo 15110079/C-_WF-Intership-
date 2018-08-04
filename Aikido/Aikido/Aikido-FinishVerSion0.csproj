@@ -219,6 +219,7 @@
     <Compile Include="BLO\ExportWord.cs" />
     <Compile Include="DAO\Model\dgvClass_ViewModel.cs" />
     <Compile Include="DAO\Model\dgvFee_ViewModel.cs" />
+    <Compile Include="DAO\Model\Fee_Model.cs" />
     <Compile Include="DAO\Model\MemberInfo_ViewModel.cs" />
     <Compile Include="DAO\Model\Search_ViewModel.cs" />
     <Compile Include="DAO\Model\StoreSettingImage_Model.cs" />

@@ -47,6 +47,7 @@ namespace Aikido.DAO
         public DbSet<Class> Classes { get; set; }
         public DbSet<DAI_DAN> Dai_Dans { get; set; }
         public DbSet<Learn> Learns { get; set; }
+        public DbSet<Fee> Fees { get; set; }
         public DbSet<Provide_DAI_DAN> Provide_Dai_Dans { get; set; }
         public DbSet<StoreSettingImage_Model> SettingImage { get; set; }
 

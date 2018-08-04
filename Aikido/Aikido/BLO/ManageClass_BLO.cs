@@ -21,6 +21,7 @@ namespace Aikido.BLO
             LoadClass_DAO loadData = new LoadClass_DAO();
             return loadData.selectAll();
         }
+
         //Delete Class
         public void DeleteClass(int ID)
         {
@@ -39,12 +40,6 @@ namespace Aikido.BLO
         {
             return Class_DAO.LoadComboxClass();
 
-        }
-        public Boolean Check_UniqueClassName(string name,int Current_idclass)
-        {
-            SaveClass_DAO save = new SaveClass_DAO();
-            if (save.Check_UniqueClassName(name,Current_idclass) == true) return true;
-            else return false;
         }
     }
 }
