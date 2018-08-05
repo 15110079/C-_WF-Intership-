@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Aikido.DAO;
 namespace Aikido.VIEW
 {
@@ -19,9 +20,17 @@ namespace Aikido.VIEW
             {
                 btnSelect.Add(true);
             }
+            //string url = AppDomain.CurrentDomain.BaseDirectory;
+            //url = url + "image.png";
+            //var uriSource = new Uri(@""+url);
+            //image.Source = new BitmapImage(uriSource);
+            // image. = (ImageSource)new ImageSourceConverter().ConvertFromString("image.png");
+           // ImageSource imageSource = new BitmapImage(new Uri("image.png"));
+
+            //image.Source = imageSource;
             InitializeComponent();
             DefaultTable();
-
+    
         }
         private void DefaultTable()
         {

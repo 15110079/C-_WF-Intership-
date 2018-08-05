@@ -36,9 +36,14 @@ namespace Aikido.BLO
         }
 
         //Load Combox Class
-        public List<Class> ComboxClass()
+        public List<Class> ComboxClass2()
         {
-            return Class_DAO.LoadComboxClass();
+            return Class_DAO.LoadComboxClass2();
+
+        }
+        public List<Class> ComboxClass1()
+        {
+            return Class_DAO.LoadComboxClass1();
 
         }
     }

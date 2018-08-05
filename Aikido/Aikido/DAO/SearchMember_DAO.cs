@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Aikido.DAO.Model;
-
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Aikido.DAO
 {
@@ -24,7 +24,7 @@ namespace Aikido.DAO
                 List<Search_Model> datas = new List<Search_Model>();
                 try
                 {
-                    var query = dbContext.Learns;
+                     var query = dbContext.Fees.GroupBy(c => new { c.RegisterNumber, c.ID_Class }).Select(g=>g.First());   //Minh modified 4/8/2018
                     foreach (var i in query)
                     {
                         var MemberInfo = dbContext.Students.Single(c => c.RegisterNumber == i.RegisterNumber);

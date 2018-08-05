@@ -47,7 +47,22 @@ namespace Aikido.DAO
             return data;
         }
         //
-        public List<Class> LoadComboxClass()
+        public List<Class> LoadComboxClass2()    //Minh Added 5/8/2018
+        {
+            List<Class> listclass = new List<Class>();
+            listclass.Add(new Class { Class_Name = "-- Tất Cả--" });
+            using (var db = new AccessDB_DAO())
+            {
+                foreach (var i in db.Classes)
+                {
+                    if(i.Delete_Flag==true) i.Class_Name = String.Concat(i.Class_Name," ( lớp đã xóa )");  
+
+                    listclass.Add(i);
+                };
+            }
+            return listclass;
+        }
+        public List<Class> LoadComboxClass1()   
         {
             List<Class> listclass = new List<Class>();
             using (var db = new AccessDB_DAO())

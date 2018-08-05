@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Aikido.DAO
 {
-    public class Fee
+    public class Fee_Model
     {
         [Key]
         public int ID_Learn { get; set; }
@@ -34,7 +34,5 @@ namespace Aikido.DAO
         public DateTime? Day_Update { get; set; }
 
         public bool Delete_Flag { get; set; }
-        public virtual Student Student { get; set; }
-        public virtual Class Class { get; set; }
     }
 }

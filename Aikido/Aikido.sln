@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aikido-FinishVerSion0", "Aikido\Aikido-FinishVerSion0.csproj", "{3357CC24-CA64-4B37-98E5-7201FC9828A4}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Aikido Dojo Installer", "Aikido Dojo Installer\Aikido Dojo.vdproj", "{4F955C60-E7FF-4A22-AABC-721017531E55}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Aikido_Installer", "..\Aikido_Installer.vdproj", "{BA4C66A4-300E-475C-9E00-CC26ADFEF33C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3357CC24-CA64-4B37-98E5-7201FC9828A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3357CC24-CA64-4B37-98E5-7201FC9828A4}.Release|x86.ActiveCfg = Release|x86
 		{3357CC24-CA64-4B37-98E5-7201FC9828A4}.Release|x86.Build.0 = Release|x86
-		{4F955C60-E7FF-4A22-AABC-721017531E55}.Debug|Any CPU.ActiveCfg = Debug
-		{4F955C60-E7FF-4A22-AABC-721017531E55}.Debug|x86.ActiveCfg = Debug
-		{4F955C60-E7FF-4A22-AABC-721017531E55}.Release|Any CPU.ActiveCfg = Release
-		{4F955C60-E7FF-4A22-AABC-721017531E55}.Release|x86.ActiveCfg = Release
+		{BA4C66A4-300E-475C-9E00-CC26ADFEF33C}.Debug|Any CPU.ActiveCfg = Debug
+		{BA4C66A4-300E-475C-9E00-CC26ADFEF33C}.Debug|x86.ActiveCfg = Debug
+		{BA4C66A4-300E-475C-9E00-CC26ADFEF33C}.Release|Any CPU.ActiveCfg = Release
+		{BA4C66A4-300E-475C-9E00-CC26ADFEF33C}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

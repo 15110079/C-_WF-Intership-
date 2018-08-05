@@ -39,7 +39,7 @@ namespace Aikido.VIEW
             txtRegisterNumber.Background = Brushes.WhiteSmoke;
 
             //Load Class in Combobox
-            List<Class> showCombobox = ClassDB.ComboxClass();
+            List<Class> showCombobox = ClassDB.ComboxClass1();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
             cboRegisterClass.SelectedValuePath = "ID_Class";
@@ -57,7 +57,7 @@ namespace Aikido.VIEW
             Thread.CurrentThread.CurrentCulture = ci;
 
 
-            List<Class> showCombobox = ClassDB.ComboxClass();
+            List<Class> showCombobox = ClassDB.ComboxClass1();
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
             cboRegisterClass.SelectedValuePath = "ID_Class";
@@ -81,14 +81,24 @@ namespace Aikido.VIEW
         private void save_Method()
         {
             DateTime Day_Create = DateTime.Now;
-            Boolean DeleteFlag = false;
             MemberInfo_ViewModel info = new MemberInfo_ViewModel();
+            Fee_Model fee = new Fee_Model();
             info = getDB_FromForm();
+
+            fee.RegisterNumber = info.RegisterNumber;
+            fee.Day_Create = DateTime.Now;
+            fee.Delete_Flag = false;
+            fee.Fee_Type = "Hội Phí";
+            fee.Fee_Value = 0;
+            fee.ID_Class = info.ID_Class;
+            fee.Month = DateTime.Now.Month;
+            fee.Year = DateTime.Now.Year;
+
             if (txtRegisterNumber.Text.Equals(""))
             {
                 try
                 {
-                    db.RegisterNewMember(info, Day_Create, DeleteFlag);
+                    db.RegisterNewMember(info,fee, Day_Create);
                 }
                 catch (Exception r)
                 {
@@ -100,7 +110,7 @@ namespace Aikido.VIEW
             {
                 try
                 {
-                    db.EditMember_Info(info, Day_Create, DeleteFlag);
+                    db.EditMember_Info(info, Day_Create);
                 }
                 catch (Exception r)
                 {
@@ -171,6 +181,7 @@ namespace Aikido.VIEW
                 if (String.IsNullOrWhiteSpace(txtNation.Text) == true) { err += "Quốc tịch chưa được nhập" + "\n"; error = 1; txtNation.BorderBrush = Brushes.Red; }
                 if (dtpRegisterDay.SelectedDate == null) { err += "Ngày Đăng Ký chưa được nhập" + "\n"; error = 1; dtpRegisterDay.BorderBrush = Brushes.Red; }
                 if (dtpBirthday.SelectedDate == null) { err += "Ngày Sinh chưa được nhập" + "\n"; error = 1; dtpBirthday.BorderBrush = Brushes.Red; }
+                if (dtpRegisterDay.SelectedDate != null && dtpBirthday.SelectedDate != null && dtpRegisterDay.SelectedDate<= dtpBirthday.SelectedDate) { err += "Ngày Sinh phải trước ngày đăng ký" + "\n"; error = 1; dtpBirthday.BorderBrush = Brushes.Red; dtpRegisterDay.BorderBrush = Brushes.Red; }
                 if (String.IsNullOrWhiteSpace(txtBirthplace.Text)==true) { err += "Nơi sinh chưa được nhập" + "\n"; error = 1; txtBirthplace.BorderBrush = Brushes.Red; }
                 if (cboRegisterClass.SelectedValue == null) { err += "Lớp Đăng Ký chưa được nhập" + "\n"; error = 1;  cboRegisterClass.BorderBrush = Brushes.Red; }
                 if (txtSKU.Text.Length > 20) { err += "SKU nhỏ hơn 20 ký tự\n"; error = 1; txtSKU.BorderBrush = Brushes.Red; }
@@ -246,6 +257,31 @@ namespace Aikido.VIEW
                 if (dtpDanAIKIKAI8.SelectedDate > DateTime.Now) { err += "Ngày cấp DanAIKIKAI8 không thể lớn hơn thời điểm hiện tại\n"; error = 1; dtpDanAIKIKAI8.BorderBrush = Brushes.Red; }
                 if (!Regex.IsMatch(txtPhone.Text, @"^\+?\d{9,13}\s?$")) { err += "Số Điện Thoại không hợp lệ\n"; error = 1; txtPhone.BorderBrush = Brushes.Red; }
 
+                if (dtpLevel6.SelectedDate <= dtpBirthday.SelectedDate) { err += "Ngày cấp Cấp 6 phải sau ngày sinh\n"; error = 1; dtpLevel6.BorderBrush = Brushes.Red; }
+                if (dtpLevel5.SelectedDate <= dtpBirthday.SelectedDate) { err += "Ngày cấp Cấp 5 phải sau ngày sinh\n"; error = 1; dtpLevel5.BorderBrush = Brushes.Red; }
+                if (dtpLevel4.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp Cấp 4 phải sau ngày sinh\n"; error = 1; dtpLevel4.BorderBrush = Brushes.Red; }
+                if (dtpLevel3.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp Cấp 3 phải sau ngày sinh\n"; error = 1; dtpLevel3.BorderBrush = Brushes.Red; }
+                if (dtpLevel2.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp Cấp 2 phải sau ngày sinh\n"; error = 1; dtpLevel2.BorderBrush = Brushes.Red; }
+                if (dtpLevel1.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp Cấp 1 phải sau ngày sinh\n"; error = 1; dtpLevel1.BorderBrush = Brushes.Red; }
+
+                if (dtpDanVN1.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp DanVN1 phải sau ngày sinh\n"; error = 1; dtpDanVN1.BorderBrush = Brushes.Red; }
+                if (dtpDanVN2.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp DanVN2 phải sau ngày sinh\n"; error = 1; dtpDanVN2.BorderBrush = Brushes.Red; }
+                if (dtpDanVN3.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp DanVN3 phải sau ngày sinh\n"; error = 1; dtpDanVN3.BorderBrush = Brushes.Red; }
+                if (dtpDanVN4.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp DanVN4 phải sau ngày sinh\n"; error = 1; dtpDanVN4.BorderBrush = Brushes.Red; }
+                if (dtpDanVN5.SelectedDate <= dtpBirthday.SelectedDate ) { err += "Ngày cấp DanVN5 phải sau ngày sinh\n"; error = 1; dtpDanVN5.BorderBrush = Brushes.Red; }
+                if (dtpDanVN6.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanVN6 phải sau ngày sinh\n"; error = 1; dtpDanVN6.BorderBrush = Brushes.Red; }
+                if (dtpDanVN7.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanVN7 phải sau ngày sinh\n"; error = 1; dtpDanVN7.BorderBrush = Brushes.Red; }
+                if (dtpDanVN8.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanVN8 phải sau ngày sinh\n"; error = 1; dtpDanVN8.BorderBrush = Brushes.Red; }
+
+                if (dtpDanAIKIKAI1.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI1 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI1.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI2.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI2 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI2.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI3.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI3 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI3.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI4.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI4 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI4.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI5.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI5 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI5.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI6.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI6 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI6.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI7.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI7 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI7.BorderBrush = Brushes.Red; }
+                if (dtpDanAIKIKAI8.SelectedDate <= DateTime.Now) { err += "Ngày cấp DanAIKIKAI8 phải sau ngày sinh\n"; error = 1; dtpDanAIKIKAI8.BorderBrush = Brushes.Red; }
+               
                 if (error==1)
                 {
                     MessageBox.Show(err, "Lỗi");
@@ -384,6 +420,7 @@ namespace Aikido.VIEW
             info.listLevel.Add("DANAIKIKAI6", (dtpDanAIKIKAI6.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI6.SelectedDate.Value);
             info.listLevel.Add("DANAIKIKAI7", (dtpDanAIKIKAI7.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI7.SelectedDate.Value);
             info.listLevel.Add("DANAIKIKAI8", (dtpDanAIKIKAI8.SelectedDate == null) ? DateTime.MinValue : dtpDanAIKIKAI8.SelectedDate.Value);
+
 
             return info;
 

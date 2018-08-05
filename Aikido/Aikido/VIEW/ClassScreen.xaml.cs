@@ -28,8 +28,6 @@ namespace Aikido.VIEW
     public partial class ClassScreen : Window
     {
         ManageClass_BLO manageClass = new ManageClass_BLO();
-         //private List<dgvClass_ViewModel> dataEdit = new List<dgvClass_ViewModel>();
-        // private List<dgvClass_ViewModel> dataAdd = new List<dgvClass_ViewModel>();
         private Dictionary<int, dgvClass_ViewModel> dataEdit = new Dictionary<int, dgvClass_ViewModel>();
         private Dictionary<int, dgvClass_ViewModel> dataAdd = new Dictionary<int, dgvClass_ViewModel>();
         private List<int> IDdataEdit = new List<int>();
@@ -47,7 +45,7 @@ namespace Aikido.VIEW
 
             
             dgvClass.ItemsSource = manageClass.LoadClass();
- 
+
             dgvClass.CanUserAddRows = true;
 
         }
@@ -208,6 +206,7 @@ namespace Aikido.VIEW
                          IDdataEdit.Clear(); dataEdit.Clear();
 
                         dgvClass.ItemsSource = manageClass.LoadClass();
+                        dgvClass.Columns[3].Width = 235;
                         dgvClass.Columns[0].Visibility = Visibility.Hidden; 
                         dgvClass.Columns[2].Visibility = Visibility.Hidden;
                         MessageBox.Show("Lưu thành công");
@@ -240,11 +239,12 @@ namespace Aikido.VIEW
                 var currentItem = dgvClass.SelectedItem as DAO.Model.dgvClass_ViewModel;
                 if (MessageBox.Show($"Chắc xóa lớp {currentItem.txtName} không?", "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    //var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;
+                    //var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;    //-Minh Modified 5/8/2018
                     if (dgvClass.SelectedIndex < dgvClass.Items.Count - 1 && currentItem.ID!=0|| (dgvClass.SelectedIndex == dgvClass.Items.Count - 1 && dgvClass.CanUserAddRows == false)&&currentItem.ID!=0)
                     {
                         manageClass.DeleteClass(currentItem.ID);
                         dgvClass.ItemsSource = manageClass.LoadClass();
+                        dgvClass.Columns[3].Width = 235;
                         dgvClass.Columns[0].Visibility = Visibility.Hidden;
                         dgvClass.Columns[2].Visibility = Visibility.Hidden;
                     }
@@ -257,8 +257,6 @@ namespace Aikido.VIEW
                         //{
                         //    dgvClass.Items.Remove(selectedItem);
                         //}
-
-
                     }
                 }
             }
@@ -293,62 +291,76 @@ namespace Aikido.VIEW
                     //if (currentItem.Value.txtName.Equals(null) == true || currentItem.Value.txtName.Equals("") == true || currentItem.Value.txtName.Equals(" ") )
                     if (String.IsNullOrWhiteSpace(currentItem.Value.txtName) == true) { err += " - Tên Lớp chưa được nhập\n"; error = false; countnull++; }
                     else if (CheckName(currentItem.Key, currentItem.Value.txtName) == false) { err += " - Tên Lớp Đã Tồn Tại\n"; error = false; }
-                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) == true) { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false; countnull++; }
-                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == false) { err += " - Giờ Bắt Đầu Dạng HH:MM (HH <= 24 MM <=59)\n"; error = false; }
-                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == true)
-                    {
-                        try
-                        {
-                            char[] ch = currentItem.Value.txtStartTime.ToArray();
-                            string hh = null;
-                            string mm = null;
-                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
-                            for (int j = 3; j < 5; j++) { mm += mm[j]; }
-                            int h = Int32.Parse(hh);
-                            int m = Int32.Parse(mm);
-                            if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
-                            if (m > 59) { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }
-                        }
-                        catch
-                        {
 
-                        }
-                    }
-                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) == true) { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;countnull++; }
-                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == false) { err += " - Giờ Kết Thúc Dạng HH:MM (HH >= 24 MM >=59)\n"; error = false; }
-                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == true)
+                    if ( String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) != true && String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) != true)
                     {
-                        try
+                        if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
                         {
-                            char[] ch = currentItem.Value.txtFinishTime.ToArray();
-                            string hh = null;
-                            string mm = null;
-                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
-                            for (int j = 3; j < 5; j++) { mm += ch[j]; }
-                            int h = Int32.Parse(hh);
-                            int m = Int32.Parse(mm);
-                            if (h > 23) { err += " - Giờ thời gian kết thúc phải bé hơn 24\n"; error = false; }
-                            if (h > 59) { err += " = Phút thời gian kết thúc phải bé hơn 59\n"; error = false; }
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                    if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
-                    {
-                        if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
-                        {
-                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
-                        }
-                        else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
-                        {
-                            if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
+                            if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                             {
                                 err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                             }
+                            else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
+                            {
+                                if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
+                                {
+                                    err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
+                                }
+                            }
                         }
                     }
+                    else
+                    {
+                        if (String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) == true) { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false; countnull++; }
+                        else { 
+                            if (CheckTimeInput(currentItem.Value.txtFinishTime) == false) { err += " - Giờ Kết Thúc Dạng HH:MM (HH >= 24 MM >=59)\n"; error = false; }
+                            else 
+                            {
+                                try
+                                {
+                                    char[] ch = currentItem.Value.txtFinishTime.ToArray();
+                                    string hh = null;
+                                    string mm = null;
+                                    for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                                    for (int j = 3; j < 5; j++) { mm += ch[j]; }
+                                    int h = Int32.Parse(hh);
+                                    int m = Int32.Parse(mm);
+                                    if (h > 23) { err += " - Giờ thời gian kết thúc phải bé hơn 24\n"; error = false; }
+                                    if (h > 59) { err += " = Phút thời gian kết thúc phải bé hơn 59\n"; error = false; }
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                        //----
+                        if (String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) == true) { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false; countnull++; }
+                        else
+                        {
+                            if (CheckTimeInput(currentItem.Value.txtStartTime) == false) { err += " - Giờ Bắt Đầu Dạng HH:MM (HH <= 24 MM <=59)\n"; error = false; }
+                            else
+                            {
+                                try
+                                {
+                                    char[] ch = currentItem.Value.txtStartTime.ToArray();
+                                    string hh = null;
+                                    string mm = null;
+                                    for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                                    for (int j = 3; j < 5; j++) { mm += mm[j]; }
+                                    int h = Int32.Parse(hh);
+                                    int m = Int32.Parse(mm);
+                                    if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
+                                    if (m > 59) { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                    }
+
                     if (currentItem.Value.cbMonday == false && currentItem.Value.cbTuesday == false
                             && currentItem.Value.cbWednesday == false && currentItem.Value.cbThursday == false
                             && currentItem.Value.cbFriday == false && currentItem.Value.cbSarturday == false
@@ -375,66 +387,72 @@ namespace Aikido.VIEW
                     error = true;countnull = 0; 
                     if (currentItem.Value.txtName.Equals(null) == true || currentItem.Value.txtName.Equals("") == true) { err += " - Tên Lớp chưa được nhập\n"; error = false; countnull++; }
                     else if (kt == false) { err += " - Tên Lớp Đã Tồn Tại\n"; error = false; }
-                    if (currentItem.Value.txtStartTime == null || currentItem.Value.txtStartTime == "") { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;countnull++;
-                    }
-                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == true)
+                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) != true && String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) != true)
                     {
-                        try
+                        if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
                         {
-                            char[] ch = currentItem.Value.txtStartTime.ToArray();
-                            string hh = null;
-                            string mm = null;
-                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
-                            for (int j = 3; j < 5; j++) { mm += mm[j]; }
-                            int h = Int32.Parse(hh);
-                            int m = Int32.Parse(mm);
-                            if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
-                            if (m > 59) { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                    else { err += " - Giờ Bắt Đầu Dạng HH:MM\n"; error = false; }
-                    if (currentItem.Value.txtFinishTime == null || currentItem.Value.txtFinishTime == "") { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;countnull++; }
-                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == true)
-                    {
-                        try
-                        {
-                            char[] ch = currentItem.Value.txtFinishTime.ToArray();
-                            string hh = null;
-                            string mm = null;
-                            for (int j = 0; j < 2; j++)
-                            {
-                                hh += ch[j];
-                            }
-                            for (int j = 3; j < 5; j++)
-                            {
-                                mm += ch[j];
-                            }
-                            int h = Int32.Parse(hh);
-                            int m = Int32.Parse(mm);
-                            if (h > 23) { err += " - Giờ Thời gian kết thúc phải bé hơn 24\n"; error = false; }
-                            if (m > 59) { err += " - Phút Thời gian kết thúc phải bé hơn 59\n"; error = false; }
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                    else { err += " - Giờ Kết Thúc Dạng HH:MM\n"; }
-                    if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
-                    {
-                        if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
-                        {
-                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
-                        }
-                        else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
-                        {
-                            if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
+                            if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                             {
                                 err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
+                            }
+                            else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
+                            {
+                                if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
+                                {
+                                    err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) == true) { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false; countnull++; }
+                        else
+                        {
+                            if (CheckTimeInput(currentItem.Value.txtFinishTime) == false) { err += " - Giờ Kết Thúc Dạng HH:MM (HH >= 24 MM >=59)\n"; error = false; }
+                            else
+                            {
+                                try
+                                {
+                                    char[] ch = currentItem.Value.txtFinishTime.ToArray();
+                                    string hh = null;
+                                    string mm = null;
+                                    for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                                    for (int j = 3; j < 5; j++) { mm += ch[j]; }
+                                    int h = Int32.Parse(hh);
+                                    int m = Int32.Parse(mm);
+                                    if (h > 23) { err += " - Giờ thời gian kết thúc phải bé hơn 24\n"; error = false; }
+                                    if (h > 59) { err += " = Phút thời gian kết thúc phải bé hơn 59\n"; error = false; }
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                        }
+                        //----
+                        if (String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) == true) { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false; countnull++; }
+                        else
+                        {
+                            if (CheckTimeInput(currentItem.Value.txtStartTime) == false) { err += " - Giờ Bắt Đầu Dạng HH:MM (HH <= 24 MM <=59)\n"; error = false; }
+                            else
+                            {
+                                try
+                                {
+                                    char[] ch = currentItem.Value.txtStartTime.ToArray();
+                                    string hh = null;
+                                    string mm = null;
+                                    for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                                    for (int j = 3; j < 5; j++) { mm += mm[j]; }
+                                    int h = Int32.Parse(hh);
+                                    int m = Int32.Parse(mm);
+                                    if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
+                                    if (m > 59) { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }
+                                }
+                                catch
+                                {
+
+                                }
                             }
                         }
                     }
@@ -463,6 +481,7 @@ namespace Aikido.VIEW
             catch 
             {
                 markerror = false;
+               
             }
             mess = "Lỗi: \n" + err;
             return markerror;
@@ -536,6 +555,7 @@ namespace Aikido.VIEW
         {
             try
             {
+                dgvClass.Columns[3].Width = 235;
                 dgvClass.Columns[0].Visibility = Visibility.Hidden;
                 dgvClass.Columns[2].Visibility = Visibility.Hidden;
             }

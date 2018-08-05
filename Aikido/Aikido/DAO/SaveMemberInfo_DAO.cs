@@ -15,7 +15,8 @@ namespace Aikido.DAO
             using (var db = new AccessDB_DAO())
             {
                 if (arrImage == null) db.Students.Add(new Student() { FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth = Birthday, Delete_Flag = DeleteFlag });
-                else db.Students.Add(new Student() { Image = arrImage, FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth = Birthday, Delete_Flag = DeleteFlag });
+                else
+                    db.Students.Add(new Student() { Image = arrImage, FullName = Name, SKU = SKU, Nation = Nation, Address = address, PhoneNumber = Phone, Place_of_Birth = Birthplace, Day_Create = RegisterDay, Day_of_Birth = Birthday, Delete_Flag = DeleteFlag });
                 db.SaveChanges();
             }
         }
@@ -68,22 +69,14 @@ namespace Aikido.DAO
         {
             using (var db = new AccessDB_DAO())
             {
-                var classUpdate = db.Learns.Single(c => c.RegisterNumber == RegisterNumber);
-                classUpdate.ID_Class = ClassID;
-                classUpdate.Fee_January = 0;
-                classUpdate.Fee_February = 0;
-                classUpdate.Fee_March = 0;
-                classUpdate.Fee_April = 0;
-                classUpdate.Fee_May = 0;
-                classUpdate.Fee_June = 0;
-                classUpdate.Fee_July = 0;
-                classUpdate.Fee_August = 0;
-                classUpdate.Fee_September = 0;
-                classUpdate.Fee_October = 0;
-                classUpdate.Fee_December = 0;
-                classUpdate.Fee_November = 0;
-                classUpdate.RegisterDay = RegisterDay;
-                classUpdate.Day_Update = DateTime.Now;
+                var classUpdate = db.Fees.Where(c => c.RegisterNumber == RegisterNumber&&c.ID_Class==ClassID);
+                List<Fee_Model> listFee = new List<Fee_Model>();
+                listFee = classUpdate.ToList();
+                foreach( var i in listFee)
+                {
+                    i.Day_Update = DateTime.Now;
+                    i.ID_Class = ClassID;
+                }
                 db.SaveChanges();
             }
 

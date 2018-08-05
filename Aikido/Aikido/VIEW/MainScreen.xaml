@@ -8,16 +8,16 @@
         Title="Home" Height="663" Width="955" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Height="660" HorizontalAlignment="Center" VerticalAlignment="Top" Width="945" Margin="0,0,4,-26">
         <Grid Height="150" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,0" Width="925">
-            <Image Height="110" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Width="130" >
-
+            <Image Name="image" Height="118" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,14,0,0" Width="145" Source="/image/logo.png">
+             
             </Image>
-            <Label Height="150" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,0,0,0" Width="705" BorderBrush="Black" BorderThickness="1.5"
+            <Label Height="130" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="196,8,0,0" Width="705" BorderBrush="Black" BorderThickness="1.5"
                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Quản Lý Hội Viên Võ Đường Aidiko Dojo"
                        TextElement.FontFamily="Times New Roman" TextElement.FontSize="30" TextElement.FontWeight="Bold" Foreground="Blue"
                        >
             </Label>
         </Grid>
-        <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,150,0,0" Width="935">
+        <Grid Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,150,0,0" Width="935" >
             <Menu Margin="0,0,770,10" Name="btnDKHV"
                Mouse.MouseEnter="btnDKHV_MouseEnter" Mouse.MouseLeave="btnDKHV_MouseLeave" Mouse.MouseDown="btnDKHV_MouseDown"
                Background="White" Foreground="Blue" 

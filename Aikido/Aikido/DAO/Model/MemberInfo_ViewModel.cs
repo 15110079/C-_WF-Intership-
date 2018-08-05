@@ -61,5 +61,7 @@ namespace Aikido.DAO.Model
 
         public Dictionary<string, DateTime> listLevel { get; set; }
 
+
+
     }
 }
