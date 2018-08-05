@@ -28,8 +28,10 @@ namespace Aikido.VIEW
     public partial class ClassScreen : Window
     {
         ManageClass_BLO manageClass = new ManageClass_BLO();
-        private List<dgvClass_ViewModel> dataEdit = new List<dgvClass_ViewModel>();
-        private List<dgvClass_ViewModel> dataAdd = new List<dgvClass_ViewModel>();
+         //private List<dgvClass_ViewModel> dataEdit = new List<dgvClass_ViewModel>();
+        // private List<dgvClass_ViewModel> dataAdd = new List<dgvClass_ViewModel>();
+        private Dictionary<int, dgvClass_ViewModel> dataEdit = new Dictionary<int, dgvClass_ViewModel>();
+        private Dictionary<int, dgvClass_ViewModel> dataAdd = new Dictionary<int, dgvClass_ViewModel>();
         private List<int> IDdataEdit = new List<int>();
         private List<int> IDdataAdd = new List<int>();
         private bool kt = true;
@@ -43,7 +45,9 @@ namespace Aikido.VIEW
             Thread.CurrentThread.CurrentCulture = ci;
             DataSet data = new DataSet();
 
+            
             dgvClass.ItemsSource = manageClass.LoadClass();
+ 
             dgvClass.CanUserAddRows = true;
 
         }
@@ -74,7 +78,6 @@ namespace Aikido.VIEW
             btnSearchb.Background = Brushes.White;
             btnSearchI.Background = Brushes.White;
         }
-
         private void btnQLHP_MouseEnter(object sender, MouseEventArgs e)
         {
             btnQLHPb.Background = Brushes.DarkBlue;
@@ -189,12 +192,11 @@ namespace Aikido.VIEW
             {
                 foreach (var i in IDdataAdd)
                 {
-                    dataAdd.Add(dgvClass.Items[i] as DAO.Model.dgvClass_ViewModel);
-                        
+                    dataAdd.Add(i,dgvClass.Items[i] as DAO.Model.dgvClass_ViewModel);                    
                  }
                 foreach (var i in IDdataEdit)
                 {
-                    dataEdit.Add(dgvClass.Items[i] as DAO.Model.dgvClass_ViewModel);
+                    dataEdit.Add(i,dgvClass.Items[i] as DAO.Model.dgvClass_ViewModel);
                 }
                 string message = null;
                 if (dataAdd.Count > 0 || dataEdit.Count > 0)
@@ -204,21 +206,20 @@ namespace Aikido.VIEW
                         if (dataAdd.Count() > 0 || dataEdit.Count > 0) manageClass.SaveClass(dataAdd, dataEdit);
                         IDdataAdd.Clear(); dataAdd.Clear();
                          IDdataEdit.Clear(); dataEdit.Clear();
+
                         dgvClass.ItemsSource = manageClass.LoadClass();
                         dgvClass.Columns[0].Visibility = Visibility.Hidden; 
                         dgvClass.Columns[2].Visibility = Visibility.Hidden;
                         MessageBox.Show("Lưu thành công");
-                        IDdataAdd.Clear(); dataAdd.Clear();
+                        IDdataAdd.Clear(); dataAdd.Clear();       //--Minh mođified 4/8/2018 (line 213 - 219)
                         IDdataEdit.Clear(); dataEdit.Clear();
                     }
                     else
                     {
-                        //IDdataAdd.Clear(); dataAdd.Clear();       //--Minh mođified 4/8/2018 (da loai nhung element bi lỗi ở ham checkData)
-                        //IDdataEdit.Clear(); dataEdit.Clear();
-
-
+                       dataAdd.Clear();      
+                       dataEdit.Clear();
                         MessageBox.Show(message, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                        //dgvClass.ItemsSource = manageClass.LoadClass();
+                       
                     }
                 }
                 else
@@ -226,9 +227,9 @@ namespace Aikido.VIEW
                     MessageBox.Show("Dữ liệu không có gì thay đổi");
                 }
             }
-            catch
+            catch 
             {
-
+               
             }
         }
 
@@ -239,19 +240,33 @@ namespace Aikido.VIEW
                 var currentItem = dgvClass.SelectedItem as DAO.Model.dgvClass_ViewModel;
                 if (MessageBox.Show($"Chắc xóa lớp {currentItem.txtName} không?", "Cảnh báo", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    if (dgvClass.SelectedIndex < dgvClass.Items.Count - 1 || (dgvClass.SelectedIndex == dgvClass.Items.Count - 1 && dgvClass.CanUserAddRows == false))
+                    //var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;
+                    if (dgvClass.SelectedIndex < dgvClass.Items.Count - 1 && currentItem.ID!=0|| (dgvClass.SelectedIndex == dgvClass.Items.Count - 1 && dgvClass.CanUserAddRows == false)&&currentItem.ID!=0)
                     {
                         manageClass.DeleteClass(currentItem.ID);
                         dgvClass.ItemsSource = manageClass.LoadClass();
                         dgvClass.Columns[0].Visibility = Visibility.Hidden;
                         dgvClass.Columns[2].Visibility = Visibility.Hidden;
                     }
+                    else 
+                    {
+                        // List<dgvClass_ViewModel>deleteEmpltyRow = new List<dgvClass_ViewModel>();
+                        
+                        //var selectedItem = dgvClass.SelectedItem;
+                        //if (selectedItem != null)
+                        //{
+                        //    dgvClass.Items.Remove(selectedItem);
+                        //}
+
+
+                    }
                 }
             }
-            catch
+            catch(Exception es)
             {
-                MessageBox.Show("Chọn dòng muốn xóa");
+                MessageBox.Show("Chọn dòng muốn xóa"+es);
             }
+            
         }
 
         public bool CheckTimeInput(string timein)
@@ -259,36 +274,36 @@ namespace Aikido.VIEW
             Regex objAlphaNumericPattern = new Regex("^(?:[0-9][0-9]):[0-9][0-9]$");
             return objAlphaNumericPattern.IsMatch(timein);
         }
-
         private Boolean checkData(ref string mess)
         {
             bool error = true;
             string err = null;
             bool markerror = true;
-            List<dgvClass_ViewModel> rejectAddList = new List<dgvClass_ViewModel>();
-            List<dgvClass_ViewModel> rejectEditList = new List<dgvClass_ViewModel>();
+            int countnull=0;
+            List<int> rejectAddlist = new List<int>();
+            List<int> rejectEditlist = new List<int>();
             try
             {
                 int line1 = 0;
                 int line2 = 0;
                 foreach (var currentItem in dataAdd)
                 {
-                    error = true;
-                    //-----HKM - fix bug 4/8/2018  
-                    //if (currentItem.txtName.Equals(null) == true || currentItem.txtName.Equals("") == true || currentItem.txtName.Equals(" ") )
-                    if (String.IsNullOrWhiteSpace(currentItem.txtName) == true)     {  err += " - Tên Lớp chưa được nhập\n"; error = false;     }
-                    else if (CheckName(currentItem.txtName) == false)  {                       err += " - Tên Lớp Đã Tồn Tại\n"; error = false;                    }
-                    if (String.IsNullOrWhiteSpace(currentItem.txtStartTime) == true)       {          err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;      }
-                    else if (CheckTimeInput(currentItem.txtStartTime) == false)     {       err += " - Giờ Bắt Đầu Dạng HH:MM (HH <= 24 MM <=59)\n"; error = false;      }
-                    else if (CheckTimeInput(currentItem.txtStartTime) == true)
+                    error = true; countnull = 0;
+                    //-----Minh- fix bug  4/8/2018   (line 277 - 451 )
+                    //if (currentItem.Value.txtName.Equals(null) == true || currentItem.Value.txtName.Equals("") == true || currentItem.Value.txtName.Equals(" ") )
+                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtName) == true) { err += " - Tên Lớp chưa được nhập\n"; error = false; countnull++; }
+                    else if (CheckName(currentItem.Key, currentItem.Value.txtName) == false) { err += " - Tên Lớp Đã Tồn Tại\n"; error = false; }
+                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtStartTime) == true) { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false; countnull++; }
+                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == false) { err += " - Giờ Bắt Đầu Dạng HH:MM (HH <= 24 MM <=59)\n"; error = false; }
+                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == true)
                     {
                         try
                         {
-                            char[] ch = currentItem.txtStartTime.ToArray();
+                            char[] ch = currentItem.Value.txtStartTime.ToArray();
                             string hh = null;
                             string mm = null;
-                            for (int j = 0; j < 2; j++)    {   hh += ch[j];     }
-                            for (int j = 3; j < 5; j++)      {    mm += mm[j];     }
+                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                            for (int j = 3; j < 5; j++) { mm += mm[j]; }
                             int h = Int32.Parse(hh);
                             int m = Int32.Parse(mm);
                             if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
@@ -299,94 +314,95 @@ namespace Aikido.VIEW
 
                         }
                     }
-                    if (String.IsNullOrWhiteSpace(currentItem.txtFinishTime) == true) {  err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;   }
-                    else if (CheckTimeInput(currentItem.txtFinishTime) == false)    {   err += " - Giờ Kết Thúc Dạng HH:MM (HH >= 24 MM >=59)\n"; error = false; }
-                    else if (CheckTimeInput(currentItem.txtFinishTime) == true)
+                    if (String.IsNullOrWhiteSpace(currentItem.Value.txtFinishTime) == true) { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;countnull++; }
+                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == false) { err += " - Giờ Kết Thúc Dạng HH:MM (HH >= 24 MM >=59)\n"; error = false; }
+                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == true)
                     {
                         try
                         {
-                            char[] ch = currentItem.txtFinishTime.ToArray();
+                            char[] ch = currentItem.Value.txtFinishTime.ToArray();
                             string hh = null;
                             string mm = null;
-                            for (int j = 0; j < 2; j++)     {   hh += ch[j];           }
-                            for (int j = 3; j < 5; j++)     {   mm += ch[j];         }
+                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                            for (int j = 3; j < 5; j++) { mm += ch[j]; }
                             int h = Int32.Parse(hh);
                             int m = Int32.Parse(mm);
-                            if (h > 23)   {  err += " - Giờ thời gian kết thúc phải bé hơn 24\n"; error = false; }
-                            if (h > 59)   {  err += " = Phút thời gian kết thúc phải bé hơn 59\n"; error = false; }                
+                            if (h > 23) { err += " - Giờ thời gian kết thúc phải bé hơn 24\n"; error = false; }
+                            if (h > 59) { err += " = Phút thời gian kết thúc phải bé hơn 59\n"; error = false; }
                         }
                         catch
                         {
 
                         }
                     }
-                    if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
+                    if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
                     {
-                        if (DateTime.Parse(currentItem.txtStartTime).Hour >DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                         {
-                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n";  error = false;
+                            err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                         }
-                        else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                         {
-                            if (DateTime.Parse(currentItem.txtStartTime).Minute >= DateTime.Parse(currentItem.txtFinishTime).Minute)
+                            if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
                             {
                                 err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                             }
                         }
                     }
-                    if (currentItem.cbMonday == false && currentItem.cbTuesday == false
-                            && currentItem.cbWednesday == false && currentItem.cbThursday == false
-                            && currentItem.cbFriday == false && currentItem.cbSarturday == false
-                            && currentItem.cbSunday == false
+                    if (currentItem.Value.cbMonday == false && currentItem.Value.cbTuesday == false
+                            && currentItem.Value.cbWednesday == false && currentItem.Value.cbThursday == false
+                            && currentItem.Value.cbFriday == false && currentItem.Value.cbSarturday == false
+                            && currentItem.Value.cbSunday == false
                       )
                     {
                         err += " - Chọn ít nhất một ngày học trong tuần\n";
                         error = false;
+                        countnull++;
                     }
                     line1++;
                     if (error == false)
                     {
-                        var rowerr = dgvClass.ItemContainerGenerator.ContainerFromItem(currentItem) as DataGridRow;
+                        var rowerr = dgvClass.ItemContainerGenerator.ContainerFromItem(currentItem.Value) as DataGridRow;
                         rowerr.BorderBrush = Brushes.Red;
                         rowerr.BorderThickness = new Thickness(0, 0, 6, 0);
                         markerror = false;
                         error = true;
-                       
-                        rejectAddList.Add(currentItem); //bi loi nen reject ra--- minh comment modified 4/8/2018
+                       if(countnull==4) IDdataAdd.Remove(currentItem.Key);
                     }
                 }
                 foreach (var currentItem in dataEdit)
                 {
-                    error = true;
-                    if (currentItem.txtName.Equals(null) == true || currentItem.txtName.Equals("") == true) { err += " - Tên Lớp chưa được nhập\n"; error = false; }
-                    else if (kt == false)   {    err += " - Tên Lớp Đã Tồn Tại\n"; error = false; }
-                    if (currentItem.txtStartTime == null || currentItem.txtStartTime == "") {      err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;    }
-                    else if (CheckTimeInput(currentItem.txtStartTime) == true)
+                    error = true;countnull = 0; 
+                    if (currentItem.Value.txtName.Equals(null) == true || currentItem.Value.txtName.Equals("") == true) { err += " - Tên Lớp chưa được nhập\n"; error = false; countnull++; }
+                    else if (kt == false) { err += " - Tên Lớp Đã Tồn Tại\n"; error = false; }
+                    if (currentItem.Value.txtStartTime == null || currentItem.Value.txtStartTime == "") { err += " - Giờ Bắt Đầu chưa được nhập\n"; error = false;countnull++;
+                    }
+                    else if (CheckTimeInput(currentItem.Value.txtStartTime) == true)
                     {
                         try
                         {
-                            char[] ch = currentItem.txtStartTime.ToArray();
+                            char[] ch = currentItem.Value.txtStartTime.ToArray();
                             string hh = null;
                             string mm = null;
-                            for (int j = 0; j < 2; j++)   {       hh += ch[j];              }
-                            for (int j = 3; j < 5; j++)   {       mm += mm[j];              }
+                            for (int j = 0; j < 2; j++) { hh += ch[j]; }
+                            for (int j = 3; j < 5; j++) { mm += mm[j]; }
                             int h = Int32.Parse(hh);
                             int m = Int32.Parse(mm);
-                            if (h > 23)     { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
-                            if (m > 59)    { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }                         
+                            if (h > 23) { err += " - Giờ thời gian bắt đầu phải bé hơn 24\n"; error = false; }
+                            if (m > 59) { err += " - Phút thời gian bắt đầu phải bé hơn 59\n"; error = false; }
                         }
                         catch
                         {
 
                         }
                     }
-                    else  { err += " - Giờ Bắt Đầu Dạng HH:MM\n"; error = false;     }
-                    if (currentItem.txtFinishTime == null || currentItem.txtFinishTime == "")    {      err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;  }
-                    else if (CheckTimeInput(currentItem.txtFinishTime) == true)
+                    else { err += " - Giờ Bắt Đầu Dạng HH:MM\n"; error = false; }
+                    if (currentItem.Value.txtFinishTime == null || currentItem.Value.txtFinishTime == "") { err += " - Giờ Kết Thúc chưa được nhập\n"; error = false;countnull++; }
+                    else if (CheckTimeInput(currentItem.Value.txtFinishTime) == true)
                     {
                         try
                         {
-                            char[] ch = currentItem.txtFinishTime.ToArray();
+                            char[] ch = currentItem.Value.txtFinishTime.ToArray();
                             string hh = null;
                             string mm = null;
                             for (int j = 0; j < 2; j++)
@@ -407,54 +423,46 @@ namespace Aikido.VIEW
 
                         }
                     }
-                    else   { err += " - Giờ Kết Thúc Dạng HH:MM\n";    }
-                    if (CheckTimeInput(currentItem.txtFinishTime) == true && CheckTimeInput(currentItem.txtStartTime) == true)
+                    else { err += " - Giờ Kết Thúc Dạng HH:MM\n"; }
+                    if (CheckTimeInput(currentItem.Value.txtFinishTime) == true && CheckTimeInput(currentItem.Value.txtStartTime) == true)
                     {
-                        if (DateTime.Parse(currentItem.txtStartTime).Hour > DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        if (DateTime.Parse(currentItem.Value.txtStartTime).Hour > DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                         {
                             err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                         }
-                        else if (DateTime.Parse(currentItem.txtStartTime).Hour == DateTime.Parse(currentItem.txtFinishTime).Hour)
+                        else if (DateTime.Parse(currentItem.Value.txtStartTime).Hour == DateTime.Parse(currentItem.Value.txtFinishTime).Hour)
                         {
-                            if (DateTime.Parse(currentItem.txtStartTime).Minute >= DateTime.Parse(currentItem.txtFinishTime).Minute)
+                            if (DateTime.Parse(currentItem.Value.txtStartTime).Minute >= DateTime.Parse(currentItem.Value.txtFinishTime).Minute)
                             {
                                 err += " - Giờ Bắt Đầu Phải Bé Hơn Giờ Kết Thúc\n"; error = false;
                             }
                         }
                     }
-                    if (currentItem.cbMonday == false && currentItem.cbTuesday == false
-                            && currentItem.cbWednesday == false && currentItem.cbThursday == false
-                            && currentItem.cbFriday == false && currentItem.cbSarturday == false
-                            && currentItem.cbSunday == false
+                    if (currentItem.Value.cbMonday == false && currentItem.Value.cbTuesday == false
+                            && currentItem.Value.cbWednesday == false && currentItem.Value.cbThursday == false
+                            && currentItem.Value.cbFriday == false && currentItem.Value.cbSarturday == false
+                            && currentItem.Value.cbSunday == false
                       )
                     {
-                        err += " - Chọn ít nhất một ngày học trong tuần\n";
+                        err += " - Chọn ít nhất một ngày học trong tuần\n";countnull++;
                         error = false;
                     }
                     line2++;
-                    if (error == false)
+                    if (error == false)     //   Modified - Minh 4/8/20118
                     {
-                        var rowerr = dgvClass.ItemContainerGenerator.ContainerFromItem(currentItem) as DataGridRow;
+                        var rowerr = dgvClass.ItemContainerGenerator.ContainerFromItem(currentItem.Value) as DataGridRow;
                         rowerr.BorderBrush = Brushes.Red;
                         rowerr.BorderThickness = new Thickness(0, 0, 6, 0);
                         markerror = false;
                         error = true;
-
-                        rejectEditList.Add(currentItem);  //bi loi nen reject ra--- minh comment modified 4/8/2018
+                        if(countnull==4) IDdataEdit.Remove(currentItem.Key);             //--Note !!! Minh 4/8/2018
                     }
-                }
-                foreach(var i in rejectAddList)
-                {
-                    dataAdd.Remove(i);
-                }
-                foreach (var i in rejectEditList)
-                {
-                    dataEdit.Remove(i);
+                    
                 }
             }
-            catch(Exception e)
+            catch 
             {
-                MessageBox.Show(""+e);
+                markerror = false;
             }
             mess = "Lỗi: \n" + err;
             return markerror;
@@ -465,10 +473,11 @@ namespace Aikido.VIEW
             try
             {
                 var id = dgvClass.Items[dgvClass.SelectedIndex] as DAO.Model.dgvClass_ViewModel;
-                if (dgvClass.Items.Count - 2 == dgvClass.SelectedIndex && id.ID == 0)
+                //dgvClass.Items.Count - 2 == dgvClass.SelectedIndex &&
+                if ( id.ID == 0)                                                        //Minh modified 4/8/2018 line 459
                 {
                     int kt = 0;
-                    foreach (var i in IDdataAdd)
+                    foreach (var i in IDdataAdd)  //thêm bị trung
                     {
                         if (dgvClass.SelectedIndex == i)
                         {
@@ -543,14 +552,14 @@ namespace Aikido.VIEW
             //Chuyển button add khi chọn dòng cuối cùng
 
         }
-        private bool CheckName(string name)
+        private bool CheckName(int id, string currentIndex)
         {
             try
             {
                 for (int i = 0; i < dgvClass.Items.Count - 1; i++)
                 {
                     var k = dgvClass.Items[i] as dgvClass_ViewModel;
-                    if (k.txtName.Equals(name) == true && dgvClass.SelectedIndex != i) return false;
+                    if (k.txtName.Equals(currentIndex) == true && id != i) return false;
                 }
                 return true;
             }
@@ -567,7 +576,7 @@ namespace Aikido.VIEW
             var i = dgvClass.Items[dgvClass.SelectedIndex] as dgvClass_ViewModel;
             int col = val1.DisplayIndex;
             switch (col)
-            {
+            {                     //Modified Minh 4/8/2018
                 case 3:
                     {
                         kt = true;
@@ -578,14 +587,14 @@ namespace Aikido.VIEW
                             e.Row.BorderThickness = new Thickness(0, 0, 6, 0);
                             MessageBox.Show(err, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                         }
-                        else if (CheckName(val.Text.ToString()) == false)
+                        else if (CheckName(dgvClass.SelectedIndex,val.Text.ToString()) == false)
                         {
-                            err += " - Tên Lớp Đã Tồn Tại\n"; kt = false;
+                                    err += " - Tên Lớp Đã Tồn Tại\n"; kt = false;
                             val.Text = ""; 
                             e.Row.BorderBrush = Brushes.Red;
                             e.Row.BorderThickness = new Thickness(0, 0, 6, 0);
                              MessageBox.Show(err, "Lỗi", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                            //-----HKM - fix bug 4/8/2018
+                   
                             kt = true;
                         }
 

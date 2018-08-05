@@ -29,7 +29,7 @@ namespace Aikido.BLO
             delete.deleteClass(ID);
         }
         //Save Class Info
-        public void SaveClass(List<dgvClass_ViewModel> dataAdd, List<dgvClass_ViewModel> dataEdit)
+        public void SaveClass(Dictionary<int,dgvClass_ViewModel> dataAdd, Dictionary<int,dgvClass_ViewModel> dataEdit)
         {
             SaveClass_DAO save = new SaveClass_DAO();
             save.saveClass(dataAdd, dataEdit);

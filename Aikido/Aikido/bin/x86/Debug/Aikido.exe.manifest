@@ -528,14 +528,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aikido.exe" size="776192">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aikido.exe" size="776704">
       <assemblyIdentity name="Aikido" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rftC27dJthKN8SkaMEwqXrRiw1AydosBw62hKDVpgAA=</dsig:DigestValue>
+        <dsig:DigestValue>9GPm9XWJZqWiuPmJCqVgUjtkaeg5IeoooRlrk5Ji1rY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
