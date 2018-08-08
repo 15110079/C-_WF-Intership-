@@ -46,12 +46,13 @@
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextElement.FontWeight="Bold">
                 <MenuItem Header="       Thiết Lập" Height="50" Width="146" Click="Setting_Click"></MenuItem>
             </Menu>
-            
-            <Menu Name="btnHelp" FontSize="15" FontWeight="Bold" FontStyle="Normal" Foreground="Blue" Height="50" Margin="806,0,0,10" Background="White">
-                <MenuItem Name="btnHelpI" Mouse.MouseEnter="btnHelpI_MouseEnter" Mouse.MouseLeave="btnHelpI_MouseLeave"
-                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Blue" Header="        Trợ Giúp" Height="50" Width="129" FontFamily="Arial" Background="White" >
-                    <MenuItem Click="HDSD_Click" Header="Hướng dẫn sử dụng" Height="26" Margin="0,0,-2.4,0"/>
-                    <MenuItem Click="TTNPT_Click" Header="Thông tin nhà phát triển" Height="26" Margin="0,0,-0.4,0"/>
+
+            <Menu Name="btnHelp" FontSize="15" FontWeight="Bold" FontStyle="Normal" Foreground="Blue" Height="50" Margin="806,0,0,10" 
+                  Background="White">
+                <MenuItem Click="btnHelpI_Click" Name="btnHelpI" Mouse.MouseEnter="btnHelpI_MouseEnter" Mouse.MouseLeave="btnHelpI_MouseLeave" 
+                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Blue" Header="      Trợ Giúp" Height="50" Width="129" FontFamily="Arial" >
+                    <!--<MenuItem Click="HDSD_Click" Header="Hướng dẫn sử dụng" Height="26" Margin="0,0,-2.4,0"/>
+                    <MenuItem Click="TTNPT_Click" Header="Thông tin nhà phát triển" Height="26" Margin="0,0,-0.4,0"/>-->
                 </MenuItem>
             </Menu>
 

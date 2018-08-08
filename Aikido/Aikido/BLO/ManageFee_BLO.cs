@@ -315,8 +315,8 @@ namespace Aikido.BLO
                         crg = 0;
                         var j = dgvTotal.Items[i] as DAO.Model.dgvTotalC_ViewModel;
                         Range cli;
-                        cli = oSheet.get_Range(rg1[crg] + d, rg2[crg] + d);
-                        cli.MergeCells = true;
+                        cli = oSheet.get_Range(rg2[crg] + d, rg2[crg] + d);
+                        
                         cli.Value2 = j.lblToal;
                         cli.ColumnWidth = 18.0;
                         cli.HorizontalAlignment = XlHAlign.xlHAlignCenter;
@@ -455,11 +455,11 @@ namespace Aikido.BLO
         }
         //Load Fee
 
-        public List<dgvFee_ViewModel> LoadAllFee()
-        {
-            LoadFee_DAO fee = new LoadFee_DAO();
-            return fee.selectAll();
-        }
+        //public List<dgvFee_ViewModel> LoadAllFee()
+        //{
+        //    LoadFee_DAO fee = new LoadFee_DAO();
+        //    return fee.selectAll();
+        //}
         public List<dgvFee_ViewModel> LoadFee(int id)
         {
             LoadFee_DAO fee = new LoadFee_DAO();
@@ -472,11 +472,11 @@ namespace Aikido.BLO
             return fee.selectFee1(id);
         }
 
-        public List<dgvFee_ViewModel> LoadAllFee1()
-        {
-            LoadFee_DAO fee = new LoadFee_DAO();
-            return fee.selectAllFee1();
-        }
+        //public List<dgvFee_ViewModel> LoadAllFee1()
+        //{
+        //    //LoadFee_DAO fee = new LoadFee_DAO();
+        //    //return fee.selectAllFee1();
+        //}
         public List<dgvTotalC_ViewModel> LoadTotal(DataGrid dgv)
         {
             LoadFee_DAO fee = new LoadFee_DAO();
@@ -490,16 +490,16 @@ namespace Aikido.BLO
         }
 
         //Filter
-        public List<dgvFee_ViewModel> LoadFilter(int id)
-        {
-            FilterFee_DAO fee = new FilterFee_DAO();
-            return fee.selectCondition(id);
-        }
-        public List<dgvFee_ViewModel> LoadFilter1(int id)
-        {
-            FilterFee_DAO fee = new FilterFee_DAO();
-            return fee.selectCondition1(id);
-        }
+        //public List<dgvFee_ViewModel> LoadFilter(int id)
+        //{
+        //    FilterFee_DAO fee = new FilterFee_DAO();
+        //    return fee.selectCondition(id);
+        //}
+        //public List<dgvFee_ViewModel> LoadFilter1(int id)
+        //{
+        //    FilterFee_DAO fee = new FilterFee_DAO();
+        //    return fee.selectCondition1(id);
+        //}
 
     }
 }

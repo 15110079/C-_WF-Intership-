@@ -56,20 +56,20 @@ namespace Aikido.DAO
         }
 
         //Save Class which New Member register
-        public void SaveRegisterClass(int RegisterNumber, int ClassID, DateTime RegisterDay)
-        {
-            using (var db = new AccessDB_DAO())
-            {
-                db.Learns.Add(new Learn() { ID_Class = ClassID, RegisterNumber = RegisterNumber, Fee_January = 0, Fee_February = 0, Fee_March = 0, Fee_April = 0, Fee_May = 0, Fee_June = 0, Fee_July = 0, Fee_August = 0, Fee_September = 0, Fee_October = 0, Fee_December = 0, Fee_November = 0, RegisterDay = RegisterDay, Day_Create = DateTime.Now, Delete_Flag = false });
-                db.SaveChanges();
-            }
-        }
+        //public void SaveRegisterClass(int RegisterNumber, int ClassID, DateTime RegisterDay)
+        //{
+        //    using (var db = new AccessDB_DAO())
+        //    {
+        //        db.Learns.Add(new Learn() { ID_Class = ClassID, RegisterNumber = RegisterNumber, Fee_January = 0, Fee_February = 0, Fee_March = 0, Fee_April = 0, Fee_May = 0, Fee_June = 0, Fee_July = 0, Fee_August = 0, Fee_September = 0, Fee_October = 0, Fee_December = 0, Fee_November = 0, RegisterDay = RegisterDay, Day_Create = DateTime.Now, Delete_Flag = false });
+        //        db.SaveChanges();
+        //    }
+        //}
 
         public void EditRegisterClass(int RegisterNumber, int ClassID, DateTime RegisterDay)
         {
             using (var db = new AccessDB_DAO())
             {
-                var classUpdate = db.Fees.Where(c => c.RegisterNumber == RegisterNumber&&c.ID_Class==ClassID);
+                var classUpdate = db.Fees.Where(c => c.RegisterNumber == RegisterNumber);
                 List<Fee_Model> listFee = new List<Fee_Model>();
                 listFee = classUpdate.ToList();
                 foreach( var i in listFee)

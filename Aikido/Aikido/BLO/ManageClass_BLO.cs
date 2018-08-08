@@ -36,9 +36,9 @@ namespace Aikido.BLO
         }
 
         //Load Combox Class
-        public List<Class> ComboxClass2()
+        public List<Class> ComboxClass2(bool editOrnot)
         {
-            return Class_DAO.LoadComboxClass2();
+            return Class_DAO.LoadComboxClass2(editOrnot);
 
         }
         public List<Class> ComboxClass1()

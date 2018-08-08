@@ -140,18 +140,18 @@ namespace Aikido.VIEW
             setting.Show();
             this.Close();
         }
-        private void TTNPT_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
-        private void HDSD_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
+        //private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Support scon = new Support();
+        //    scon.Show();
+        //    this.Close();
+        //}
+        //private void HDSD_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SearchCondition scon = new SearchCondition();
+        //    //scon.Show();
+        //    //this.Close();
+        //}
         //
         private void btnTimKiem_Click(object sender, RoutedEventArgs e)
         {
@@ -395,6 +395,13 @@ namespace Aikido.VIEW
 
             RegisterMemberScreen register = new RegisterMemberScreen(datasearch);
             register.Show();
+            this.Close();
+        }
+
+        private void btnHelpI_Click(object sender, RoutedEventArgs e)
+        {
+            Support sp = new Support();
+            sp.Show();
             this.Close();
         }
     }

@@ -47,11 +47,12 @@
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" TextElement.FontWeight="Bold">
                 <MenuItem Header="       Thiết Lập" Height="50" Width="146" Click="Setting_Click"></MenuItem>
             </Menu>
-            <Menu Name="btnHelp" FontSize="15" FontWeight="Bold" FontStyle="Normal" Foreground="Blue" Height="50" Margin="806,0,0,10" Background="White">
-                <MenuItem Name="btnHelpI" Mouse.MouseEnter="btnHelpI_MouseEnter" Mouse.MouseLeave="btnHelpI_MouseLeave"
-                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Blue" Header="      Trợ Giúp" Height="50" Width="129" FontFamily="Arial" Background="White" >
-                    <MenuItem Click="HDSD_Click" Header="Hướng dẫn sử dụng" Height="26" Margin="0,0,-2.4,0"/>
-                    <MenuItem Click="TTNPT_Click" Header="Thông tin nhà phát triển" Height="26" Margin="0,0,-0.4,0"/>
+            <Menu Name="btnHelp" FontSize="15" FontWeight="Bold" FontStyle="Normal" Foreground="Blue" Height="50" Margin="806,0,0,10" 
+                  Background="White">
+                <MenuItem Click="btnHelpI_Click" Name="btnHelpI" Mouse.MouseEnter="btnHelpI_MouseEnter" Mouse.MouseLeave="btnHelpI_MouseLeave" 
+                    VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="Blue" Header="      Trợ Giúp" Height="50" Width="129" FontFamily="Arial"  Background="White" >
+                    <!--<MenuItem Click="HDSD_Click" Header="Hướng dẫn sử dụng" Height="26" Margin="0,0,-2.4,0"/>
+                    <MenuItem Click="TTNPT_Click" Header="Thông tin nhà phát triển" Height="26" Margin="0,0,-0.4,0"/>-->
                 </MenuItem>
             </Menu>
 
@@ -87,21 +88,22 @@
                         <RowDefinition Height="301*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1016*"/>
-                        <ColumnDefinition Width="169*"/>
+                        <ColumnDefinition Width="61*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="11*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Class" Margin="30,20,0,0" HorizontalAlignment="Left" Width="50" Height="30" VerticalContentAlignment="Center" VerticalAlignment="Top" TextElement.FontFamily="Arial" TextElement.FontSize="15"/>
                     <ComboBox  x:Name="cmbClassName" Width="200" Height="25" Margin="100,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" Foreground="DarkBlue" SelectionChanged="cmbClassName_SelectionChanged"/>
 
-                    <Button x:Name="btnExport" Content="Xuất File Excel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="138" Height="30" Margin="543,0,375.889,20"
+                    <Button x:Name="btnExport" Content="Xuất File Excel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="138" Height="30" Margin="543,0,295.444,20"
                         TextElement.FontFamily="Arial" TextElement.FontSize="15" TextElement.FontStyle="Normal" TextElement.FontWeight="Bold" Foreground="Black" Click="btnExport_Click" Grid.Row="2"/>
                     <!--Margin="225,60,10,109" cho fee1 và fee2-->
                     <DataGrid x:Name="dgvFee2" FrozenColumnCount="3" CanUserResizeColumns="False" CanUserResizeRows="False"  LoadingRow="dgvFee2_LoadingRow" CellEditEnding="dgvFee2_CellEditEnding"
                         ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Visibility="Visible"
                         RowHeight="20" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="0"
-                        Margin="183,2.444,25.889,125" HorizontalContentAlignment="Center" CanUserAddRows="False" ScrollViewer.ScrollChanged="dgvFee2_ScrollChanged"
+                        Margin="183,2.444,25.888,125" HorizontalContentAlignment="Center" CanUserAddRows="False" ScrollViewer.ScrollChanged="dgvFee2_ScrollChanged"
                         Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"
-                        TextElement.FontFamily="Arial" TextElement.FontSize="13" TextElement.FontStyle="Normal" AutoGenerateColumns="False" CanUserDeleteRows="False" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        TextElement.FontFamily="Arial" TextElement.FontSize="13" TextElement.FontStyle="Normal" AutoGenerateColumns="False" CanUserDeleteRows="False" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="IDLearn" Width="65" Binding="{Binding ID_Learn}" Visibility="Hidden"/>
                             <DataGridTextColumn Header="IDLearn" Width="65" Binding="{Binding RegisterNumber}" Visibility="Hidden" />
@@ -123,7 +125,7 @@
                     <DataGrid x:Name="dgvFee1" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Visibility="Visible"
                         CanUserResizeColumns="False" CanUserResizeRows="False" ScrollViewer.ScrollChanged="dgvFee1_ScrollChanged"
                         RowHeight="40" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="0"
-                        Margin="-32,2.444,805.889,125" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
+                        Margin="-32,2.444,725.444,125" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
                         Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  
                         TextElement.FontFamily="Arial" TextElement.FontSize="13"
                         Loaded="dgvFee_Loaded" CanUserAddRows="False" CanUserDeleteRows="False" Grid.Row="1" Grid.RowSpan="2">
@@ -138,10 +140,10 @@
                     <DataGrid x:Name="dgvFee" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Visibility="Hidden"
                         CanUserResizeColumns="False" CanUserResizeRows="False"
                         RowHeight="20" VerticalContentAlignment="Center" BorderBrush="Transparent" BorderThickness="0"
-                        Margin="10,0.444,9.889,109" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
+                        Margin="10,0.444,9.888,109" HorizontalContentAlignment="Center" AutoGenerateColumns="False"
                         Background="White" RowBackground="White" AlternatingRowBackground="LightGray" SelectionMode="Extended"  
                         TextElement.FontFamily="Arial" TextElement.FontSize="13"
-                        Loaded="dgvFee_Loaded" CanUserAddRows="False" CanUserDeleteRows="False" LoadingRow="dgvFee_LoadingRow" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2">
+                        Loaded="dgvFee_Loaded" CanUserAddRows="False" CanUserDeleteRows="False" LoadingRow="dgvFee_LoadingRow" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn  Header="IDLearn" Width="65" Binding="{Binding ID_Learn}" Visibility="Hidden"/>
                             <DataGridTextColumn Header="IDLearn" Width="65" Binding="{Binding RegisterNumber}" Visibility="Hidden" />
@@ -167,8 +169,8 @@
                     <DataGrid x:Name="dgvTotalC" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden" HeadersVisibility="None"
                         CanUserResizeColumns="False" CanUserResizeRows="False" TextElement.FontWeight="Bold"  Visibility="Visible"
                         RowHeight="40" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"
-                        Margin="252,207.333,23.889,74" HorizontalContentAlignment="Center" AutoGenerateColumns="False" Height="20"
-                        TextElement.FontFamily="Arial" TextElement.FontSize="13" CanUserAddRows="False" Background="LightGray" Grid.ColumnSpan="2" Grid.Row="2" RenderTransformOrigin="0.5,0.5">
+                        Margin="252,207.333,23.888,74" HorizontalContentAlignment="Center" AutoGenerateColumns="False" Height="20"
+                        TextElement.FontFamily="Arial" TextElement.FontSize="13" CanUserAddRows="False" Background="LightGray" Grid.ColumnSpan="3" Grid.Row="2" RenderTransformOrigin="0.5,0.5">
                         <DataGrid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>

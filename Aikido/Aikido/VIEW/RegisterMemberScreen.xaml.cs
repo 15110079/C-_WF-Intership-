@@ -56,8 +56,8 @@ namespace Aikido.VIEW
             ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
             Thread.CurrentThread.CurrentCulture = ci;
 
-
-            List<Class> showCombobox = ClassDB.ComboxClass1();
+            
+            List<Class> showCombobox = ClassDB.ComboxClass2(true);
             cboRegisterClass.ItemsSource = showCombobox;
             cboRegisterClass.DisplayMemberPath = "Class_Name";
             cboRegisterClass.SelectedValuePath = "ID_Class";
@@ -628,18 +628,18 @@ namespace Aikido.VIEW
             setting.Show();
             this.Close();
         }
-        private void TTNPT_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
-        private void HDSD_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
+        //private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Support scon = new Support();
+        //    scon.Show();
+        //    this.Close();
+        //}
+        //private void HDSD_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SearchCondition scon = new SearchCondition();
+        //    //scon.Show();
+        //    //this.Close();
+        //}
 
 
         private void txtSKU_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -650,6 +650,13 @@ namespace Aikido.VIEW
         private void dtpRegisterDay_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             changevalue = true;
+        }
+
+        private void btnHelpI_Click(object sender, RoutedEventArgs e)
+        {
+            Support sp = new Support();
+            sp.Show();
+            this.Close();
         }
 
         private void cboRegisterClass_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

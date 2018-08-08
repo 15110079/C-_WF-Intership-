@@ -162,18 +162,18 @@ namespace Aikido.VIEW
             setting.Show();
             this.Close();
         }
-        private void TTNPT_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
-        private void HDSD_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
+        //private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Support scon = new Support();
+        //    scon.Show();
+        //    this.Close();
+        //}
+        //private void HDSD_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SearchCondition scon = new SearchCondition();
+        //    //scon.Show();
+        //    //this.Close();
+        //}
         private void dgvClass_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var desc = e.PropertyDescriptor as PropertyDescriptor;
@@ -736,6 +736,13 @@ namespace Aikido.VIEW
                         break;
                     }
             }
+        }
+
+        private void btnHelpI_Click(object sender, RoutedEventArgs e)
+        {
+            Support sp = new Support();
+            sp.Show();
+            this.Close();
         }
     }
 }

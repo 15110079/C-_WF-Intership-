@@ -37,7 +37,7 @@ namespace Aikido.VIEW
         public FeeScreen()
         {
             InitializeComponent();
-            List<Class> showCombobox = classDB.ComboxClass2();
+            List<Class> showCombobox = classDB.ComboxClass2(false);
             cmbClassName.ItemsSource = showCombobox;
             cmbClassName.DisplayMemberPath = "Class_Name";
             cmbClassName.SelectedValuePath = "ID_Class";
@@ -53,7 +53,7 @@ namespace Aikido.VIEW
             //}
 
         }
-
+      
         private void btnDKHV_MouseEnter(object sender, MouseEventArgs e)
         {
             btnDKHVb.Background = Brushes.DarkBlue;
@@ -167,18 +167,18 @@ namespace Aikido.VIEW
             setting.Show();
             this.Close();
         }
-        private void TTNPT_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
-        private void HDSD_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
+        //private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Support scon = new Support();
+        //    scon.Show();
+        //    this.Close();
+        //}
+        //private void HDSD_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SearchCondition scon = new SearchCondition();
+        //    //scon.Show();
+        //    //this.Close();
+        //}
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
@@ -1580,6 +1580,13 @@ namespace Aikido.VIEW
 
             }
 
+        }
+
+        private void btnHelpI_Click(object sender, RoutedEventArgs e)
+        {
+            Support sp = new Support();
+            sp.Show();
+            this.Close();
         }
     }
 }

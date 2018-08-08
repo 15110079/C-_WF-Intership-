@@ -47,10 +47,10 @@ namespace Aikido.DAO
             return data;
         }
         //
-        public List<Class> LoadComboxClass2()    //Minh Added 5/8/2018
+        public List<Class> LoadComboxClass2(bool editOrnot)    //Minh Added 5/8/2018
         {
             List<Class> listclass = new List<Class>();
-            listclass.Add(new Class { Class_Name = "-- Tất Cả--" });
+            if(editOrnot==false) listclass.Add(new Class { Class_Name = "-- Tất Cả--" });
             using (var db = new AccessDB_DAO())
             {
                 foreach (var i in db.Classes)

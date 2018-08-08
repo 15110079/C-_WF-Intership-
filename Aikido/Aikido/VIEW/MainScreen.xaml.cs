@@ -282,17 +282,24 @@ namespace Aikido.VIEW
             setting.Show();
             this.Close();
         }
-        private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //private void TTNPT_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Support scon = new Support();
+        //    scon.Show();
+        //    this.Close();
+        //}
+        //private void HDSD_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SearchCondition scon = new SearchCondition();
+        //    //scon.Show();
+        //    //this.Close();
+        //}
+
+        private void btnHelpI_Click(object sender, RoutedEventArgs e)
         {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
-        }
-        private void HDSD_Click(object sender, RoutedEventArgs e)
-        {
-            //SearchCondition scon = new SearchCondition();
-            //scon.Show();
-            //this.Close();
+            Support sp = new Support();
+            sp.Show();
+            this.Close();
         }
     }
 }

@@ -229,7 +229,6 @@
     <Compile Include="BLO\SettingImage_BLO.cs" />
     <Compile Include="DAO\DeleteClass_DAO.cs" />
     <Compile Include="DAO\Model\Fee_Model.cs" />
-    <Compile Include="DAO\FilterFee_DAO.cs" />
     <Compile Include="DAO\LoadClass_DAO.cs" />
     <Compile Include="DAO\Model\ColumnNameAttribute.cs" />
     <Compile Include="BLO\ExportWord.cs" />
@@ -271,11 +270,13 @@
     <Compile Include="DAO\Model\Class_Model.cs" />
     <Compile Include="DAO\Model\DaiDan_Model.cs" />
     <Compile Include="DAO\AccessDB_DAO.cs" />
-    <Compile Include="DAO\Model\Learn_Model.cs" />
     <Compile Include="DAO\Model\Provide_DAI_DAN_Model.cs" />
     <Compile Include="DAO\Model\Student_Model.cs" />
     <Compile Include="VIEW\MainScreen.xaml.cs">
       <DependentUpon>MainScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEW\Support.xaml.cs">
+      <DependentUpon>Support.xaml</DependentUpon>
     </Compile>
     <Page Include="VIEW\ClassScreen.xaml">
       <SubType>Designer</SubType>
@@ -302,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEW\MainScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEW\Support.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
